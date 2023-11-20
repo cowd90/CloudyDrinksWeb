@@ -48,6 +48,8 @@
     <div class="layer">
         <div class="d-flex justify-content-center">
             <div class="auth-wrapper">
+
+                <!--<editor-fold desc="Form đăng nhập">-->
                 <form id="sign-in" action="<%=url%>/user-controller" method="post">
                     <input type="hidden" name="action" value="sign-in">
                     <h2 class="title">Sign in</h2>
@@ -73,6 +75,7 @@
                             <label for="password">Password</label>
                         </div>
                         <button type="submit">Login</button>
+                        <!--<editor-fold desc="Đăng nhập bằng phương thức khác">-->
                         <div
                                 class="other-methods d-flex justify-content-center gap-3 mt-4"
                         >
@@ -137,12 +140,15 @@
                                 </svg>
                             </div>
                         </div>
+                        <!--</editor-fold>-->
                         <p class="form-footer">
                             New to Cloudy Drinks? <span>Sign up now</span>.
                         </p>
                     </div>
                 </form>
+                <!--</editor-fold>-->
 
+                <!--<editor-fold desc="Form đăng nhập">-->
                 <form id="register" action="<%=url%>/user-controller" class="hidden" method="post">
                     <%
                         if (!signUpError.isEmpty()) {
@@ -191,6 +197,7 @@
                             <label for="confPwd">Confirm Password</label>
                         </div>
                         <button type="submit">Sign up</button>
+                        <!--<editor-fold desc="Đăng ký bằng phương thức khác">-->
                         <div
                                 class="other-methods d-flex justify-content-center gap-3 mt-4"
                         >
@@ -255,35 +262,38 @@
                                 </svg>
                             </div>
                         </div>
+                        <!--</editor-fold>-->
                         <p class="form-footer">
                             Already have an account? <span>Go to login</span>.
                         </p>
                     </div>
-
-                    <!-- Nơi đổ dialog vào bằng js hoặc jsp -->
-                    <div class="register_dialog-container">
-                        <!-- #region Modal register dialog, thay đổi 2 trạng thái (class: success, error) -->
-                        <dialog class="dialog-register success">
-                            <div class="dialog-header">
-                                <div class="dialog-icon"></div>
-                                <h4 class="dialog-title">SUCCESS</h4>
-                            </div>
-                            <div class="dialog-content">
-                                <p>You have SIGN UP an account successfully.</p>
-                                <p>Now you can use this account to log in.</p>
-                            </div>
-                            <button
-                                    class="dialog-close_btn"
-                                    onclick="closeRegisterDialog()"
-                            >
-                                Continue
-                            </button>
-                        </dialog>
-                        <!-- #endregion -->
-                    </div>
-
                 </form>
+                <!--</editor-fold>-->
+
             </div>
+
+            <!--<editor-fold desc="Container chứa dialog của trang">-->
+            <div id="dialog-container">
+                <script>
+                    // Phải để trong hàm window.onload để code bên trong thực thi sau code của file auth.js (code khởi tạo các hàm)
+                    window.onload = () => {
+                        let typeOfDialog = "success"; // success, error
+                        let title = "SUCCESS";
+                        // Mỗi phần tử của array sẽ được render trong 1 thẻ p
+                        let arrayOfMess = [
+                            "Line 1",
+                            "Now you can use this account to log in."
+                        ];
+                        let buttonContent = "Continue";
+
+                        createDialog(typeOfDialog, title, arrayOfMess, buttonContent);
+                        showDialog();
+                    }
+                </script>
+
+            </div>
+            <!--</editor-fold>-->
+
         </div>
     </div>
 </div>
@@ -297,6 +307,7 @@
         style="display: none"
 ></iframe>
 
-<script src="<%=url%>/js/auth.js"></script>
+<script defer src="<%=url%>/js/auth.js"></script>
+
 </body>
 </html>

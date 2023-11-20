@@ -24,7 +24,6 @@ window.onresize = () => {
 function adjustBgHeight() {
     let pageContainer = $(".page-container");
     let authContainer = $(".page-container .layer > div");
-    console.log("authContainer")
 
     if (authContainer.clientHeight <= window.innerHeight) {
         pageContainer.style.height = "100vh";
@@ -32,19 +31,44 @@ function adjustBgHeight() {
 }
 
 // Làm việc với dialog (thông báo)
-const registerDialogContainer = $(".register_dialog-container");
+let dialogContainer = $('#dialog-container');
 
-function showRegisterDialog() {
-    let dialog = $(".register_dialog-container .dialog-register");
+function createDialog(type, title, arrayOfMess, btnContent) {
+    let dialogContent = `
+        <dialog class="${type}">
+            <div class="dialog-header">
+                <div class="dialog-icon"></div>
+                <h4 class="dialog-title">${title}</h4>
+            </div>
+            <div class="dialog-content">`;
+
+    arrayOfMess.forEach(mess => {
+        dialogContent += `<p>${mess}</p>`;
+    });
+
+    dialogContent += `
+            </div>
+            <button
+                    class="dialog-close_btn"
+                    onclick="closeDialog()"
+            >
+                ${btnContent}
+            </button>
+        </dialog>
+    `;
+    dialogContainer.innerHTML = dialogContent;
+}
+
+function showDialog() {
+    let dialog = $("#dialog-container dialog");
 
     if (dialog) {
-        $(".dialog-register.success").showModal();
-    } else {
+        dialog.showModal();
     }
 }
 
-function closeRegisterDialog() {
-    let dialog = $(".register_dialog-container .dialog-register");
+function closeDialog() {
+    let dialog = $("#dialog-container dialog");
     dialog.close();
-    registerDialogContainer.innerHTML = "";
+    dialogContainer.innerHTML = "";
 }
