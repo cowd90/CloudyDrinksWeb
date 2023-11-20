@@ -1,51 +1,40 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+// #region Slide show
+let slides = $$(".slide-show_container .slides");
+let dots = $$(".slide-control_wrapper .dot");
+
 let slideIndex = 0;
 
 showSlide(slideIndex);
 
-let isLogin = true;
+function showSlide(n) {
+    if (n > slides.length - 1) slideIndex = 0;
+    if (n < 0) slideIndex = slides.length - 1;
+    for (let i = 0; i <= slides.length - 1; i++) {
+        slides[i].classList.add("hidden");
+    }
+    for (let i = 0; i <= slides.length - 1; i++) {
+        dots[i].classList.remove("active");
+    }
 
-document.querySelectorAll(".form-footer span").forEach((element) => {
-    element.onclick = () => {
-        isLogin = !isLogin;
-        document.querySelectorAll("form").forEach((element) => {
-            element.classList.toggle("hidden");
-        });
+    slides[slideIndex].classList.remove("hidden");
+    dots[slideIndex].classList.add("active");
+}
 
-        adjustBgHeight();
-    };
+dots.forEach((dot, index) => {
+    dot.onclick = () => showSlide((slideIndex = 0 + index));
 });
 
-window.onresize = () => {
-    adjustBgHeight();
-};
+let prevSlideBtn = $(".slide-show_container .prev");
+let nextSlideBtn = $(".slide-show_container .next");
 
-// Điều chỉnh height của .page-container để background img hiện full
-function adjustBgHeight() {
-    let pageContainer = $(".page-container");
-    let authContainer = $(".page-container .layer > div");
+prevSlideBtn.onclick = () => showSlide((slideIndex -= 1));
+nextSlideBtn.onclick = () => showSlide((slideIndex += 1));
 
-    if (authContainer.clientHeight <= window.innerHeight) {
-        pageContainer.style.height = "100vh";
-    } else pageContainer.style.height = "100%";
-}
+setInterval(() => {
+    nextSlideBtn.click();
+}, 6000);
 
-// Làm việc với dialog (thông báo)
-const registerDialogContainer = $(".register_dialog-container");
-
-function showRegisterDialog() {
-    let dialog = $(".register_dialog-container .dialog-register");
-
-    if (dialog) {
-        $(".dialog-register.success").showModal();
-    } else {
-    }
-}
-
-function closeRegisterDialog() {
-    let dialog = $(".register_dialog-container .dialog-register");
-    dialog.close();
-    registerDialogContainer.innerHTML = "";
-}
+// #endregion

@@ -6,7 +6,7 @@
 %>
 
 <style type="text/css">
-    /* #region common */
+
     header {
         position: relative;
         background: #fff;
@@ -47,7 +47,6 @@
         border-radius: 4px 4px 0 0;
         box-shadow: 0 4px 12px 2px rgba(0, 0, 0, 0.3);
     }
-    /* #endregion */
 
     .logo img {
         padding: 5px;
@@ -156,7 +155,7 @@
     }
     /* #endregion */
 
-    /* #region Chức năng người dùng */
+    /* <editor-fold desc="Chức năng người dùng"> */
     .user_container {
         margin: 0 1.3rem;
         padding-left: 1rem;
@@ -178,11 +177,6 @@
         position: relative;
         text-align: center;
         width: 200px;
-        background: var(--background-color_light-theme);
-        padding: 1rem;
-        border-bottom: 3px solid var(--main-color);
-        border-radius: 4px 4px 0 0;
-        box-shadow: 0 4px 12px 2px rgba(0, 0, 0, 0.3);
     }
     .user_container .user-acc_wrapper .user-acc_content::before {
         content: "";
@@ -212,9 +206,9 @@
         color: var(--main-color);
         cursor: pointer;
     }
-    /* #endregion */
+    /* </editor-fold> */
 
-    /* #region cart_container */
+    /* <editor-fold desc="Giỏ hàng"> */
     .cart_container {
         margin: 0 1.3rem;
         padding-right: 1rem;
@@ -242,7 +236,16 @@
         background: #f8492f;
     }
     .cart_container .cart_wrapper .more-menu_container {
+        padding-top: 18px;
+        transform-origin: top left;
+        scale: 0.5;
         transform: translateX(-90%);
+        transition: all linear 0.1s;
+    }
+    .cart_container .cart_wrapper:hover .more-menu_container {
+        visibility: visible;
+        opacity: 1;
+        scale: 1;
     }
     .cart_container .cart_wrapper .cart-content {
         position: relative;
@@ -254,7 +257,6 @@
         position: absolute;
         bottom: 100%;
         left: 88%;
-        /* transform: translateX(-50%); */
         width: 0;
         height: 0;
         border-left: 11px solid transparent;
@@ -262,8 +264,39 @@
         border-bottom: 11px solid var(--background-color_light-theme);
     }
     .cart_container .cart_wrapper .cart-content .no-product {
+        text-align: center;
     }
-    /* #endregion */
+    .cart_container .cart_wrapper .cart-content .no-product img {
+        width: 120px;
+        height: 120px;
+        height: fit-content;
+    }
+    .cart_container .cart_wrapper .cart-content .product-item {
+        font-size: 14px;
+        padding: 12px 0;
+    }
+    .cart_container .cart_wrapper .cart-content .product-item img {
+        width: 100px;
+    }
+    .cart_container .cart_wrapper .cart-content .product-item .product-info {
+        padding: 0 12px 0 8px;
+    }
+    .cart_container .cart_wrapper .cart-content .product-item .product-name {
+        font-weight: 600;
+        line-height: 1.3;
+        margin: 8px 0 12px;
+    }
+    .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper {
+        text-align: center;
+    }
+    .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper a {
+        font-weight: 600;
+    }
+    .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper a:hover {
+        text-decoration: underline;
+        color: var(--main-color);
+    }
+    /* </editor-fold> */
 
     /* #region Đổi theme */
     .mode_container {
@@ -327,7 +360,13 @@
         border: 2px solid var(--font-color_dark-theme);
     }
     .dark-theme .user_container .user-acc_wrapper .user-acc_content,
-    .dark-theme .user_container .user-acc_wrapper .user-acc_content a {
+    .dark-theme .user_container .user-acc_wrapper .user-acc_content a,
+    .dark-theme
+    .cart_container
+    .cart_wrapper
+    .cart-content
+    .go-to-cart_wrapper
+    a:hover {
         color: var(--font-color_dark-theme_2);
     }
     .dark-theme .user_container .user-acc_wrapper .user-acc_content::before {
@@ -336,6 +375,12 @@
 
     .dark-theme .cart_container .cart_wrapper i .item-count {
         color: #fff;
+    }
+    .dark-theme .cart_container .cart_wrapper .cart-content::before {
+        border-bottom-color: var(--background-color_dark-theme_2);
+    }
+    .dark-theme .cart_container .cart_wrapper .cart-content .no-product {
+        color: var(--font-color_dark-theme_2);
     }
 
     .dark-theme .mode_container .light-theme_icon {
@@ -373,12 +418,15 @@
             position: fixed;
             bottom: 3rem;
             right: 3rem;
-            padding: 16px;
+            padding: 0;
             margin: 0;
             background-color: var(--main-color);
             border-radius: 6px;
             z-index: 99;
             cursor: pointer;
+        }
+        .cart_container .cart_wrapper {
+            padding: 16px;
         }
         .cart_container .cart_wrapper i {
             color: var(--background-color_light-theme);
@@ -391,6 +439,32 @@
             left: 100%;
             color: #eee;
             background: #f8492f;
+        }
+        .cart_container .cart_wrapper .cart-content {
+            border-bottom: none !important;
+            border-radius: 4px !important;
+        }
+        .cart_container .cart_wrapper .cart-content::before {
+            transform: rotateZ(180deg);
+            bottom: auto;
+            top: 100%;
+        }
+        .cart_container .cart_wrapper .more-menu_container {
+            top: auto;
+            bottom: 100%;
+            padding: 0 0 12px;
+            transform-origin: bottom left;
+        }
+        .cart_container .cart_wrapper:hover .more-menu_container {
+            visibility: visible;
+            opacity: 1;
+            scale: 1;
+        }
+        .cart_container .cart_wrapper .cart-content .product-item {
+            order: 2;
+        }
+        .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper {
+            margin: 8px;
         }
 
         .mode_container {
@@ -407,7 +481,7 @@
     >
         <div class="left-header d-flex justify-content-center">
             <div class="logo">
-                <a href="./"
+                <a href="<%=url%>/index.jsp"
                 ><img
                         src="https://media.istockphoto.com/id/1354776457/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=w3OW0wX3LyiFRuDHo9A32Q0IUMtD4yjXEvQlqyYk9O4="
                         alt=""
@@ -419,7 +493,7 @@
                     <li><a href="">Trang chủ</a></li>
                     <li><a href="">Giới thiệu</a></li>
                     <li>
-                        <a href="">Thực đơn</a>
+                        <a href="<%=url%>/categories/">Thực đơn</a>
                         <div class="more-menu_container sub-nav_container">
                             <div class="more-menu_content sub-nav_content">
                                 <div class="sub-nav_item"><a href="">Kem</a></div>
@@ -457,14 +531,15 @@
                 </div>
             </div>
             <!-- Người dùng -->
-    <%
-        Object obj = session.getAttribute("user");
-        User user = null;
-        if (obj != null) {
-            user = (User) obj;
-        }
-        if (user == null) {
-    %>
+            <%
+                Object obj = session.getAttribute("user");
+                User user = null;
+                if (obj != null) {
+                    user = (User) obj;
+                }
+                if (user == null) {
+            %>
+
             <div class="user_container d-flex align-items-center">
                 <div class="user-acc_wrapper item p-0">
                     <div
@@ -479,7 +554,10 @@
                     </div>
                 </div>
             </div>
-    <% } else { %>
+
+            <% } else { %>
+
+            <!--<editor-fold desc="'Người dùng' đã đăng nhập">-->
             <div class="user_container d-flex align-items-center">
                 <div class="user-acc_wrapper item p-0">
                     <div
@@ -489,7 +567,6 @@
                     </div>
                     <div class="more-menu_container">
                         <ul class="more-menu_content user-acc_content">
-                            <!-- chỉ có khi đăng nhập -->
                             <li><a href="./auth/">Trang cá nhân</a></li>
                             <li><a href="<%=url%>/user-controller?action=change-password">Đổi mật khẩu</a></li>
                             <li><a href="<%=url%>/user-controller?action=sign-out">Đăng xuất</a></li>
@@ -497,7 +574,9 @@
                     </div>
                 </div>
             </div>
-            <!-- Giỏ hàng - chỉ có khi đăng nhập -->
+            <!--</editor-fold>-->
+
+            <!-- <editor-fold desc="Giỏ hàng"> -->
             <div class="cart_container d-flex align-items-center">
                 <div class="cart_wrapper">
                     <i class="fa-solid fa-cart-shopping">
@@ -510,24 +589,72 @@
                     </i>
                     <div class="more-menu_container">
                         <div class="more-menu_content cart-content">
+
+                            <!-- <editor-fold desc="Không có sản phẩm"> -->
                             <div class="no-product">
-                                <img src="" alt="" />
+                                <img src="https://i.imgur.com/WSiKOpQ.png" alt="Giỏ hàng trống" />
                                 <h5>Bạn chưa có sản phẩm nào</h5>
                             </div>
-                            <div class="product-item"></div>
+                            <!-- </editor-fold> -->
+
+                            <!-- <editor-fold desc="Một sản phẩm trong giỏ hàng"> -->
+                            <div class="product-item row">
+                                <div class="col-4">
+                                    <img
+                                            src="https://gongcha.com.vn/wp-content/uploads/2018/10/kem.png"
+                                            alt=""
+                                    />
+                                </div>
+                                <div class="product-info col-6">
+                                    <p class="product-name">Kem trà sữa Oolong</p>
+                                    <p class="product-price mb-2">30,000 VNĐ</p>
+                                </div>
+                                <div class="col-2 d-flex align-items-center">
+                                    <p class="product_item-count">x1</p>
+                                </div>
+                            </div>
+                            <!-- </editor-fold> -->
+                            <!-- <editor-fold desc="Một sản phẩm trong giỏ hàng"> -->
+                            <div class="product-item row">
+                                <div class="col-4">
+                                    <img
+                                            src="https://gongcha.com.vn/wp-content/uploads/2018/02/Chanh-Aiyu-tr%C3%A2n-ch%C3%A2u-tr%E1%BA%AFng-2.png"
+                                            alt=""
+                                    />
+                                </div>
+                                <div class="product-info col-6">
+                                    <p class="product-name">
+                                        Chanh Ai-yu và Trân Châu Trắng <span>(L)</span>
+                                    </p>
+                                    <p class="product-price mb-2">60,000 VNĐ</p>
+                                </div>
+                                <div class="col-2 d-flex align-items-center">
+                                    <p class="product_item-count">x1</p>
+                                </div>
+                            </div>
+                            <!-- </editor-fold> -->
+
+                            <!--<editor-fold desc="Đi đến giỏ hàng">-->
+                            <div class="go-to-cart_wrapper">
+                                <a href="">Xem tất cả <span>(3)</span> trong giỏ hàng</a>
+                            </div>
+                            <!--</editor-fold>-->
                         </div>
                     </div>
                 </div>
             </div>
-    <% } %>
+            <!-- </editor-fold> -->
+
+            <% } %>
+
             <!-- Các nút chuyển theme -->
             <div class="mode_container d-flex align-items-center">
                 <div class="change-mode" onclick="toggleDarkTheme()">
                     <div class="dark-theme_icon item">
                         <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
+                                width="20"
+                                height="20"
                                 fill="currentColor"
                                 class="bi bi-moon-stars-fill"
                                 viewBox="0 0 16 16"
@@ -543,8 +670,8 @@
                     <div class="light-theme_icon item hidden">
                         <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
+                                width="20"
+                                height="20"
                                 fill="currentColor"
                                 class="bi bi-brightness-high-fill"
                                 viewBox="0 0 16 16"

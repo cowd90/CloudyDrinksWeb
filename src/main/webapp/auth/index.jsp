@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<!DOCTYPE html>
+<html lang="vi">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -45,7 +46,6 @@
 
 <div class="page-container">
     <div class="layer">
-        <!-- <nav><a class="logo">Cloudy Drinks</a></nav> -->
         <div class="d-flex justify-content-center">
             <div class="auth-wrapper">
                 <form id="sign-in" action="<%=url%>/user-controller" method="post">
@@ -297,20 +297,6 @@
         style="display: none"
 ></iframe>
 
-<script>
-    let isLogin = true;
-    document.querySelectorAll(".form-footer span").forEach((element) => {
-        element.onclick = () => {
-            isLogin = !isLogin;
-            document.querySelectorAll("form").forEach((element) => {
-                element.classList.toggle("hidden");
-            });
-            if (isLogin) {
-                document.querySelector(".page-container").style.height = "100vh";
-            } else
-                document.querySelector(".page-container").style.height = "100%";
-        };
-    });
-</script>
+<script src="<%=url%>/js/auth.js"></script>
 </body>
 </html>
