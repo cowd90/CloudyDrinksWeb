@@ -1,0 +1,41 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&display=swap");
+
+:root {
+    --main-color: #b81f32;
+    --background-color_light-theme: #fff;
+    --background-color_dark-theme: #242526;
+    --background-color_dark-theme_2: #333;
+    --font-color_dark-theme: #cdcdcd;
+    --font-color_dark-theme_2: #eee;
+    --font-color_light-theme: #333;
+
+    --large-breakpoint: 1200px;
+    --medium-breakpoint: 992px;
+    --small-breakpoint: 768px;
+}
+
+html,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+div {
+    font-family: "Open Sans", sans-serif !important;
+}
+
+a {
+    text-decoration: none;
+}
+
+.dark-theme {
+    color: var(--font-color_dark-theme);
+    background: #242526;
+}
+.dark-theme a {
+    color: var(--font-color_dark-theme);
+}
