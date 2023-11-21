@@ -18,7 +18,7 @@ body {
 .slide-show_container .timer-bar div {
     height: 5px;
     transform-origin: left center;
-    animation: scaleX 6s linear infinite;
+    animation: scaleX 10s linear infinite;
     background: rgba(0, 0, 0, 0.15);
 }
 @keyframes scaleX {

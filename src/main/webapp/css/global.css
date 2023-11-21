@@ -2,6 +2,7 @@
 
 * {
     box-sizing: border-box;
+    scroll-behavior: smooth !important;
 }
 
 :root {
@@ -34,6 +35,11 @@ div {
 
 a {
     text-decoration: none;
+    color: var(--font-color_light-theme);
+}
+a.active, .dark-theme a.active {
+    text-decoration: underline;
+    color: var(--main-color) !important;
 }
 
 .dark-theme {

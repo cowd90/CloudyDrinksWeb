@@ -481,7 +481,7 @@
     >
         <div class="left-header d-flex justify-content-center">
             <div class="logo">
-                <a href="<%=url%>/index.jsp"
+                <a href="<%=url%>"
                 ><img
                         src="https://media.istockphoto.com/id/1354776457/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=w3OW0wX3LyiFRuDHo9A32Q0IUMtD4yjXEvQlqyYk9O4="
                         alt=""
@@ -490,7 +490,7 @@
             <!-- Menu điều hướng chính -->
             <div class="main-nav_container d-flex">
                 <ul class="d-flex align-items-center px-4 m-0">
-                    <li><a href="">Trang chủ</a></li>
+                    <li><a href="<%=url%>">Trang chủ</a></li>
                     <li><a href="">Giới thiệu</a></li>
                     <li>
                         <a href="<%=url%>/categories/">Thực đơn</a>
@@ -549,7 +549,7 @@
                     </div>
                     <div class="more-menu_container">
                         <ul class="more-menu_content user-acc_content">
-                            <li><a href="./auth/">Đăng nhập/Đăng ký</a></li>
+                            <li><a href="<%=url%>/auth/">Đăng nhập/Đăng ký</a></li>
                         </ul>
                     </div>
                 </div>
