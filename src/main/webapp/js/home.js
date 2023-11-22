@@ -1,6 +1,3 @@
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
-
 // #region Slide show
 let slides = $$(".slide-show_container .slides");
 let dots = $$(".slide-control_wrapper .dot");

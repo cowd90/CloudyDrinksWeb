@@ -109,8 +109,6 @@
 }
 .products_container .product .more-info .product-link > p {
     display: none;
-    opacity: 0;
-    margin-top: 8px;
 }
 .products_container .product .more-info .product-link svg {
     transform-origin: top center;
@@ -121,8 +119,6 @@
 }
 .products_container .product .more-info:hover .product-link p {
     display: block;
-    opacity: 1;
-    margin-top: 0px;
 }
 /*</editor-fold>*/
 

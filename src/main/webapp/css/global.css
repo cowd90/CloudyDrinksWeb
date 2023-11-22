@@ -12,7 +12,7 @@
     --background-color_dark-theme_2: #333;
     --font-color_dark-theme: #ddd;
     --font-color_dark-theme_2: #eee;
-    --font-color_light-theme: #333;
+    --font-color_light-theme: #212529;
 
     --large-breakpoint: 1200px;
     --medium-breakpoint: 992px;
@@ -44,7 +44,7 @@ a.active, .dark-theme a.active {
 
 .dark-theme {
     color: var(--font-color_dark-theme);
-    background: #242526;
+    background: var(--background-color_dark-theme);
 }
 .dark-theme a {
     color: var(--font-color_dark-theme);

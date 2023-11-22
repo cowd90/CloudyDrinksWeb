@@ -1,6 +1,3 @@
-const $ = document.querySelector.bind(document);
-const $$ = document.querySelectorAll.bind(document);
-
 let header = $("header");
 
 let categories = $$(".content_wrapper .category-item");
