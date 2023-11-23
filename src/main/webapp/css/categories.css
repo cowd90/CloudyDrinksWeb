@@ -1,4 +1,5 @@
 .banner {
+    color: var(--font-color_light-theme);
     background-image: url("https://gongcha.com.vn/wp-content/uploads/2020/08/banner-menu-1900-x-335.jpg");
     background-size: cover;
     background-position: center center;
@@ -13,3 +14,130 @@
 .banner p {
     margin-bottom: 8px;
 }
+
+/*<editor-fold desc="Điều hướng danh mục trong trang">*/
+.menu-nav_container {
+    position: sticky;
+    top: 0;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    padding: 25px 0;
+    background: #f5eee9;
+    z-index: 100;
+}
+.menu-nav_container .menu-nav_inner > ul {
+    list-style: none;
+    margin: 0;
+}
+.menu-nav_container .menu-nav_inner > ul > li {
+    display: inline-block;
+    margin: 4px 24px;
+}
+.menu-nav_container .menu-nav_inner > ul > li > a {
+    color: var(--font-color_light-theme);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.menu-nav_container .menu-nav_inner > ul > li > a:hover {
+    color: var(--main-color) !important;
+    text-decoration: underline;
+ }
+/*</editor-fold>*/
+
+/*<editor-fold desc="Danh mục và sản phẩm">*/
+.category-item .title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    padding: 1rem 0;
+    background: #999999;
+}
+.products_container {
+    padding: 12px 0 24px;
+}
+.products_container .product {
+    position: relative;
+    padding: 24px 44px;
+
+}
+.products_container .product .card::after {
+    visibility: hidden;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 0.375rem;
+    opacity: 0;
+    transition: all linear 0.15s;
+    z-index: 2;
+}
+.products_container .product .card:hover {
+    border-color: transparent;
+}
+.products_container .product .card:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+.products_container .product .card:hover .more-info {
+    opacity: 1;
+    visibility: visible;
+}
+.products_container .product .card .card-body .card-title {
+    text-align: center;
+}
+.products_container .product .more-info {
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 999px;
+    opacity: 0;
+    transition: all linear 0.15s;
+    z-index: 3;
+}
+.products_container .product .more-info .product-link {
+    width: 160px;
+    height: 160px;
+    color: white;
+    border-radius: 999px;
+    background: #bc2839;
+}
+.products_container .product .more-info .product-link > p {
+    display: none;
+    opacity: 0;
+    margin-top: 8px;
+}
+.products_container .product .more-info .product-link svg {
+    transform-origin: top center;
+    transition: all linear 0.15s;
+}
+.products_container .product .more-info:hover .product-link svg {
+    scale: 0.9;
+}
+.products_container .product .more-info:hover .product-link p {
+    display: block;
+    opacity: 1;
+    margin-top: 0px;
+}
+/*</editor-fold>*/
+
+/*<editor-fold desc="Responsive">*/
+@media only screen and (max-width: 1200px) {
+    .banner {
+        padding: 90px 0 115px;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .banner {
+        padding: 80px 0 90px;
+    }
+    .products_container .product {
+        padding: 24px;
+    }
+}
+/*</editor-fold>*/

@@ -326,7 +326,6 @@
         name="hiddenFrame"
         width="0"
         height="0"
-        border="0"
         style="display: none"
 ></iframe>
 

@@ -35,6 +35,6 @@ nextSlideBtn.onclick = () => showSlide((slideIndex += 1));
 
 setInterval(() => {
     nextSlideBtn.click();
-}, 6000);
+}, 10000);
 
 // #endregion

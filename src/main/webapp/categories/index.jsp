@@ -27,6 +27,7 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
     ></script>
+
     <link rel="stylesheet" href="../css/global.css" />
     <link rel="stylesheet" href="../css/categories.css" />
 </head>
@@ -40,9 +41,60 @@
             <p>Giới thiệu thức uống hấp dẫn và đa dạng từ Gong Cha</p>
         </div>
     </div>
+    <div class="menu-nav_container">
+        <div class="content_container">
+            <div class="menu-nav_inner">
+                <ul class="nav">
+
+                    <li><a href="#kem">Kem</a></li>
+                    <li><a href="#tratraicay">Trà trái cây</a></li>
+                    <li><a href="#okinawa">Okinawa</a></li>
+                    <li><a href="#tranguyenchat">Trà nguyên chất</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
     <div class="content_container">
-        <div class="content_wrapper"></div>
+        <div class="content_wrapper">
+
+            <!--<editor-fold desc="Render danh mục">-->
+            <div id="kem" class="category-item">
+                <!-- Tên danh mục -->
+                <div class="title">Kem</div>
+                <div class="products_container row">
+
+                    <!--<editor-fold desc="Render Sản phẩm">-->
+                    <div class="product col-4">
+                        <div class="card">
+                            <!-- Ảnh sản phẩm -->
+                            <img src="https://gongcha.com.vn/wp-content/uploads/2018/10/kem-tc.png" class="card-img-top" alt="Kem trà sữa và trân châu đen">
+                            <div class="card-body">
+                                <!-- Tên sản phẩm -->
+                                <h5 class="card-title">Kem Trà Sữa & Trân Châu Đen</h5>
+                            </div>
+                            <div class="more-info">
+                                <!-- Đường dẫn đến chi tiết sản phẩm -->
+                                <a href="<%=url%>/product"
+                                   class="product-link d-flex align-items-center justify-content-center flex-column">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+                                    </svg>
+                                    <p>Xem chi tiết</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</editor-fold>-->
+
+                </div>
+            </div>
+            <!--</editor-fold>-->
+
+        </div>
     </div>
 </div>
+
+<script src="../js/categories.js"></script>
 </body>
 </html>
