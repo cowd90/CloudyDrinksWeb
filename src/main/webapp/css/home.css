@@ -136,6 +136,7 @@ body {
     border: none;
     border-radius: 16px;
     box-shadow: -2rem 0 3rem -2rem #c2a0a0;
+    transition: all linear 0.15s;
 }
 .list-product_container
 .list-product_wrapper
@@ -148,7 +149,6 @@ body {
     margin-right: 120px;
 }
 .list-product_container .list-product_wrapper .list-product_content .product_container:hover {
-    z-index: 2;
     transform: translateY(-1rem) rotate(3deg);
 }
 /*</editor-fold>*/
