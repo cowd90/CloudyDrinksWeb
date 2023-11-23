@@ -12,7 +12,9 @@ import util.RandomNumber;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -113,30 +115,35 @@ public class UserController extends HttpServlet {
 
             String url;
             String error = "";
+            ArrayList<String> errorList = new ArrayList<>();
             UserDAO userDAO = new UserDAO();
 
             if (userDAO.checkUsernameExist(username)) {
-                error += "Tên đăng nhập đã tồn tại, vui lòng thử tên khác. <br>";
+                error = "Tên đăng nhập đã tồn tại, vui lòng thử tên khác";
+                errorList.add(error);
             }
 
             // Catch error of email
             Pattern emailPattern = Pattern.compile("\\w+@\\w+(\\.\\w+)+(\\.\\w+)*");
             Matcher emailMatcher = emailPattern.matcher(email);
             if (!emailMatcher.matches()) {
-                error += "Email không hợp lệ <br>";
+                error = "Email không hợp lệ";
+                errorList.add(error);
             }
 
             if (password.length() < 8) {
-                error += "Mật khẩu phải lớn hơn 8 ký tự <br>";
+                error = "Mật khẩu phải lớn hơn 8 ký tự";
+                errorList.add(error);
             }
 
             if (!password.equals(conPassword)) {
-                error += "Mật khẩu không khớp. <br>";
+                error = "Mật khẩu không khớp";
+                errorList.add(error);
             } else {
                 password = Encode.ToSHA1(password);
             }
 
-            request.setAttribute("signUpError", error);
+            request.setAttribute("signUpError", errorList);
 
             if (error.length() > 0) {
                 url = "/auth/index.jsp";

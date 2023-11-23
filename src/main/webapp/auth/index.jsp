@@ -1,3 +1,8 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="com.google.gson.GsonBuilder" %>
+<%@ page import="com.google.gson.JsonArray" %>
+<%@ page import="com.google.gson.JsonParser" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -30,14 +35,13 @@
 
 <%
     String signInError = request.getAttribute("signInError") + "";
-    String signUpError = request.getAttribute("signUpError") + "";
+    ArrayList<String> signUpError = (ArrayList<String>) request.getAttribute("signUpError");
     String username = request.getAttribute("username") + "";
     String usernameSignUp = request.getAttribute("usernameSignUp") + "";
     String email = request.getAttribute("email") + "";
 
 
     signInError = (!signInError.equals("null")) ? signInError : "";
-    signUpError = (!signUpError.equals("null")) ? signUpError : "";
     username = (!username.equals("null")) ? username : "";
     usernameSignUp = (!usernameSignUp.equals("null")) ? usernameSignUp : "";
     email = (!email.equals("null")) ? email : "";
@@ -151,18 +155,37 @@
                 <!--<editor-fold desc="Form đăng nhập">-->
                 <form id="register" action="<%=url%>/user-controller" class="hidden" method="post">
                     <%
-                        if (!signUpError.isEmpty()) {
+                        if (!(signUpError == null)) {
                     %>
                     <script>
                         document.getElementById('sign-in').classList.toggle('hidden');
                         document.getElementById('register').classList.remove('hidden');
                     </script>
+                    <div id="dialog-container">
+                        <script>
+                            // Phải để trong hàm window.onload để code bên trong thực thi sau code của file auth.js (code khởi tạo các hàm)
+                            window.onload = () => {
+                                let typeOfDialog = "error"; // success, error
+                                let title = "ERROR";
+                                // Mỗi phần tử của array sẽ được render trong 1 thẻ p
+                                let arrayOfMess = [
+                                    <%
+                                        Gson gson = new Gson();
+                                    %>
+                                ];
+                                let buttonContent = "OK";
+
+                                createDialog(typeOfDialog, title, <%=gson.toJson(signUpError)%>, buttonContent);
+                                showDialog();
+                            }
+                        </script>
+
+                    </div>
                     <%
                         }
                     %>
                     <input type="hidden" name="action" value="sign-up">
                     <h2 class="title">Register</h2>
-                    <div class="text-danger" id="error"><%= signUpError %></div>
                     <div class="d-flex flex-column gap-3">
                         <div class="input-wrapper">
                             <input
@@ -273,25 +296,25 @@
             </div>
 
             <!--<editor-fold desc="Container chứa dialog của trang">-->
-            <div id="dialog-container">
-                <script>
-                    // Phải để trong hàm window.onload để code bên trong thực thi sau code của file auth.js (code khởi tạo các hàm)
-                    window.onload = () => {
-                        let typeOfDialog = "success"; // success, error
-                        let title = "SUCCESS";
-                        // Mỗi phần tử của array sẽ được render trong 1 thẻ p
-                        let arrayOfMess = [
-                            "Line 1",
-                            "Now you can use this account to log in."
-                        ];
-                        let buttonContent = "Continue";
+<%--            <div id="dialog-container">--%>
+<%--                <script>--%>
+<%--                    // Phải để trong hàm window.onload để code bên trong thực thi sau code của file auth.js (code khởi tạo các hàm)--%>
+<%--                    window.onload = () => {--%>
+<%--                        let typeOfDialog = "success"; // success, error--%>
+<%--                        let title = "SUCCESS";--%>
+<%--                        // Mỗi phần tử của array sẽ được render trong 1 thẻ p--%>
+<%--                        let arrayOfMess = [--%>
+<%--                            "Line 1",--%>
+<%--                            "Now you can use this account to log in."--%>
+<%--                        ];--%>
+<%--                        let buttonContent = "Continue";--%>
 
-                        createDialog(typeOfDialog, title, arrayOfMess, buttonContent);
-                        showDialog();
-                    }
-                </script>
+<%--                        createDialog(typeOfDialog, title, arrayOfMess, buttonContent);--%>
+<%--                        showDialog();--%>
+<%--                    }--%>
+<%--                </script>--%>
 
-            </div>
+<%--            </div>--%>
             <!--</editor-fold>-->
 
         </div>
