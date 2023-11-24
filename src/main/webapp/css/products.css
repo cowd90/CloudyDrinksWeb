@@ -17,7 +17,15 @@ body.dark-theme {
 .banner .breadcrumb .breadcrumb-item.active span {
     font-weight: bolder;
 }
+.banner .breadcrumb .breadcrumb-item a:hover {
+    text-decoration: underline;
+}
 
+.dark-theme .banner .breadcrumb .breadcrumb-item a {
+    color: var(--font-color_light-theme);
+}
+
+/*<editor-fold desc="Chi tiết sản phẩm">*/
 .product_container .product-img {
     width: 100%;
     object-fit: contain;
@@ -79,48 +87,62 @@ body.dark-theme {
     background: rgb(196 196 196 / 30%);
     padding: 8px 24px;
 }
+/*</editor-fold>*/
+
+.break-line {
+    border: 1px solid #c4c4c44d;
+}
 
 /*<editor-fold desc="Sản phẩm đề xuất">*/
 .suggestion {
     padding: 0;
 }
 .suggestion .suggestion-title {
-    position: relative;
-    font-size: 18px;
-    font-weight: 600;
-    background: rgb(196 196 196 / 30%);
-    padding: 12px 24px;
+    font-size: 24px;
+    font-weight: 700;
+    padding: 12px 24px 0;
 }
-.suggestion .suggestion-title .suggestion-control_container {
+.suggestion .products_container {
+    position: relative;
+    margin: 0;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.suggestion .products_container button {
     position: absolute;
     top: 50%;
-    right: 24px;
     transform: translateY(-50%);
-}
-.suggestion .suggestion-title .suggestion-control_container button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 44px;
-    height: 44px;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 999px;
+    z-index: 10;
 }
-.suggestion .products_container {
-    margin: 0;
+.suggestion .products_container button:hover:not([disabled]) {
+    color: white;
+    background: var(--main-color);
+    transition: all linear 0.15s;
 }
-.suggestion .products_container .product {
-    padding: 24px;
+button#prev-sug {
+    left: 6px;
 }
-.suggestion .products_container {
-    padding: 0;
+button#next-sug {
+    right: 6px;
 }
-.suggestion .products_container .product .card-img-top {
+.suggestion .products_wrapper .product {
+    padding: 24px 16px;
+}
+.suggestion .products_wrapper .product .card-img-top {
     width: 75%;
     min-height: 220px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
 }
-.suggestion .products_container .product .more-info .product-link {
+.suggestion .products_wrapper .product .more-info .product-link {
     width: 150px;
     height: 150px;
 }
@@ -132,15 +154,19 @@ body.dark-theme {
         padding: 100px 0;
     }
 
-    .suggestion .products_container .product .card-img-top {
+    .suggestion .products_container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .suggestion .products_wrapper .product .card-img-top {
         min-height: 160px;
     }
-    .suggestion .products_container .product .more-info .product-link {
+    .suggestion .products_wrapper .product .more-info .product-link {
         font-size: 13px;
         width: 120px;
         height: 120px;
     }
-    .suggestion .products_container .product .more-info .product-link svg {
+    .suggestion .products_wrapper .product .more-info .product-link svg {
         width: 80px;
         height: 80px;
     }

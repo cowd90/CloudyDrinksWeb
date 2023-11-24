@@ -1,12 +1,19 @@
 let inputQuantity = $("#prod-quantity");
 let checkInterval;
-let suggestionContainer = $(".suggestion .products_container");
+let suggestionWrapper = $(".suggestion .products_wrapper");
 
 checkDisableDesBtn();
 updateValueOfOrder();
 
-if (suggestionContainer.scrollWidth - suggestionContainer.clientWidth > 0)
-    scrollSuggestionLoop();
+let sugHasScroll = suggestionWrapper.scrollWidth - suggestionWrapper.clientWidth > 0;
+checkIntervalAndDisabledButton();
+
+window.onresize = () => {
+    sugHasScroll = suggestionWrapper.scrollWidth - suggestionWrapper.clientWidth > 0;
+
+    checkIntervalAndDisabledButton();
+}
+
 
 function plusQuantity(number) {
     if (inputQuantity.valueAsNumber + number > 0) {
@@ -17,11 +24,11 @@ function plusQuantity(number) {
     updateValueOfOrder();
 }
 
-let sizeBtns = $$(".product-size_container .sizeBtn");
-sizeBtns.forEach((btn) => {
+let sizeButtons = $$(".product-size_container .sizeBtn");
+sizeButtons.forEach((btn) => {
     btn.onclick = (e) => {
-        for (let i = 0; i < sizeBtns.length; i++) {
-            sizeBtns[i].classList.remove("active");
+        for (let i = 0; i < sizeButtons.length; i++) {
+            sizeButtons[i].classList.remove("active");
         }
         e.target.classList.add("active");
     }
@@ -55,33 +62,51 @@ function checkDisableDesBtn() {
         $("#decrease-btn").classList.remove("disabled");
 }
 
+
+
 function scrollSuggestion(n) {
-    scrollSuggestionLoop();
+    scrollSuggestionRenewInterval();
 
-    let suggestionItemWidth = $(".suggestion .products_container .product").getBoundingClientRect().width;
-    let newScrollLeft = suggestionContainer.scrollLeft + suggestionItemWidth * n;
+    let suggestionItemWidth = $(".suggestion .products_wrapper .product").getBoundingClientRect().width;
+    let passCount = Math.round(suggestionWrapper.scrollLeft / suggestionItemWidth);
+    let newScrollLeft = passCount * suggestionItemWidth + suggestionItemWidth * n;
+    let actualScrollSpace = Math.ceil(suggestionWrapper.scrollWidth - suggestionWrapper.clientWidth);
 
-    let actualScrollSpace = Math.ceil(suggestionContainer.scrollWidth - suggestionContainer.clientWidth);
-
-    if (newScrollLeft > actualScrollSpace)
-        suggestionContainer.scrollTo(0, 0);
-    else if (newScrollLeft < -(suggestionItemWidth/2))
-        suggestionContainer.scrollTo(actualScrollSpace, 0);
+    if (newScrollLeft > actualScrollSpace + suggestionItemWidth/2)
+        suggestionWrapper.scrollTo(0, 0);
+    else if (newScrollLeft < - (suggestionItemWidth/2))
+        suggestionWrapper.scrollTo(actualScrollSpace, 0);
     else
-        suggestionContainer.scrollTo(newScrollLeft, 0);
+        suggestionWrapper.scrollTo(newScrollLeft, 0);
+
+    console.log("next clicked");
 }
-function scrollSuggestionLoop() {
+
+function scrollSuggestionRenewInterval() {
     if (checkInterval) {
-        clearInterval(scrollSuggestionInterval);
-        checkInterval = false;
-
-        interval();
-    } else interval();
+        nextClickClearInterval()
+        nextClickInterval();
+    } else nextClickInterval();
 }
-
-function interval() {
+function nextClickClearInterval() {
+    clearInterval(scrollSuggestionInterval);
+    checkInterval = false;
+}
+function nextClickInterval() {
     globalThis.scrollSuggestionInterval = setInterval(() => {
         $("#next-sug").click();
-    }, 5000);
+    }, 6000);
     checkInterval = true;
+}
+
+function checkIntervalAndDisabledButton() {
+    if (sugHasScroll) {
+        $("#prev-sug").removeAttribute("disabled");
+        $("#next-sug").removeAttribute("disabled");
+        scrollSuggestionRenewInterval();
+    } else {
+        $("#prev-sug").setAttribute("disabled", "true");
+        $("#next-sug").setAttribute("disabled", "true");
+        if (checkInterval) nextClickClearInterval();
+    }
 }

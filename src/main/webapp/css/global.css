@@ -51,7 +51,8 @@ a.active, .dark-theme a.active {
 }
 
 .content_container {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 12px;
 }
@@ -59,6 +60,10 @@ a.active, .dark-theme a.active {
 .disabled {
     background-color: #EBEBE4 !important;
     color: #C6C6C6;
+}
+
+.hidden {
+    display: none;
 }
 
 /*<editor-fold desc="Danh sách sản phẩm có nút xem chi tiết">*/
