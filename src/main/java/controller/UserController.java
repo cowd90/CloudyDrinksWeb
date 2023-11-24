@@ -53,6 +53,7 @@ public class UserController extends HttpServlet {
             String username = request.getParameter("username");
             String pwd = request.getParameter("password");
             pwd = Encode.ToSHA1(pwd);
+            ArrayList<String> errorList = new ArrayList<>();
 
             User user = new User();
             user.setUsername(username);
@@ -65,14 +66,18 @@ public class UserController extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("user", newUser);
                 url = "/index.jsp";
+            } else if (username.isEmpty() || pwd.isEmpty()) {
+                errorList.add("Please fill all the fields!");
+                url = "/auth/index.jsp";
             } else if (newUser != null && !newUser.isVerified()) {
-                request.setAttribute("signInError", "Tài khoản của bạn chưa xác thực. Vui lòng kiểm tra email để thực hiện thao tác!");
+                errorList.add("You have not verified your account. Please check your EMAIL to verify!");
                 url = "/auth/index.jsp";
             } else {
-                request.setAttribute("signInError", "Tên đăng nhập hoặc mật khẩu không đúng");
+                errorList.add("The username or password is incorrect");
                 url = "/auth/index.jsp";
             }
 
+            request.setAttribute("signInError", errorList);
             request.setAttribute("username", username);
             request.setAttribute("password", pwd);
 
@@ -114,38 +119,37 @@ public class UserController extends HttpServlet {
             request.setAttribute("conPassword", conPassword);
 
             String url;
-            String error = "";
             ArrayList<String> errorList = new ArrayList<>();
             UserDAO userDAO = new UserDAO();
 
             if (userDAO.checkUsernameExist(username)) {
-                error = "Tên đăng nhập đã tồn tại, vui lòng thử tên khác";
-                errorList.add(error);
+                errorList.add("The username is already being used");
             }
 
             // Catch error of email
             Pattern emailPattern = Pattern.compile("\\w+@\\w+(\\.\\w+)+(\\.\\w+)*");
             Matcher emailMatcher = emailPattern.matcher(email);
             if (!emailMatcher.matches()) {
-                error = "Email không hợp lệ";
-                errorList.add(error);
+                errorList.add("Invalid email address");
             }
 
             if (password.length() < 8) {
-                error = "Mật khẩu phải lớn hơn 8 ký tự";
-                errorList.add(error);
+                errorList.add("Your password must be at least 8 characters");
+            }
+
+            if (username.isEmpty() || email.isEmpty() || password.isEmpty() || conPassword.isEmpty()) {
+                errorList.add("Please fill all the fields!");
             }
 
             if (!password.equals(conPassword)) {
-                error = "Mật khẩu không khớp";
-                errorList.add(error);
+                errorList.add("Passwords do not match");
             } else {
                 password = Encode.ToSHA1(password);
             }
 
             request.setAttribute("signUpError", errorList);
 
-            if (error.length() > 0) {
+            if (!errorList.isEmpty()) {
                 url = "/auth/index.jsp";
             } else {
                 Random random = new Random();

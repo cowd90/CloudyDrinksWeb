@@ -7,6 +7,7 @@ public class User {
     private String username;
     private String password;
     private String email;
+    private boolean isAdmin;
     private String verificationCode;
     private Timestamp authCodeValidTime;
     private boolean isVerified;
@@ -25,6 +26,17 @@ public class User {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.verificationCode = verificationCode;
+        this.authCodeValidTime = authCodeValidTime;
+        this.isVerified = isVerified;
+    }
+
+    public User(String userId, String username, String password, String email, boolean isAdmin, String verificationCode, Timestamp authCodeValidTime, boolean isVerified) {
+        this.userId = userId;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.isAdmin = isAdmin;
         this.verificationCode = verificationCode;
         this.authCodeValidTime = authCodeValidTime;
         this.isVerified = isVerified;
@@ -62,6 +74,14 @@ public class User {
         this.email = email;
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     public String getVerificationCode() {
         return verificationCode;
     }
@@ -93,7 +113,8 @@ public class User {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", email='" + email + '\'' +
-                ", verifiedCode='" + verificationCode + '\'' +
+                ", isAdmin=" + isAdmin +
+                ", verificationCode='" + verificationCode + '\'' +
                 ", authCodeValidTime=" + authCodeValidTime +
                 ", isVerified=" + isVerified +
                 '}';

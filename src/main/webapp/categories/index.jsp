@@ -1,10 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: khoap
-  Date: 11/20/2023
-  Time: 3:42 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.Category" %>
+<%@ page import="database.CategoryDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.Product" %>
+<%@ page import="database.ProductDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -28,8 +26,10 @@
             crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/categories.css" />
+    <% String newUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
+
+    <link rel="stylesheet" href="<%=newUrl%>/css/global.css" />
+    <link rel="stylesheet" href="<%=newUrl%>/css/categories.css" />
 </head>
 <body>
 <div class="page-container">
@@ -44,13 +44,15 @@
     <div class="menu-nav_container">
         <div class="content_container">
             <div class="menu-nav_inner">
+
                 <ul class="nav">
-
-                    <li><a href="#kem">Kem</a></li>
-                    <li><a href="#tratraicay">Trà trái cây</a></li>
-                    <li><a href="#okinawa">Okinawa</a></li>
-                    <li><a href="#tranguyenchat">Trà nguyên chất</a></li>
-
+                    <%
+                        CategoryDAO categoryDAO = new CategoryDAO();
+                        ArrayList<Category> categories = categoryDAO.selectAll();
+                        for (Category category : categories) {
+                    %>
+                    <li><a href="#kem"><%=category.getCatName()%></a></li>
+                    <% } %>
                 </ul>
             </div>
         </div>
@@ -59,19 +61,32 @@
         <div class="content_wrapper">
 
             <!--<editor-fold desc="Render danh mục">-->
+    <%
+
+    %>
+            <%
+                for (Category category : categories) {
+            %>
+
             <div id="kem" class="category-item">
                 <!-- Tên danh mục -->
-                <div class="title">Kem</div>
+                <div class="title"><%=category.getCatName()%></div>
                 <div class="products_container row">
 
+                    <%
+                        ProductDAO productDAO = new ProductDAO();
+                        ArrayList<Product> products = productDAO.selectAll();
+                        for (Product product : products) {
+                            if (product.getCatId() == category.getCatId()) {
+                    %>
                     <!--<editor-fold desc="Render Sản phẩm">-->
                     <div class="product col-4">
                         <div class="card">
                             <!-- Ảnh sản phẩm -->
-                            <img src="https://gongcha.com.vn/wp-content/uploads/2018/10/kem-tc.png" class="card-img-top" alt="Kem trà sữa và trân châu đen">
+                            <img src="<%=product.getProductImage()%>" class="card-img-top" alt="<%=product.getProductName()%>">
                             <div class="card-body">
                                 <!-- Tên sản phẩm -->
-                                <h5 class="card-title">Kem Trà Sữa & Trân Châu Đen</h5>
+                                <h5 class="card-title"><%=product.getProductName()%></h5>
                             </div>
                             <div class="more-info">
                                 <!-- Đường dẫn đến chi tiết sản phẩm -->
@@ -86,9 +101,16 @@
                         </div>
                     </div>
                     <!--</editor-fold>-->
-
+                    <%
+                            }
+                        }
+                    %>
                 </div>
             </div>
+
+            <%
+                }
+            %>
             <!--</editor-fold>-->
 
         </div>

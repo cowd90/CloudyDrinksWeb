@@ -1,8 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.google.gson.Gson" %>
-<%@ page import="com.google.gson.GsonBuilder" %>
-<%@ page import="com.google.gson.JsonArray" %>
-<%@ page import="com.google.gson.JsonParser" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="vi">
@@ -34,14 +31,12 @@
 <body>
 
 <%
-    String signInError = request.getAttribute("signInError") + "";
+    ArrayList<String> signInError = (ArrayList<String>) request.getAttribute("signInError");
     ArrayList<String> signUpError = (ArrayList<String>) request.getAttribute("signUpError");
     String username = request.getAttribute("username") + "";
     String usernameSignUp = request.getAttribute("usernameSignUp") + "";
     String email = request.getAttribute("email") + "";
 
-
-    signInError = (!signInError.equals("null")) ? signInError : "";
     username = (!username.equals("null")) ? username : "";
     usernameSignUp = (!usernameSignUp.equals("null")) ? usernameSignUp : "";
     email = (!email.equals("null")) ? email : "";
@@ -55,9 +50,28 @@
 
                 <!--<editor-fold desc="Form đăng nhập">-->
                 <form id="sign-in" action="<%=url%>/user-controller" method="post">
+                    <%
+                        if (signInError != null) {
+                    %>
+                    <div id="dialog-container">
+                        <script>
+                            // Phải để trong hàm window.onload để code bên trong thực thi sau code của file auth.js (code khởi tạo các hàm)
+                            window.onload = () => {
+                                // Mỗi phần tử của array sẽ được render trong 1 thẻ p
+                                let arrayOfMess = [
+                                    <%
+                                        Gson gson = new Gson();
+                                    %>
+                                ];
+                                createDialog("error", "ERROR", <%=gson.toJson(signInError)%>, "OK");
+                                showDialog();
+                            }
+                        </script>
+
+                    </div>
+                    <% }%>
                     <input type="hidden" name="action" value="sign-in">
                     <h2 class="title">Sign in</h2>
-                    <div class="text-danger" id="error-sign-in"><%= signInError %></div>
                     <div class="d-flex flex-column gap-3">
                         <div class="input-wrapper">
                             <input
@@ -155,7 +169,7 @@
                 <!--<editor-fold desc="Form đăng nhập">-->
                 <form id="register" action="<%=url%>/user-controller" class="hidden" method="post">
                     <%
-                        if (!(signUpError == null)) {
+                        if (signUpError != null) {
                     %>
                     <script>
                         document.getElementById('sign-in').classList.toggle('hidden');
