@@ -2,7 +2,7 @@ body {
     height: 3000px;
 }
 
-/* #region slide show */
+/*<editor-fold desc="Slideshow">*/
 .slide-show_container {
     position: relative;
     height: 700px;
@@ -93,11 +93,9 @@ body {
 .slide-show_container .slide-control_wrapper .dot.active {
     border: 3px solid #333;
 }
-/* #endregion */
+/*</editor-fold>*/
 
-/* #region */
-
-/* #region Danh sách sản phẩm */
+/*<editor-fold desc="Danh sách sản phẩm">*/
 .list-product_container {
     padding: 32px 0;
 }
@@ -138,6 +136,7 @@ body {
     border: none;
     border-radius: 16px;
     box-shadow: -2rem 0 3rem -2rem #c2a0a0;
+    transition: all linear 0.15s;
 }
 .list-product_container
 .list-product_wrapper
@@ -146,18 +145,15 @@ body {
     margin-left: -100px;
     box-shadow: -3rem 0 3rem -2rem #b39e9e;
 }
-.list-product_container
-.list-product_wrapper
-.list-product_content
-.product_container:hover {
+.list-product_container .list-product_wrapper .list-product_content .product_container:not(:last-child):hover  {
     margin-right: 120px;
-    z-index: 2;
+}
+.list-product_container .list-product_wrapper .list-product_content .product_container:hover {
     transform: translateY(-1rem) rotate(3deg);
 }
-/* #endregion */
-/* #endregion */
+/*</editor-fold>*/
 
-/* #region dark theme */
+/*<editor-fold desc="Dark theme">*/
 .dark-theme
 .list-product_container
 .list-product_wrapper
@@ -174,7 +170,7 @@ body {
 .product_container:not(:first-child) {
     box-shadow: -3rem 0 3rem -2rem #000;
 }
-/* #endregion */
+/*</editor-fold>*/
 
 /* #region responsive */
 @media only screen and (max-width: 1200px) {
@@ -187,8 +183,13 @@ body {
     .list-product_container
     .list-product_wrapper
     .list-product_content
-    .product_container:hover {
+    .product_container:not(:last-child):hover {
         margin-right: 80px;
+    }
+    .list-product_container
+    .list-product_wrapper
+    .list-product_content
+    .product_container:hover {
         transform: translateY(-1rem) rotate(3deg);
     }
 }
@@ -212,8 +213,13 @@ body {
     .list-product_container
     .list-product_wrapper
     .list-product_content
-    .product_container:hover {
+    .product_container:not(:last-child):hover {
         margin-right: 60px;
+    }
+    .list-product_container
+    .list-product_wrapper
+    .list-product_content
+    .product_container:hover {
         transform: translateY(-1rem) rotate(3deg);
     }
 }

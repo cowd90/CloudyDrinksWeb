@@ -12,7 +12,7 @@
     --background-color_dark-theme_2: #333;
     --font-color_dark-theme: #ddd;
     --font-color_dark-theme_2: #eee;
-    --font-color_light-theme: #333;
+    --font-color_light-theme: #212529;
 
     --large-breakpoint: 1200px;
     --medium-breakpoint: 992px;
@@ -44,17 +44,101 @@ a.active, .dark-theme a.active {
 
 .dark-theme {
     color: var(--font-color_dark-theme);
-    background: #242526;
+    background: var(--background-color_dark-theme);
 }
 .dark-theme a {
     color: var(--font-color_dark-theme);
 }
 
 .content_container {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 12px;
 }
+
+.disabled {
+    background-color: #EBEBE4 !important;
+    color: #C6C6C6;
+}
+
+.hidden {
+    display: none;
+}
+
+/*<editor-fold desc="Danh sách sản phẩm có nút xem chi tiết">*/
+.products_container {
+    padding: 12px 0 24px;
+}
+.products_container .product {
+    position: relative;
+    padding: 24px 44px;
+
+}
+.products_container .product .card::after {
+    visibility: hidden;
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.02);
+    border-radius: 0.375rem;
+    opacity: 0;
+    transition: all linear 0.15s;
+    z-index: 2;
+}
+.products_container .product .card:hover {
+    border-color: transparent;
+}
+.products_container .product .card:hover::after {
+    visibility: visible;
+    opacity: 1;
+}
+.products_container .product .card:hover .more-info {
+    opacity: 1;
+    visibility: visible;
+}
+.products_container .product .card .card-body .card-title {
+    text-align: center;
+}
+.products_container .product .more-info {
+    visibility: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    border-radius: 999px;
+    opacity: 0;
+    transition: all linear 0.15s;
+    z-index: 3;
+}
+.products_container .product .more-info .product-link {
+    width: 160px;
+    height: 160px;
+    color: white;
+    border-radius: 999px;
+    background: #bc2839;
+    opacity: 0.8;
+}
+.products_container .product .more-info .product-link > p {
+    display: none;
+}
+.products_container .product .more-info .product-link svg {
+    transform-origin: top center;
+    transition: all linear 0.15s;
+}
+.products_container .product .more-info:hover .product-link {
+    opacity: 1;
+}
+.products_container .product .more-info:hover .product-link svg {
+    scale: 0.9;
+}
+.products_container .product .more-info:hover .product-link p {
+    display: block;
+}
+/*</editor-fold>*/
 
 @media only screen and (max-width: 1200px) {
     .content_container {
