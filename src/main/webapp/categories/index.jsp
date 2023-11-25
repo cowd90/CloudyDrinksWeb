@@ -68,6 +68,72 @@
                     <div class="product col-4">
                         <div class="card">
                             <!-- Ảnh sản phẩm -->
+                            <img src="https://gongcha.com.vn/wp-content/uploads/2018/10/kem-tc.png"
+                                 class="card-img-top" alt="Kem trà sữa và trân châu đen">
+                            <div class="card-body">
+                                <!-- Tên sản phẩm -->
+                                <h5 class="card-title">Kem Trà Sữa & Trân Châu Đen</h5>
+                            </div>
+                            <div class="more-info">
+                                <!-- Đường dẫn đến chi tiết sản phẩm -->
+                                <a href="<%=url%>/products"
+                                   class="product-link d-flex align-items-center justify-content-center flex-column">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+                                    </svg>
+                                    <p>Xem chi tiết</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</editor-fold>-->
+
+                    <!--<editor-fold desc="Render Sản phẩm">-->
+                    <div class="product col-4">
+                        <div class="card">
+                            <!-- Ảnh sản phẩm -->
+                            <img src="https://gongcha.com.vn/wp-content/uploads/2021/03/ALISAN-TRA%CC%81I-CA%CC%82Y.png" class="card-img-top" alt="Kem trà sữa và trân châu đen">
+                            <div class="card-body">
+                                <!-- Tên sản phẩm -->
+                                <h5 class="card-title">Kem Trà Sữa & Trân Châu Đen</h5>
+                            </div>
+                            <div class="more-info">
+                                <!-- Đường dẫn đến chi tiết sản phẩm -->
+                                <a href="<%=url%>/products"
+                                   class="product-link d-flex align-items-center justify-content-center flex-column">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+                                    </svg>
+                                    <p>Xem chi tiết</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</editor-fold>--><!--<editor-fold desc="Render Sản phẩm">-->
+                    <div class="product col-4">
+                        <div class="card">
+                            <!-- Ảnh sản phẩm -->
+                            <img src="https://gongcha.com.vn/wp-content/uploads/2018/10/kem-tc.png" class="card-img-top" alt="Kem trà sữa và trân châu đen">
+                            <div class="card-body">
+                                <!-- Tên sản phẩm -->
+                                <h5 class="card-title">Kem Trà Sữa & Trân Châu Đen</h5>
+                            </div>
+                            <div class="more-info">
+                                <!-- Đường dẫn đến chi tiết sản phẩm -->
+                                <a href="<%=url%>/products"
+                                   class="product-link d-flex align-items-center justify-content-center flex-column">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
+                                    </svg>
+                                    <p>Xem chi tiết</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--</editor-fold>--><!--<editor-fold desc="Render Sản phẩm">-->
+                    <div class="product col-4">
+                        <div class="card">
+                            <!-- Ảnh sản phẩm -->
                             <img src="https://gongcha.com.vn/wp-content/uploads/2018/10/kem-tc.png" class="card-img-top" alt="Kem trà sữa và trân châu đen">
                             <div class="card-body">
                                 <!-- Tên sản phẩm -->

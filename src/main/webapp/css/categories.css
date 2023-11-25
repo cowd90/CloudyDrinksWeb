@@ -1,3 +1,8 @@
+header.float {
+    position: relative !important;
+    width: 100% !important;
+}
+
 .banner {
     color: var(--font-color_light-theme);
     background-image: url("https://gongcha.com.vn/wp-content/uploads/2020/08/banner-menu-1900-x-335.jpg");
@@ -23,7 +28,7 @@
     margin-bottom: 20px;
     padding: 25px 0;
     background: #f5eee9;
-    z-index: 100;
+    z-index: 4;
 }
 .menu-nav_container .menu-nav_inner > ul {
     list-style: none;
@@ -50,23 +55,67 @@
     font-weight: 600;
     text-align: center;
     text-transform: uppercase;
+    background: #ccc;
     padding: 1rem 0;
-    background: #999999;
+    margin-bottom: 12px;
+}
+.products_container .product {
+    padding: 24px 62px;
+}
+.products_container .product .card .card-img-top {
+    padding: 0 24px;
 }
 /*</editor-fold>*/
+.dark-theme .category-item .title {
+    background: #434343;
+}
 
 /*<editor-fold desc="Responsive">*/
 @media only screen and (max-width: 1200px) {
     .banner {
         padding: 90px 0 115px;
     }
+
+    .products_container .product {
+        padding: 16px 36px;
+    }
+    .products_container .product .card .card-img-top {
+        padding: 0 18px;
+    }
+    .products_container .product .card .card-body .card-title {
+        font-size: 1.125rem;
+    }
+    .products_container .product .more-info .product-link {
+        width: 130px;
+        height: 130px;
+    }
+    .products_container .product .more-info .product-link svg {
+        width: 84px;
+        height: 84px;
+    }
 }
 @media only screen and (max-width: 992px) {
     .banner {
         padding: 80px 0 90px;
     }
+
     .products_container .product {
-        padding: 24px;
+        padding: 12px 24px;
+    }
+    .products_container .product .card .card-img-top {
+        padding: 0 12px;
+    }
+    .products_container .product .card .card-body .card-title {
+        font-size: 1.0625rem;
+        margin: 4px;
+    }
+    .products_container .product .more-info .product-link {
+        width: 115px;
+        height: 115px;
+    }
+    .products_container .product .more-info .product-link svg {
+        width: 78px;
+        height: 78px;
     }
 }
 /*</editor-fold>*/

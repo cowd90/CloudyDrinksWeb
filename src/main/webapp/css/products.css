@@ -11,12 +11,15 @@ body.dark-theme {
     background-repeat: no-repeat;
     padding: 115px 0;
 }
+
 .banner .breadcrumb .breadcrumb-item {
     font-size: 18px;
 }
+
 .banner .breadcrumb .breadcrumb-item.active span {
     font-weight: bolder;
 }
+
 .banner .breadcrumb .breadcrumb-item a:hover {
     text-decoration: underline;
 }
@@ -30,11 +33,13 @@ body.dark-theme {
     width: 100%;
     object-fit: contain;
 }
+
 .product_container .product-price {
     font-size: 24px;
     font-weight: 700;
     color: var(--main-color);
 }
+
 #increase-btn, #decrease-btn {
     display: flex;
     align-items: center;
@@ -47,26 +52,31 @@ body.dark-theme {
     border-radius: 999px;
     cursor: pointer;
 }
+
 .product_container form .quantity > label[for="prod-quantity"] {
     font-size: 24px;
     font-weight: 600;
     padding: 0 24px;
 }
+
 .product_container form .product-size_container input {
     display: none;
 }
+
 .product_container form .product-size_container .sizeBtn {
     padding: 8px 16px;
     border: 1px solid #999;
     border-radius: 4px;
     cursor: pointer;
 }
+
 .product_container form .product-size_container .sizeBtn.active {
     color: #fff;
     background: var(--main-color);
     border-color: var(--main-color);
 
 }
+
 .product_container form button[type="submit"] {
     width: 100%;
     padding: 12px;
@@ -75,6 +85,7 @@ body.dark-theme {
     border: none;
     border-radius: 4px;
 }
+
 .product_container form .quantity,
 .product_container form .product-size_container,
 .product_container form button[type="submit"] {
@@ -87,6 +98,7 @@ body.dark-theme {
     background: rgb(196 196 196 / 30%);
     padding: 8px 24px;
 }
+
 /*</editor-fold>*/
 
 .break-line {
@@ -97,17 +109,20 @@ body.dark-theme {
 .suggestion {
     padding: 0;
 }
+
 .suggestion .suggestion-title {
     font-size: 24px;
     font-weight: 700;
     padding: 12px 24px 0;
 }
+
 .suggestion .products_container {
     position: relative;
     margin: 0;
     padding-left: 16px;
     padding-right: 16px;
 }
+
 .suggestion .products_container button {
     position: absolute;
     top: 50%;
@@ -121,20 +136,25 @@ body.dark-theme {
     border-radius: 999px;
     z-index: 10;
 }
+
 .suggestion .products_container button:hover:not([disabled]) {
     color: white;
     background: var(--main-color);
     transition: all linear 0.15s;
 }
+
 button#prev-sug {
     left: 6px;
 }
+
 button#next-sug {
     right: 6px;
 }
+
 .suggestion .products_wrapper .product {
     padding: 24px 16px;
 }
+
 .suggestion .products_wrapper .product .card-img-top {
     width: 75%;
     min-height: 220px;
@@ -142,10 +162,12 @@ button#next-sug {
     background-repeat: no-repeat;
     background-position: center;
 }
+
 .suggestion .products_wrapper .product .more-info .product-link {
     width: 150px;
     height: 150px;
 }
+
 /*</editor-fold>*/
 
 /*<editor-fold desc="Responsive">*/
@@ -158,23 +180,28 @@ button#next-sug {
         padding-left: 15px;
         padding-right: 15px;
     }
+
     .suggestion .products_wrapper .product .card-img-top {
         min-height: 160px;
     }
+
     .suggestion .products_wrapper .product .more-info .product-link {
         font-size: 13px;
         width: 120px;
         height: 120px;
     }
+
     .suggestion .products_wrapper .product .more-info .product-link svg {
         width: 80px;
         height: 80px;
     }
 
 }
+
 @media only screen and (max-width: 992px) {
     .banner {
         padding: 90px 0;
     }
 }
+
 /*</editor-fold>*/

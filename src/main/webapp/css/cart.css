@@ -1,0 +1,51 @@
+body {
+    height: 3000px;
+}
+
+.banner {
+    color: var(--font-color_light-theme);
+    background-image: url("https://gongcha.com.vn/wp-content/uploads/2023/11/cover-web.ginger4-scaled.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 145px 0;
+}
+
+.page-title {
+    font-size: 2.4rem;
+    font-weight: 600;
+    margin: 12px 0;
+}
+.page-title .card-quantity {
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+.page-cart_container .cart-item .cart-img {
+    width: 100%;
+}
+.page-cart_container .cart-item .cart-item_name {
+    font-size: 1.6rem;
+}
+
+.page-cart_container .cart-control {
+    position: sticky;
+    top: 0;
+    overflow: visible;
+    background: darkred;
+}
+
+/*<editor-fold desc="Responsive">*/
+@media only screen and (max-width: 1200px) {
+    .banner {
+        padding: 130px 0;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .banner {
+        padding: 115px 0;
+    }
+}
+
+/*</editor-fold>*/

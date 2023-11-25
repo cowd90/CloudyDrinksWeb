@@ -614,7 +614,7 @@
                 if (obj != null) {
                     user = (User) obj;
                 }
-                if (user == null) {
+                if (user != null) {
             %>
 
             <div class="user_container d-flex align-items-center">
@@ -713,7 +713,7 @@
 
                             <!--<editor-fold desc="Đi đến giỏ hàng">-->
                             <div class="go-to-cart_wrapper">
-                                <a href="">Xem tất cả <span>(3)</span> trong giỏ hàng</a>
+                                <a href="<%=url%>/cart">Xem tất cả <span>(3)</span> trong giỏ hàng</a>
                             </div>
                             <!--</editor-fold>-->
                         </div>
