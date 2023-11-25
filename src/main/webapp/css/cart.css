@@ -21,18 +21,74 @@ body {
     font-weight: 500;
 }
 
-.page-cart_container .cart-item .cart-img {
+.page-cart-container .no-product {
+    height: 200px;
+}
+.page-cart-container .cart-item .cart-img {
     width: 100%;
 }
-.page-cart_container .cart-item .cart-item_name {
+.page-cart-container .cart-item .cart-item_info .name {
     font-size: 1.6rem;
+    font-weight: 600;
+}
+.page-cart-container .cart-item .cart-item_info span:first-child {
+    font-weight: 600;
+}
+.page-cart-container .cart-item .quantity > label[for="prod-quantity"] {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 0 24px;
+}
+.increase-btn, .decrease-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    color: #fff;
+    background: var(--main-color);
+    border-radius: 999px;
+    cursor: pointer;
+}
+.page-cart-container .cart-item .user-action button {
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: underline;
+    background: none;
+}
+.page-cart-container .cart-item .user-action button:hover {
+    color: var(--main-color) !important;
+}
+.break-line {
+    border: 1px solid #c4c4c44d;
 }
 
-.page-cart_container .cart-control {
+/*<editor-fold desc="Cart control">*/
+.page-cart-container .cart-control {
     position: sticky;
-    top: 0;
+    top: 150px;
     overflow: visible;
-    background: darkred;
+}
+.page-cart-container .cart-control button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+/*</editor-fold>*/
+
+.dark-theme .page-cart-container .user-action button {
+    color: #fff;
+}
+
+#valueOfCart {
+    text-align: right;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--main-color);
 }
 
 /*<editor-fold desc="Responsive">*/
@@ -45,6 +101,13 @@ body {
 @media only screen and (max-width: 992px) {
     .banner {
         padding: 115px 0;
+    }
+
+    #increase-btn, #decrease-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+
     }
 }
 
