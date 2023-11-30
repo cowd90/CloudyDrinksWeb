@@ -31,12 +31,12 @@
     <link rel="stylesheet" href="../css/admin.css">
 </head>
 <body>
-    <div id="admin_container" class="content_container">
-        <div class="header">
+    <div id="admin_container" class="content_container d-flex flex-column gap-4">
+        <div class="header fs-1 text-center p-3">
             Welcome, Admin
         </div>
         <section>
-            <div class="title">Quản lý danh mục</div>
+            <div class="title fs-4 mb-2">Quản lý danh mục</div>
             <nav>
                 <div class="nav nav-tabs" id="category-tab" role="tablist">
                     <button class="nav-link active" id="add-category-tab" data-bs-toggle="tab" data-bs-target="#add-category" type="button" role="tab" aria-controls="add-category" aria-selected="true">Thêm</button>
@@ -45,11 +45,11 @@
                 </div>
             </nav>
             <div class="tab-content" id="category-tabContent">
-                <div class="row">
-                    <div class="tab-pane fade show active row" id="add-category" role="tabpanel" aria-labelledby="add-category-tab" tabindex="0">
+                <div class="tab-pane show active" id="add-category" role="tabpanel" aria-labelledby="add-category-tab" tabindex="0">
+                    <div class="row p-3">
                         <div class="col-6">
                             <form action="" method="get"
-                                  class="row-cols-1" >
+                                  class="row-cols-1 d-flex flex-column gap-3" >
                                 <input type="text" name="catName" placeholder="Tên danh mục">
                                 <input type="submit" value="Thêm danh mục">
                             </form>
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="remove-category" role="tabpanel" aria-labelledby="remove-category-tab" tabindex="0">
+                <div class="tab-pane" id="remove-category" role="tabpanel" aria-labelledby="remove-category-tab" tabindex="0">
                     <form action="" method="" class="row">
                         <div class="col-6">
                             <select name="delCatId">
@@ -70,12 +70,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="tab-pane fade" id="edit-category" role="tabpanel" aria-labelledby="edit-category-tab" tabindex="0">...</div>
+                <div class="tab-pane" id="edit-category" role="tabpanel" aria-labelledby="edit-category-tab" tabindex="0">...</div>
             </div>
         </section>
 
         <section>
-            <div class="title">Quản lý Sản phẩm</div>
+            <div class="title fs-4 mb-2">Quản lý Sản phẩm</div>
             <nav>
                 <div class="nav nav-tabs" id="product-tab" role="tablist">
                     <button class="nav-link active" id="add-product-tab" data-bs-toggle="tab" data-bs-target="#add-product" type="button" role="tab" aria-controls="add-product" aria-selected="true">Thêm</button>
@@ -84,29 +84,32 @@
                 </div>
             </nav>
             <div class="tab-content" id="product-tabContent">
-                <div class="row">
-                    <div class="tab-pane fade show active row has_preview" id="add-product" role="tabpanel" aria-labelledby="add-product-tab" tabindex="0">
+                <div class="tab-pane show active has_preview" id="add-product" role="tabpanel" aria-labelledby="add-product-tab" tabindex="0">
+                    <div class="row p-3">
                         <div class="col-6">
-                            <form action="" method="get"
-                                  class="row-cols-1" >
+                            <!-- Form này không gửi dữ liệu, xem AJAX trong js -->
+                            <form id="add_product-form" class="row-cols-1 d-flex flex-column gap-3" >
                                 <input type="text" name="prodName" placeholder="Tên sản phẩm">
-                                <input type="text" name="prodImgLink" placeholder="Đường dẫn hình ảnh"
+                                <label for="product_img-input">Hình ảnh sản phẩm</label>
+                                <input type="file" accept="image/*" id="product_img-input">
+                                <input type="hidden" name="prodImgLink" placeholder="Đường dẫn hình ảnh"
                                        class="image_link">
-                                <input type="text" name="prodPrice" placeholder="Giá sản phẩm">
+                                <input type="number" name="prodPrice" placeholder="Giá sản phẩm">
                                 <select name="belongCat">
-                                    <option value="iddanhmuc">Tên danh mục</option>
+                                    <option value="" selected disabled hidden>Tên danh mục</option>
+                                    <option value="0">Test</option>
                                 </select>
                                 <input type="text" name="prodDesc" placeholder="Mô tả sản phẩm">
 
-                                <input type="submit" value="Thêm sản phẩm">
+                                <input type="submit" id="add_prod-btn" value="Thêm sản phẩm">
                             </form>
                         </div>
                         <div class="preview col-6">
-                            <img src="" alt="">
+                            <img src="" alt="Preview image" data-preview_for="product_img-input">
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="remove-product" role="tabpanel" aria-labelledby="remove-product-tab" tabindex="0">
+                <div class="tab-pane" id="remove-product" role="tabpanel" aria-labelledby="remove-product-tab" tabindex="0">
                     <form action="" method="" class="row">
                         <div class="col-6">
                             <select name="delProdId">
@@ -118,11 +121,12 @@
                         </div>
                     </form>
                 </div>
-                <div class="tab-pane fade" id="edit-product" role="tabpanel" aria-labelledby="edit-product-tab" tabindex="0">...</div>
+                <div class="tab-pane" id="edit-product" role="tabpanel" aria-labelledby="edit-product-tab" tabindex="0">...</div>
             </div>
         </section>
     </div>
 
-    <script src="../js/admin.js"></script>
+    <script src="../js/admin.js" type="module"></script>
+
 </body>
 </html>
