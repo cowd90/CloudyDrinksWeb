@@ -83,27 +83,114 @@ public class ProductDAO implements IDAO<Product>{
 
     @Override
     public int insert(Product product) {
-        return 0;
+        int result = 0;
+
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "INSERT INTO product VALUES (?, ?, ?, ?, ?, ?)";
+            PreparedStatement ps = connect.prepareStatement(sql);
+
+            ps.setInt(1, product.getProductId());
+            ps.setString(2, product.getProductName());
+            ps.setString(3, product.getProductImage());
+            ps.setInt(4, product.getPrice());
+            ps.setInt(5, product.getCatId());
+            ps.setString(6, product.getProductDesc());
+
+            // Execute query
+            result = ps.executeUpdate();
+
+            // Close connection
+            JDBCUtil.closeConnection(connect);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
     public int insertAll(ArrayList<Product> arr) {
-        return 0;
+        int count = 0;
+        for (Product product : arr) {
+            count += this.insert(product);
+        }
+        return count;
     }
 
     @Override
     public int delete(Product product) {
-        return 0;
+        int result = 0;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "DELETE FROM product WHERE productId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setInt(1, product.getProductId());
+
+            // Execute query
+            result = ps.executeUpdate();
+
+            // Close connection
+            JDBCUtil.closeConnection(connect);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
     public int deleteAll(ArrayList<Product> arr) {
-        return 0;
+        int count = 0;
+        for (Product product : arr) {
+            count += this.delete(product);
+        }
+        return count;
     }
 
     @Override
     public int update(Product product) {
-        return 0;
+        int result = 0;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "UPDATE product" +
+                    " SET " +
+                    " productName = ?" +
+                    " productImage = ?" +
+                    " price = ?" +
+                    " catId = ?" +
+                    " productDesc = ?" +
+                    " WHERE productId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+
+            ps.setString(1, product.getProductName());
+            ps.setString(2, product.getProductImage());
+            ps.setInt(3, product.getPrice());
+            ps.setInt(4, product.getCatId());
+            ps.setString(5, product.getProductDesc());
+            ps.setInt(6, product.getProductId());
+
+            // Execute query
+            result = ps.executeUpdate();
+
+            // Close connection
+            JDBCUtil.closeConnection(connect);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     public ArrayList<Product> selectByCatId(String id) {
@@ -243,132 +330,4 @@ public class ProductDAO implements IDAO<Product>{
         ProductDAO dao = new ProductDAO();
         System.out.println(dao.select6NewProduct());
     }
-
-//    @Override
-//    public int insert(Product product) {
-//        int result = 0;
-//
-//        try {
-//            // Create db connection
-//            Connection connect = JDBCUtil.getConnection();
-//
-//            // Create sql statement
-//            String sql = "INSERT INTO size VALUES (?, ?, ?)";
-//            PreparedStatement ps = connect.prepareStatement(sql);
-//
-//            ps.setInt(1, size.getSizeId());
-//            ps.setString(2, size.getSizeName());
-//            ps.setInt(3, size.getSizePrice());
-//
-//            // Execute query
-//            result = ps.executeUpdate();
-//
-//            // Close connection
-//            JDBCUtil.closeConnection(connect);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
-//
-//    @Override
-//    public int insertAll(ArrayList<Size> arr) {
-//        int count = 0;
-//        for (Size size : arr) {
-//            count += this.insert(size);
-//        }
-//        return count;
-//    }
-//
-//    @Override
-//    public int delete(Size size) {
-//        int result = 0;
-//        try {
-//            // Create db connection
-//            Connection connect = JDBCUtil.getConnection();
-//
-//            // Create sql statement
-//            String sql = "DELETE FROM size WHERE sizeId = ?";
-//            PreparedStatement ps = connect.prepareStatement(sql);
-//            ps.setInt(1, size.getSizeId());
-//
-//            // Execute query
-//            result = ps.executeUpdate();
-//
-//            // Close connection
-//            JDBCUtil.closeConnection(connect);
-//
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
-//
-//    @Override
-//    public int deleteAll(ArrayList<Size> arr) {
-//        int count = 0;
-//        for (Size size : arr) {
-//            count += this.delete(size);
-//        }
-//        return count;
-//    }
-//
-//    @Override
-//    public int update(Size size) {
-//        int result = 0;
-//        try {
-//            // Create db connection
-//            Connection connect = JDBCUtil.getConnection();
-//
-//            // Create sql statement
-//            String sql = "UPDATE size" +
-//                    " SET " +
-//                    " sizeName = ?" +
-//                    " sizePrice = ?" +
-//                    " WHERE sizeId = ?";
-//            PreparedStatement ps = connect.prepareStatement(sql);
-//
-//            ps.setString(1, size.getSizeName());
-//            ps.setInt(2, size.getSizePrice());
-//            ps.setInt(3, size.getSizeId());
-//
-//            // Execute query
-//            result = ps.executeUpdate();
-//
-//            // Close connection
-//            JDBCUtil.closeConnection(connect);
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return result;
-//    }
-//
-//    public boolean checkSizeExist(String sizeName) {
-//        boolean result = false;
-//        try {
-//            // Create db connection
-//            Connection connect = JDBCUtil.getConnection();
-//
-//            // Create sql statement
-//            String sql = "SELECT * FROM size WHERE sizeName = ?";
-//            PreparedStatement ps = connect.prepareStatement(sql);
-//            ps.setString(1, sizeName);
-//
-//            // Execute query
-//            ResultSet rs = ps.executeQuery();
-//
-//            while (rs.next()) {
-//                result = true;
-//            }
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return result;
-//    }
 }

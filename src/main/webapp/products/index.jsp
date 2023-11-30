@@ -29,9 +29,29 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
     ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <% String newUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
     <link rel="stylesheet" href="<%=newUrl%>/css/global.css">
     <link rel="stylesheet" href="<%=newUrl%>/css/products.css">
+    <script>
+        $(document).ready(function () {
+            $("#submit").on('click', function (e) {
+                e.preventDefault();
+                var pid = $("#product-id").val();
+                var quantity = $("#prod-quantity").val();
+                var sizeId = document.myform.size.value;
+
+                $.ajax({
+                    url: "CloudyDrinksWeb/cart-controller",
+                    type: "POST",
+                    data: {pid:pid, quantity:quantity, sizeId:sizeId},
+                    success: function (data) {
+                        alert(data)
+                    }
+                })
+            })
+        })
+    </script>
 </head>
 <body>
 <div class="page-container">
@@ -57,7 +77,8 @@
             </div>
             <div class="col-6 py-4">
 
-                <form action="<%=url%>/cart-controller?pid=<%=product.getProductId()%>" method="post">
+                <form name="myform">
+                    <input class="hidden" id="product-id" value="<%=product.getProductId()%>">
                     <h1 class="product-name mb-3"><%=product.getProductName()%></h1>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice()+"")%> VNĐ</p>
@@ -69,8 +90,8 @@
                         <div id="increase-btn" onclick="plusQuantity(1)">+</div>
 
                     </div>
-                    <div class="mb-3 fw-semibold text-uppercase <%=(product.getProductId()==7)? "invisible" : ""%>">Chọn size <span class="text-danger">*</span></div>
-                    <div class="product-size_container d-flex flex-wrap gap-3 mb-4 <%=(product.getProductId()==7)? "invisible" : ""%>">
+                    <div class="mb-3 fw-semibold text-uppercase">Chọn size <span class="text-danger">*</span></div>
+                    <div class="product-size_container d-flex flex-wrap gap-3 mb-4">
                         <div class="product-size_container d-flex flex-wrap gap-3 mb-3">
 
                             <!-- id của input và for của label cũng được render từ server dạng size-{biến} | biến có thể là index cũng được -->
@@ -88,7 +109,7 @@
 
                         </div>
                     </div>
-                    <div class="input-group mb-3 <%=(product.getProductId()==7)? "invisible" : ""%>">
+                    <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="gray" class="bi bi-card-list" viewBox="0 0 16 16">
                               <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"></path>
@@ -98,7 +119,7 @@
                         <input type="text" name="notes" class="form-control lh-lg" maxlength="200"
                                placeholder="Ghi chú thêm cho món này" aria-label="Your notes" aria-describedby="basic-addon1">
                     </div>
-                    <button type="submit" class="mt-3">
+                    <button type="submit" class="mt-3" id="submit">
                         <span id="valueOfOrder"></span>
                         <span>- Thêm vào giỏ hàng</span>
                     </button>
