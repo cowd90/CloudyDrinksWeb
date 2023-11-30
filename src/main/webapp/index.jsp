@@ -80,66 +80,24 @@
                     </div>
                 </div>
                 <div class="list-product_content d-flex gap-3 gap-lg-4">
-                    <a href="" class="product_container card">
+                    <%
+                        ProductDAO productDAO = new ProductDAO();
+                        ArrayList<Product> newProducts = productDAO.select6NewProduct();
+                        for (Product p : newProducts) {
+                    %>
+                    <a href="<%=url%>/product-controller?pid=<%=p.getProductId()%>" class="product_container card">
                         <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
+                                src="<%=p.getProductImage()%>"
                                 class="card-img-top"
-                                alt=""
+                                alt="<%=p.getProductName()%>"
                         />
                         <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
+                            <h5 class="card-title"><%=p.getProductName()%></h5>
                         </div>
                     </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2018/08/Strawberry-Earl-grey-latte.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Dâu Latte</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
         </div>

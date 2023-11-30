@@ -1,22 +1,20 @@
-let header = $("header");
-
 let categories = $$(".content_wrapper .category-item");
 let catLinks = $$(".menu-nav_inner .nav a");
 
 // Custom link clicked, scroll to .category-item
 catLinks.forEach(link => {
-   link.onclick = (e) => {
-       e.preventDefault();
-       let menuNav = $('.menu-nav_container');
-       categories.forEach(cat => {
-          if ("#" + cat.id === e.target.attributes.href.nodeValue) {
-            if (!header.classList.contains('float'))
-                window.scrollTo(0, cat.offsetTop - menuNav.clientHeight - header.clientHeight);
-            else
-                window.scrollTo(0, cat.offsetTop - menuNav.clientHeight );
-          }
-       });
-   }
+    link.onclick = (e) => {
+        e.preventDefault();
+        let menuNav = $('.menu-nav_container');
+        categories.forEach(cat => {
+            if ("#" + cat.id === e.target.attributes.href.nodeValue) {
+                if (!header.classList.contains('float'))
+                    window.scrollTo(0, cat.offsetTop - menuNav.clientHeight - header.clientHeight);
+                else
+                    window.scrollTo(0, cat.offsetTop - menuNav.clientHeight );
+            }
+        });
+    }
 });
 
 // Custom my scrollSpy

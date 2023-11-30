@@ -48,10 +48,6 @@
                                     ArrayList<Category> categories = categoryDAO.selectAll();
                                     for (Category category : categories) {
                                 %>
-                                <div class="sub-nav_item"><a href=""><%=category.getCatName()%></a></div>
-                                <%
-                                    }
-                                %>
                                 <div id="h-back-btn" class="hidden d-flex flex-column align-items-center gap-3">
                                     <div class="d-flex w-100 align-items-center justify-content-end gap-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
@@ -61,13 +57,10 @@
                                     </div>
                                     <div class="sub-nav_item"><a href="<%=url%>/categories">Tất cả danh mục</a></div>
                                 </div>
-
-                                <div class="sub-nav_item"><a href="">Kem</a></div>
-                                <div class="sub-nav_item"><a href="">Trà trái cây</a></div>
-                                <div class="sub-nav_item"><a href="">Okinawa</a></div>
-                                <div class="sub-nav_item"><a href="">Trà nguyên chất</a></div>
-                                <div class="sub-nav_item"><a href="">Latte Series</a></div>
-                                <div class="sub-nav_item"><a href="">Thức uống đặc biệt Gong Cha</a></div>
+                                <div class="sub-nav_item"><a href=""><%=category.getCatName()%></a></div>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </li>
@@ -79,7 +72,7 @@
             <div class="search-bar_container d-flex align-items-center">
                 <div class="search-bar">
                     <form action="./handle" method="get" class="d-flex m-0">
-                        <input type="text" placeholder="Tìm kiếm sản phẩm" spellcheck="false"
+                        <input autocomplete="off" type="text" placeholder="Tìm kiếm sản phẩm" spellcheck="false"
                                name="keyword" class="search-content px-3"/>
                         <button type="submit" class="search-btn btn rounded-0">
                             <i class="fa-solid fa-magnifying-glass"></i>
@@ -175,7 +168,7 @@
                     <div class="more-menu_container">
                         <div class="more-menu_content cart-content">
                             <%
-                                ArrayList<Cart> cartList = cartDAO.selectAllItem(user.getUserId());
+                                ArrayList<Cart> cartList = cartDAO.select3Cart(user.getUserId());
                                 ProductDAO pDAO = new ProductDAO();
                                 for (Cart item : cartList) {
                                     Product p = pDAO.selectById(item.getProductId()+"");
@@ -195,7 +188,7 @@
                                     <p class="product-price mb-2"><%=NumberCurrencyFormat.numberCurrencyFormat((p.getPrice() + size.getUpSizePrice()) * item.getQuantity() + "")%> VNĐ</p>
                                 </div>
                                 <div class="col-2 d-flex align-items-center">
-                                    <p class="product_item-count"><%=item.getQuantity()%></p>
+                                    <p class="product_item-count fst-italic">x<%=item.getQuantity()%></p>
                                 </div>
                             </div>
                             <%
@@ -204,7 +197,7 @@
                             <!-- </editor-fold> -->
                             <!--<editor-fold desc="Đi đến giỏ hàng">-->
                             <div class="go-to-cart_wrapper">
-                                <a href="<%=url%>/cart">Xem tất cả <span>(3)</span> trong giỏ hàng</a>
+                                <a href="<%=url%>/cart">Xem tất cả <span>(<%=cartDAO.countCartQuantity(user.getUserId())%>)</span> trong giỏ hàng</a>
                             </div>
                             <!--</editor-fold>-->
                         </div>

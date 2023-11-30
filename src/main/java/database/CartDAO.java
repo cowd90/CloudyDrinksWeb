@@ -1,6 +1,7 @@
 package database;
 
 import model.Cart;
+import model.News;
 import model.Product;
 import model.Size;
 
@@ -239,6 +240,71 @@ public class CartDAO implements IDAO<Cart>{
 
         return result;
     }
+
+    public ArrayList<Cart> select3Cart(String uid) {
+        ArrayList<Cart> list = new ArrayList<>();
+        String query = "SELECT * FROM cart \n" +
+                "WHERE userId = ? \n" +
+                "ORDER BY cartId DESC\n" +
+                "LIMIT 3 ";
+
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            PreparedStatement ps = connect.prepareStatement(query);
+            ps.setString(1, uid);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String cartId = rs.getString("cartId");
+                String userId = rs.getString("userId");
+                int productId = rs.getInt("productId");
+                int sizeId = rs.getInt("sizeId");
+                int quantity = rs.getInt("quantity");
+
+                Cart cart = new Cart(cartId, userId, productId, sizeId, quantity);
+                list.add(cart);
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public int countCartQuantity(String uid) {
+       int result = 0;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "SELECT * FROM cart WHERE userId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, uid);
+
+            // Execute query
+            ResultSet rs = ps.executeQuery();
+
+            // Create object from db
+            while (rs.next()) {
+                result++;
+
+            }
+
+            JDBCUtil.closeConnection(connect);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+//    public static void main(String[] args) {
+//        CartDAO cartDAO = new CartDAO();
+//        System.out.println(cartDAO.countCartQuantity("1700706798560"));
+//    }
 
 //    @Override
 //    public int insert(Product product) {

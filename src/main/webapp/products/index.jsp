@@ -69,28 +69,26 @@
                         <div id="increase-btn" onclick="plusQuantity(1)">+</div>
 
                     </div>
+                    <div class="mb-3 fw-semibold text-uppercase <%=(product.getProductId()==7)? "invisible" : ""%>">Chọn size <span class="text-danger">*</span></div>
+                    <div class="product-size_container d-flex flex-wrap gap-3 mb-4 <%=(product.getProductId()==7)? "invisible" : ""%>">
+                        <div class="product-size_container d-flex flex-wrap gap-3 mb-3">
 
-                    <div class="mb-3 fw-semibold text-uppercase">Chọn size <span class="text-danger">*</span></div>
-                    <div class="product-size_container d-flex flex-wrap gap-3 mb-4">
-                    <div class="mb-3">Chọn size (bắt buộc)</div>
-                    <div class="product-size_container d-flex flex-wrap gap-3 mb-5">
+                            <!-- id của input và for của label cũng được render từ server dạng size-{biến} | biến có thể là index cũng được -->
+                            <!-- Nhớ đổ giá trị vào data-prod -->
 
-                        <!-- id của input và for của label cũng được render từ server dạng size-{biến} | biến có thể là index cũng được -->
-                        <!-- Nhớ đổ giá trị vào data-prod -->
+                            <%
+                                for (Size size : sizes) {
+                            %>
+                            <input type="radio" name="size" value="<%=size.getSizeId()%>" id="size-<%=size.getSizeId()%>"
+                                   data-prod="<%=size.getUpSizePrice()%>">
+                            <label for="size-<%=size.getSizeId()%>" class="sizeBtn"><%=size.getSizeName()%> + <%=NumberCurrencyFormat.numberCurrencyFormat(size.getUpSizePrice()+"")%>đ</label>
+                            <%
+                                }
+                            %>
 
-                        <%
-                            for (Size size : sizes) {
-                        %>
-                        <input type="radio" name="size" value="<%=size.getSizeId()%>" id="size-<%=size.getSizeId()%>"
-                               data-prod="<%=size.getUpSizePrice()%>">
-                        <label for="size-<%=size.getSizeId()%>" class="sizeBtn"><%=size.getSizeName()%> + <%=NumberCurrencyFormat.numberCurrencyFormat(size.getUpSizePrice()+"")%>đ</label>
-                        <%
-                            }
-                        %>
-
+                        </div>
                     </div>
-
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-3 <%=(product.getProductId()==7)? "invisible" : ""%>">
                         <span class="input-group-text" id="basic-addon1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="gray" class="bi bi-card-list" viewBox="0 0 16 16">
                               <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"></path>
@@ -105,7 +103,6 @@
                         <span>- Thêm vào giỏ hàng</span>
                     </button>
                 </form>
-
             </div>
             <div class="product-desc mb-3">
                 <p>Mô tả sản phẩm</p>

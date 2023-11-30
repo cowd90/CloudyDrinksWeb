@@ -1,5 +1,6 @@
 package database;
 
+import model.Cart;
 import model.Product;
 import model.Size;
 
@@ -207,9 +208,40 @@ public class ProductDAO implements IDAO<Product>{
         return result;
     }
 
+    public ArrayList<Product> select6NewProduct() {
+        ArrayList<Product> list = new ArrayList<>();
+        String query = "SELECT * FROM product \n" +
+                "ORDER BY productId DESC\n" +
+                "LIMIT 6";
+
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            PreparedStatement ps = connect.prepareStatement(query);
+
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int productId = rs.getInt("productId");
+                String productName = rs.getString("productName");
+                String productImage = rs.getString("productImage");
+                int price = rs.getInt("price");
+                String productDesc = rs.getString("productDesc");
+                int catId = rs.getInt("catId");
+
+                Product product = new Product(productId, productName, productImage, price, productDesc, catId);
+                list.add(product);
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
-        System.out.println(dao.getSizesByProductId(1).toString());
+        System.out.println(dao.select6NewProduct());
     }
 
 //    @Override
