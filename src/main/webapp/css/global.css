@@ -66,6 +66,10 @@ a.active, .dark-theme a.active {
     display: none;
 }
 
+.break-line {
+    border: 1px solid #c4c4c44d;
+}
+
 /*<editor-fold desc="Danh sách sản phẩm có nút xem chi tiết">*/
 .products_container {
     padding: 12px 0 24px;

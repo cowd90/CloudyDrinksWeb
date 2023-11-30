@@ -61,7 +61,7 @@
             </div>
         </div>
         <div class="right-header d-flex justify-content-center">
-            <div class="search-bar_container d-flex align-items-center">
+            <div class="search-bar_container d-flex align-items-center position-relative">
                 <div class="search-bar">
                     <form action="./handle" method="get" class="d-flex m-0">
                         <input type="text" placeholder="Tìm kiếm sản phẩm" spellcheck="false"
@@ -70,6 +70,62 @@
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
                     </form>
+                </div>
+                <div id="search_result-container">
+                    <div class="wrapper d-flex flex-column">
+
+                        <div class="no-item">Không có kết quả tìm kiếm</div>
+
+                        <div class="item d-flex justify-content-center align-items-center">
+                            <div class="img"
+                                 style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2019/06/Mango-Milktea.png')"></div>
+                            <div>
+                                <div class="heading">Trà Sữa Xoài Trân Châu Đen</div>
+                                <div class="body">
+                                    <p>56,000đ (S)</p>
+                                    <p>62,000đ (M)</p>
+                                    <p>70,000đ (L)</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item d-flex justify-content-center align-items-center">
+                            <div class="img"
+                                 style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2019/06/Mango-Milktea.png')"></div>
+                            <div>
+                                <div class="heading">Trà Sữa Xoài Trân Châu Đen</div>
+                                <div class="body">
+                                    <p>56,000đ (S)</p>
+                                    <p>62,000đ (M)</p>
+                                    <p>70,000đ (L)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item d-flex justify-content-center align-items-center">
+                            <div class="img"
+                                 style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2019/06/Mango-Milktea.png')"></div>
+                            <div>
+                                <div class="heading">Trà Sữa Xoài Trân Châu Đen</div>
+                                <div class="body">
+                                    <p>56,000đ (S)</p>
+                                    <p>62,000đ (M)</p>
+                                    <p>70,000đ (L)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item d-flex justify-content-center align-items-center">
+                            <div class="img"
+                                 style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2019/06/Mango-Milktea.png')"></div>
+                            <div>
+                                <div class="heading">Trà Sữa Xoài Trân Châu Đen</div>
+                                <div class="body">
+                                    <p>56,000đ (S)</p>
+                                    <p>62,000đ (M)</p>
+                                    <p>70,000đ (L)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
