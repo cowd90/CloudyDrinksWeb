@@ -196,7 +196,7 @@ public class UserController extends HttpServlet {
 
             User u = new User();
             u.setUserId(userId);
-            User user = userDAO.selectById(u);
+            User user = userDAO.selectById(u.getUserId());
 
             String msg = "";
             if (user != null) {

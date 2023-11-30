@@ -1,14 +1,19 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: khoap
-  Date: 11/21/2023
-  Time: 9:15 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="model.Product" %>
+<%@ page import="database.ProductDAO" %>
+<%@ page import="util.NumberCurrencyFormat" %>
+<%@ page import="model.Size" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Okinawa Milk Foam Smoothie - Cloudy Drinks</title>
+    <%
+        Object pObj = request.getAttribute("product");
+        Product product = (Product) pObj;
+        ProductDAO productDAO = new ProductDAO();
+        ArrayList<Size> sizes = productDAO.getSizesByProductId(product.getProductId());
+        String catName = productDAO.getCatNameById(product.getProductId());
+    %>
+
+    <title><%=product.getProductName()%> - Cloudy Drinks</title>
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -24,21 +29,20 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
     ></script>
-
-    <link rel="stylesheet" href="../css/global.css">
-    <link rel="stylesheet" href="../css/products.css">
+    <% String newUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
+    <link rel="stylesheet" href="<%=newUrl%>/css/global.css">
+    <link rel="stylesheet" href="<%=newUrl%>/css/products.css">
 </head>
 <body>
 <div class="page-container">
-    <%@include file="../components/header.jsp" %>
-
+    <%@include file="../components/header.jsp"%>
     <div class="banner">
         <div class="content_container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<%=url%>/categories">Thực đơn</a></li>
-                    <li class="breadcrumb-item"><a href="#">Okinawa</a></li>
-                    <li class="breadcrumb-item active" aria-current="page"><span>Okinawa Milk Foam Smoothie</span></li>
+                    <li class="breadcrumb-item"><a href="#"><%=catName%></a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><span><%=product.getProductName()%></span></li>
                 </ol>
             </nav>
         </div>
@@ -47,43 +51,41 @@
     <div class="content_container">
         <div class="product_container row">
             <div class="col-6 d-flex justify-content-center align-items-center">
-                <img src="https://gongcha.com.vn/wp-content/uploads/2019/11/Okinawa-Oreo-Cream-Milk-Tea.png"
-                     alt="Okinawa Milk Foam Smoothie"
+                <img src="<%=product.getProductImage()%>"
+                     alt="<%=product.getProductName()%>"
                      class="product-img">
             </div>
             <div class="col-6 py-4">
 
-                <form action="" method="get">
-                    <h1 class="product-name mb-3">Okinawa Milk Foam Smoothie</h1>
+                <form action="<%=url%>/cart-controller?pid=<%=product.getProductId()%>" method="post">
+                    <h1 class="product-name mb-3"><%=product.getProductName()%></h1>
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <p class="product-price" data-prod="68000">68.000 VNĐ</p>
+                        <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice()+"")%> VNĐ</p>
                     </div>
                     <div class="quantity d-flex align-items-center mb-5">
                         <div id="decrease-btn" onclick="plusQuantity(-1)">-</div>
                         <input type="number" id="prod-quantity" name="quantity" value="1" class="d-none">
                         <label for="prod-quantity">1</label>
                         <div id="increase-btn" onclick="plusQuantity(1)">+</div>
-                    </div>
 
+                    </div>
                     <div class="mb-3">Chọn size (bắt buộc)</div>
                     <div class="product-size_container d-flex flex-wrap gap-3 mb-5">
 
-                        <!-- id của input và for của lable cũng được render từ server dạng size-{biến} | biến có thể là index cũng được -->
+                        <!-- id của input và for của label cũng được render từ server dạng size-{biến} | biến có thể là index cũng được -->
                         <!-- Nhớ đổ giá trị vào data-prod -->
-                        <input type="radio" name="size" value="0" id="size-s"
-                               data-prod="0">
-                        <label for="size-s" class="sizeBtn">Nhỏ + 0đ</label>
 
-                        <input type="radio" name="size" value="1" id="size-m"
-                               data-prod="5000">
-                        <label for="size-m" class="sizeBtn">Vừa + 5.000đ</label>
-
-                        <input type="radio" name="size" value="2" id="size-l"
-                               data-prod="10000">
-                        <label for="size-l" class="sizeBtn">Lớn + 10.000đ</label>
+                        <%
+                            for (Size size : sizes) {
+                        %>
+                        <input type="radio" name="size" value="<%=size.getSizeId()%>" id="size-<%=size.getSizeId()%>"
+                               data-prod="<%=size.getUpSizePrice()%>">
+                        <label for="size-<%=size.getSizeId()%>" class="sizeBtn"><%=size.getSizeName()%> + <%=NumberCurrencyFormat.numberCurrencyFormat(size.getUpSizePrice()+"")%>đ</label>
+                        <%
+                            }
+                        %>
 
                     </div>
-
                     <button type="submit" class="mt-3">
                         <span id="valueOfOrder"></span>
                         <span>- Thêm vào giỏ hàng</span>
@@ -93,9 +95,7 @@
             </div>
             <div class="product-desc mb-3">
                 <p>Mô tả sản phẩm</p>
-                <p class="mx-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, atque
-                    dicta dolores doloribus hic ipsa ipsam ipsum iure nam nemo possimus quas quia quo quod
-                    reprehenderit repudiandae sapiente ullam voluptate.</p>
+                <p class="mx-4 fst-italic"><%=(product.getProductDesc() == null) ? "Sản phẩm không có mô tả" : product.getProductDesc()%></p>
             </div>
             <div class="break-line"></div>
             <div class="suggestion my-3">
@@ -120,43 +120,24 @@
 
                     <!--<editor-fold desc="Render một sản phẩm topping">-->
                     <div class="products_wrapper row flex-nowrap overflow-x-hidden mx-0">
-                        <div class="product col-4 col-lg-3">
-                            <div class="card d-flex align-items-center h-100">
-                                <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2018/03/%E5%B8%83%E4%B8%81-pudding.png')"
-                                     class="card-img-top"></div>
-                                <div class="card-body">
-                                    <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Pudding</h5>
-                                </div>
-                                <div class="more-info">
-                                    <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
-                                       class="product-link d-flex align-items-center justify-content-center flex-column">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
-                                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-                                        </svg>
-                                        <p>Xem chi tiết</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
                         <!--<editor-fold desc="Sample">-->
+                        <%
+                            ArrayList<Product> products = productDAO.selectAll();
+                            for (Product p : products) {
+                                if (p.getCatId() == 7) {
+                        %>
                         <div class="product col-4 col-lg-3">
                             <div class="card d-flex align-items-center h-100">
                                 <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2022/08/THACH-CA-PHE.png')"
+                                <div style="background-image: url(<%=p.getProductImage()%>)"
                                      class="card-img-top"></div>
                                 <div class="card-body">
                                     <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Thạch cà phê</h5>
+                                    <h5 class="card-title"><%=p.getProductName()%></h5>
                                 </div>
                                 <div class="more-info">
                                     <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
+                                    <a href="<%=url%>/product-controller?pid=<%=p.getProductId()%>"
                                        class="product-link d-flex align-items-center justify-content-center flex-column">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
                                              class="bi bi-plus-lg" viewBox="0 0 16 16">
@@ -168,144 +149,10 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="product col-4 col-lg-3">
-                            <div class="card d-flex align-items-center h-100">
-                                <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2018/03/S%C6%B0%C6%A1ng-s%C3%A1o.png')"
-                                     class="card-img-top"></div>
-                                <div class="card-body">
-                                    <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Sương Sáo</h5>
-                                </div>
-                                <div class="more-info">
-                                    <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
-                                       class="product-link d-flex align-items-center justify-content-center flex-column">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
-                                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-                                        </svg>
-                                        <p>Xem chi tiết</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product col-4 col-lg-3">
-                            <div class="card d-flex align-items-center h-100">
-                                <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2018/03/Combo-3-lo%E1%BA%A1i-h%E1%BA%A1t.png')"
-                                     class="card-img-top"></div>
-                                <div class="card-body">
-                                    <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Combo 3 Loại Hạt</h5>
-                                </div>
-                                <div class="more-info">
-                                    <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
-                                       class="product-link d-flex align-items-center justify-content-center flex-column">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
-                                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-                                        </svg>
-                                        <p>Xem chi tiết</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product col-4 col-lg-3">
-                            <div class="card d-flex align-items-center h-100">
-                                <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2018/03/%E5%B8%83%E4%B8%81-pudding.png')"
-                                     class="card-img-top"></div>
-                                <div class="card-body">
-                                    <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Pudding</h5>
-                                </div>
-                                <div class="more-info">
-                                    <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
-                                       class="product-link d-flex align-items-center justify-content-center flex-column">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
-                                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-                                        </svg>
-                                        <p>Xem chi tiết</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product col-4 col-lg-3">
-                            <div class="card d-flex align-items-center h-100">
-                                <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2018/03/%E5%B8%83%E4%B8%81-pudding.png')"
-                                     class="card-img-top"></div>
-                                <div class="card-body">
-                                    <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Pudding</h5>
-                                </div>
-                                <div class="more-info">
-                                    <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
-                                       class="product-link d-flex align-items-center justify-content-center flex-column">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
-                                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-                                        </svg>
-                                        <p>Xem chi tiết</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product col-4 col-lg-3">
-                            <div class="card d-flex align-items-center h-100">
-                                <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2018/03/%E5%B8%83%E4%B8%81-pudding.png')"
-                                     class="card-img-top"></div>
-                                <div class="card-body">
-                                    <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Pudding</h5>
-                                </div>
-                                <div class="more-info">
-                                    <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
-                                       class="product-link d-flex align-items-center justify-content-center flex-column">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
-                                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-                                        </svg>
-                                        <p>Xem chi tiết</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="product col-4 col-lg-3">
-                            <div class="card d-flex align-items-center h-100">
-                                <!-- Ảnh sản phẩm -->
-                                <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2018/03/%E5%B8%83%E4%B8%81-pudding.png')"
-                                     class="card-img-top"></div>
-                                <div class="card-body">
-                                    <!-- Tên sản phẩm -->
-                                    <h5 class="card-title">Pudding</h5>
-                                </div>
-                                <div class="more-info">
-                                    <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                    <a href="<%=url%>/products"
-                                       class="product-link d-flex align-items-center justify-content-center flex-column">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor"
-                                             class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd"
-                                                  d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
-                                        </svg>
-                                        <p>Xem chi tiết</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <%
+                                }
+                            }
+                        %>
                         <!--</editor-fold>-->
                     </div>
                     <!--</editor-fold>-->

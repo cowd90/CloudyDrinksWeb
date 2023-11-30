@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="model.Category" %>
 <%@ page import="database.CategoryDAO" %>
 <%@ page import="java.util.ArrayList" %>
@@ -47,12 +48,12 @@
 
                 <ul class="nav">
                     <%
-                        CategoryDAO categoryDAO = new CategoryDAO();
-                        ArrayList<Category> categories = categoryDAO.selectAll();
                         for (Category category : categories) {
                     %>
-                    <li><a href="#kem"><%=category.getCatName()%></a></li>
-                    <% } %>
+                    <li><a href="#<%=category.getCatName()%>"><%=category.getCatName()%></a></li>
+                    <%
+                        }
+                    %>
                 </ul>
             </div>
         </div>
@@ -61,25 +62,19 @@
         <div class="content_wrapper">
 
             <!--<editor-fold desc="Render danh mục">-->
-    <%
-
-    %>
             <%
                 for (Category category : categories) {
             %>
-
-            <div id="kem" class="category-item">
+            <div id="<%=category.getCatName()%>" class="category-item">
                 <!-- Tên danh mục -->
                 <div class="title"><%=category.getCatName()%></div>
                 <div class="products_container row">
-
-                    <%
-                        ProductDAO productDAO = new ProductDAO();
-                        ArrayList<Product> products = productDAO.selectAll();
-                        for (Product product : products) {
-                            if (product.getCatId() == category.getCatId()) {
-                    %>
                     <!--<editor-fold desc="Render Sản phẩm">-->
+                    <%
+                    ProductDAO productDAO = new ProductDAO();
+                    ArrayList<Product> products = productDAO.selectByCatId(String.valueOf(category.getCatId()));
+                    for (Product product : products) {
+                    %>
                     <div class="product col-4">
                         <div class="card">
                             <!-- Ảnh sản phẩm -->
@@ -90,7 +85,7 @@
                             </div>
                             <div class="more-info">
                                 <!-- Đường dẫn đến chi tiết sản phẩm -->
-                                <a href="<%=url%>/products"
+                                <a href="<%=url%>/product-controller?pid=<%=product.getProductId()%>"
                                    class="product-link d-flex align-items-center justify-content-center flex-column">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
                                         <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"></path>
@@ -100,14 +95,11 @@
                             </div>
                         </div>
                     </div>
-                    <!--</editor-fold>-->
                     <%
-                            }
                         }
                     %>
                 </div>
             </div>
-
             <%
                 }
             %>
@@ -117,6 +109,6 @@
     </div>
 </div>
 
-<script src="../js/categories.js"></script>
+<script src="<%=url%>/js/categories.js"></script>
 </body>
 </html>

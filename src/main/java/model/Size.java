@@ -3,15 +3,22 @@ package model;
 public class Size {
     private int sizeId;
     private String sizeName;
-    private int sizePrice;
-
+    private int upSizePrice;
+    private int productId;
     public Size() {
     }
 
-    public Size(int sizeId, String sizeName, int sizePrice) {
+    public Size(int sizeId, String sizeName, int upSizePrice) {
         this.sizeId = sizeId;
         this.sizeName = sizeName;
-        this.sizePrice = sizePrice;
+        this.upSizePrice = upSizePrice;
+    }
+
+    public Size(int sizeId, String sizeName, int upSizePrice, int productId) {
+        this.sizeId = sizeId;
+        this.sizeName = sizeName;
+        this.upSizePrice = upSizePrice;
+        this.productId = productId;
     }
 
     public int getSizeId() {
@@ -30,12 +37,20 @@ public class Size {
         this.sizeName = sizeName;
     }
 
-    public int getSizePrice() {
-        return sizePrice;
+    public int getUpSizePrice() {
+        return upSizePrice;
     }
 
-    public void setSizePrice(int sizePrice) {
-        this.sizePrice = sizePrice;
+    public void setUpSizePrice(int upSizePrice) {
+        this.upSizePrice = upSizePrice;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     @Override
@@ -43,7 +58,7 @@ public class Size {
         return "Size{" +
                 "sizeId=" + sizeId +
                 ", sizeName='" + sizeName + '\'' +
-                ", sizePrice=" + sizePrice +
+                ", upSizePrice=" + upSizePrice +
                 '}';
     }
 }

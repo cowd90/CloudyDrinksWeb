@@ -28,9 +28,10 @@ public class SizeDAO implements IDAO<Size>{
             while (rs.next()) {
                 int sizeId = rs.getInt("sizeId");
                 String sizeName = rs.getString("sizeName");
-                int sizePrice = rs.getInt("sizePrice");
+                int upSizePrice = rs.getInt("upSizePrice");
+                int productId = rs.getInt("productId");
 
-                Size size = new Size(sizeId, sizeName, sizePrice);
+                Size size = new Size(sizeId, sizeName, upSizePrice, productId);
                 result.add(size);
 
             }
@@ -43,8 +44,7 @@ public class SizeDAO implements IDAO<Size>{
         return result;
     }
 
-    @Override
-    public Size selectById(Size size) {
+    public Size selectById(String id) {
         Size result = null;
         try {
             // Create db connection
@@ -53,7 +53,7 @@ public class SizeDAO implements IDAO<Size>{
             // Create sql statement
             String sql = "SELECT * FROM size WHERE sizeId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setInt(1, size.getSizeId());
+            ps.setString(1, id);
 
             // Execute query
             ResultSet rs = ps.executeQuery();
@@ -63,9 +63,10 @@ public class SizeDAO implements IDAO<Size>{
             while (rs.next()) {
                 int sizeId = rs.getInt("sizeId");
                 String sizeName = rs.getString("sizeName");
-                int sizePrice = rs.getInt("sizePrice");
+                int upSizePrice = rs.getInt("upSizePrice");
+                int productId = rs.getInt("productId");
 
-                result = new Size(sizeId, sizeName, sizePrice);
+                result = new Size(sizeId, sizeName, upSizePrice, productId);
             }
 
         } catch (Exception e) {
@@ -84,12 +85,13 @@ public class SizeDAO implements IDAO<Size>{
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "INSERT INTO size VALUES (?, ?, ?)";
+            String sql = "INSERT INTO size VALUES (?, ?, ?, ?)";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             ps.setInt(1, size.getSizeId());
             ps.setString(2, size.getSizeName());
-            ps.setInt(3, size.getSizePrice());
+            ps.setInt(3, size.getUpSizePrice());
+            ps.setInt(4, size.getProductId());
 
             // Execute query
             result = ps.executeUpdate();
@@ -158,13 +160,15 @@ public class SizeDAO implements IDAO<Size>{
             String sql = "UPDATE size" +
                     " SET " +
                     " sizeName = ?" +
-                    " sizePrice = ?" +
+                    " upSizePrice = ?" +
+                    " productId = ?" +
                     " WHERE sizeId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             ps.setString(1, size.getSizeName());
-            ps.setInt(2, size.getSizePrice());
+            ps.setInt(2, size.getUpSizePrice());
             ps.setInt(3, size.getSizeId());
+            ps.setInt(4, size.getProductId());
 
             // Execute query
             result = ps.executeUpdate();

@@ -1,4 +1,10 @@
-<%@ page import="model.User" %>
+<%@ page import="database.CategoryDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="database.CartDAO" %>
+<%@ page import="util.NumberCurrencyFormat" %>
+<%@ page import="database.ProductDAO" %>
+<%@ page import="database.SizeDAO" %>
+<%@ page import="model.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%
@@ -573,14 +579,15 @@
                         <a href="<%=url%>/categories/">Thực đơn</a>
                         <div class="more-menu_container sub-nav_container">
                             <div class="more-menu_content sub-nav_content">
-                                <div class="sub-nav_item"><a href="">Kem</a></div>
-                                <div class="sub-nav_item"><a href="">Trà trái cây</a></div>
-                                <div class="sub-nav_item"><a href="">Okinawa</a></div>
-                                <div class="sub-nav_item"><a href="">Trà nguyên chất</a></div>
-                                <div class="sub-nav_item"><a href="">Latte Series</a></div>
-                                <div class="sub-nav_item">
-                                    <a href="">Thức uống đặc biệt Gong Cha</a>
-                                </div>
+                                <%
+                                    CategoryDAO categoryDAO = new CategoryDAO();
+                                    ArrayList<Category> categories = categoryDAO.selectAll();
+                                    for (Category category : categories) {
+                                %>
+                                <div class="sub-nav_item"><a href=""><%=category.getCatName()%></a></div>
+                                <%
+                                    }
+                                %>
                             </div>
                         </div>
                     </li>
@@ -654,6 +661,31 @@
             <!--</editor-fold>-->
 
             <!-- <editor-fold desc="Giỏ hàng"> -->
+            <%
+                CartDAO cartDAO = new CartDAO();
+                boolean hasItem = cartDAO.checkIfUserHasCart(user.getUserId());
+
+                if (!hasItem) {
+            %>
+            <div class="cart_container d-flex align-items-center">
+                <div class="cart_wrapper">
+                    <i class="fa-solid fa-cart-shopping">
+                    </i>
+                    <div class="more-menu_container">
+                        <div class="more-menu_content cart-content">
+                            <!-- <editor-fold desc="Không có sản phẩm"> -->
+                            <div class="no-product">
+                                <img src="https://i.imgur.com/WSiKOpQ.png" alt="Giỏ hàng trống"/>
+                                <h5>Bạn chưa có sản phẩm nào</h5>
+                            </div>
+                            <!-- </editor-fold> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%
+                } else {
+            %>
             <div class="cart_container d-flex align-items-center">
                 <div class="cart_wrapper">
                     <i class="fa-solid fa-cart-shopping">
@@ -666,51 +698,34 @@
                     </i>
                     <div class="more-menu_container">
                         <div class="more-menu_content cart-content">
-
-                            <!-- <editor-fold desc="Không có sản phẩm"> -->
-                            <div class="no-product">
-                                <img src="https://i.imgur.com/WSiKOpQ.png" alt="Giỏ hàng trống"/>
-                                <h5>Bạn chưa có sản phẩm nào</h5>
-                            </div>
-                            <!-- </editor-fold> -->
-
+                            <%
+                                ArrayList<Cart> cartList = cartDAO.selectAllItem(user.getUserId());
+                                ProductDAO pDAO = new ProductDAO();
+                                for (Cart item : cartList) {
+                                    Product p = pDAO.selectById(item.getProductId()+"");
+                                    SizeDAO sDAO = new SizeDAO();
+                                    Size size = sDAO.selectById(item.getSizeId()+"");
+                            %>
                             <!-- <editor-fold desc="Một sản phẩm trong giỏ hàng"> -->
                             <div class="product-item row">
                                 <div class="col-4">
                                     <img
-                                            src="https://gongcha.com.vn/wp-content/uploads/2018/10/kem.png"
-                                            alt=""
+                                            src="<%=p.getProductImage()%>"
+                                            alt="<%=p.getProductName()%>"
                                     />
                                 </div>
                                 <div class="product-info col-6">
-                                    <p class="product-name">Kem trà sữa Oolong</p>
-                                    <p class="product-price mb-2">30,000 VNĐ</p>
+                                    <p class="product-name"><%=p.getProductName()%> (<%=size.getSizeName()%>)</p>
+                                    <p class="product-price mb-2"><%=NumberCurrencyFormat.numberCurrencyFormat((p.getPrice() + size.getUpSizePrice()) * item.getQuantity() + "")%> VNĐ</p>
                                 </div>
                                 <div class="col-2 d-flex align-items-center">
-                                    <p class="product_item-count">x1</p>
+                                    <p class="product_item-count"><%=item.getQuantity()%></p>
                                 </div>
                             </div>
+                            <%
+                                }
+                            %>
                             <!-- </editor-fold> -->
-                            <!-- <editor-fold desc="Một sản phẩm trong giỏ hàng"> -->
-                            <div class="product-item row">
-                                <div class="col-4">
-                                    <img
-                                            src="https://gongcha.com.vn/wp-content/uploads/2018/02/Chanh-Aiyu-tr%C3%A2n-ch%C3%A2u-tr%E1%BA%AFng-2.png"
-                                            alt=""
-                                    />
-                                </div>
-                                <div class="product-info col-6">
-                                    <p class="product-name">
-                                        Chanh Ai-yu và Trân Châu Trắng <span>(L)</span>
-                                    </p>
-                                    <p class="product-price mb-2">60,000 VNĐ</p>
-                                </div>
-                                <div class="col-2 d-flex align-items-center">
-                                    <p class="product_item-count">x1</p>
-                                </div>
-                            </div>
-                            <!-- </editor-fold> -->
-
                             <!--<editor-fold desc="Đi đến giỏ hàng">-->
                             <div class="go-to-cart_wrapper">
                                 <a href="">Xem tất cả <span>(3)</span> trong giỏ hàng</a>
@@ -720,8 +735,10 @@
                     </div>
                 </div>
             </div>
+            <%
+                }
+            %>
             <!-- </editor-fold> -->
-
             <% } %>
 
             <!-- Các nút chuyển theme -->

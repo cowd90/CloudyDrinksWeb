@@ -49,8 +49,4 @@ public class JDBCUtil {
             e.printStackTrace();
         }
     }
-
-    public static void main(String[] args) {
-        printInfo(JDBCUtil.getConnection());
-    }
 }

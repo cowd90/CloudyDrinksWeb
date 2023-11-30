@@ -6,6 +6,7 @@ public class Product {
     private int productId;
     private String productName;
     private String productImage;
+    private int price;
     private ArrayList<Size> productSizes;
     private String productDesc;
     private int catId;
@@ -13,10 +14,11 @@ public class Product {
     public Product() {
     }
 
-    public Product(int productId, String productName, String productImage, String productDesc, int catId) {
+    public Product(int productId, String productName, String productImage, int price, String productDesc, int catId) {
         this.productId = productId;
         this.productName = productName;
         this.productImage = productImage;
+        this.price = price;
         this.productDesc = productDesc;
         this.catId = catId;
     }
@@ -53,6 +55,14 @@ public class Product {
         this.productImage = productImage;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     public ArrayList<Size> getProductSizes() {
         return productSizes;
     }
@@ -83,8 +93,10 @@ public class Product {
                 "productId=" + productId +
                 ", productName='" + productName + '\'' +
                 ", productImage='" + productImage + '\'' +
+                ", price=" + price +
                 ", productSizes=" + productSizes +
                 ", productDesc='" + productDesc + '\'' +
+                ", catId=" + catId +
                 '}';
     }
 }

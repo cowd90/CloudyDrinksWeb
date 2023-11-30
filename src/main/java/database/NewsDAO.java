@@ -1,25 +1,25 @@
 package database;
 
-import model.Category;
-import model.User;
+import model.News;
+import model.Product;
+import model.Size;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class CategoryDAO implements IDAO<Category>{
+public class NewsDAO implements IDAO<News>{
 
     @Override
-    public ArrayList<Category> selectAll() {
-        ArrayList<Category> result = new ArrayList<>();
+    public ArrayList<News> selectAll() {
+        ArrayList<News> result = new ArrayList<>();
         try {
             // Create db connection
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "SELECT * FROM category";
+            String sql = "SELECT * FROM news";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             // Execute query
@@ -27,11 +27,14 @@ public class CategoryDAO implements IDAO<Category>{
 
             // Create object from db
             while (rs.next()) {
-                int catId = rs.getInt("catId");
-                String catName = rs.getString("catName");
+                int newsId = rs.getInt("newsId");
+                String title = rs.getString("title");
+                String img = rs.getString("img");
+                String content = rs.getString("content");
+                String hashtag = rs.getString("hashtag");
 
-                Category category = new Category(catId, catName);
-                result.add(category);
+                News news = new News(newsId, title, img, content, hashtag);
+                result.add(news);
 
             }
 
@@ -43,14 +46,14 @@ public class CategoryDAO implements IDAO<Category>{
         return result;
     }
 
-    public Category selectById(String id) {
-        Category result = null;
+    public News selectById(String id) {
+        News result = null;
         try {
             // Create db connection
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "SELECT * FROM category WHERE catId = ?";
+            String sql = "SELECT * FROM news WHERE newsId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, id);
 
@@ -60,10 +63,13 @@ public class CategoryDAO implements IDAO<Category>{
             // Get data from db
 
             while (rs.next()) {
-                int catId = rs.getInt("catId");
-                String catName = rs.getString("catName");
+                int newsId = rs.getInt("newsId");
+                String title = rs.getString("title");
+                String img = rs.getString("img");
+                String content = rs.getString("content");
+                String hashtag = rs.getString("hashtag");
 
-                result = new Category(catId, catName);
+                result = new News(newsId, title, img, content, hashtag);
             }
 
         } catch (Exception e) {
@@ -74,7 +80,7 @@ public class CategoryDAO implements IDAO<Category>{
     }
 
     @Override
-    public int insert(Category category) {
+    public int insert(News news) {
         int result = 0;
 
         try {
@@ -82,11 +88,14 @@ public class CategoryDAO implements IDAO<Category>{
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "INSERT INTO category VALUES (?, ?)";
+            String sql = "INSERT INTO size VALUES (?, ?, ?, ?, ?)";
             PreparedStatement ps = connect.prepareStatement(sql);
 
-            ps.setInt(1, category.getCatId());
-            ps.setString(2, category.getCatName());
+            ps.setInt(1, news.getNewsId());
+            ps.setString(2, news.getTitle());
+            ps.setString(3, news.getImg());
+            ps.setString(4, news.getContent());
+            ps.setString(5, news.getHashtag());
 
             // Execute query
             result = ps.executeUpdate();
@@ -101,25 +110,25 @@ public class CategoryDAO implements IDAO<Category>{
     }
 
     @Override
-    public int insertAll(ArrayList<Category> arr) {
+    public int insertAll(ArrayList<News> arr) {
         int count = 0;
-        for (Category category : arr) {
-            count += this.insert(category);
+        for (News news : arr) {
+            count += this.insert(news);
         }
         return count;
     }
 
     @Override
-    public int delete(Category category) {
+    public int delete(News news) {
         int result = 0;
         try {
             // Create db connection
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "DELETE FROM category WHERE catId = ?";
+            String sql = "DELETE FROM news WHERE newsId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setInt(1, category.getCatId());
+            ps.setInt(1, news.getNewsId());
 
             // Execute query
             result = ps.executeUpdate();
@@ -136,30 +145,36 @@ public class CategoryDAO implements IDAO<Category>{
     }
 
     @Override
-    public int deleteAll(ArrayList<Category> arr) {
+    public int deleteAll(ArrayList<News> arr) {
         int count = 0;
-        for (Category category : arr) {
-            count += this.delete(category);
+        for (News news : arr) {
+            count += this.delete(news);
         }
         return count;
     }
 
     @Override
-    public int update(Category category) {
+    public int update(News news) {
         int result = 0;
         try {
             // Create db connection
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "UPDATE category" +
+            String sql = "UPDATE news" +
                     " SET " +
-                    " catName = ?" +
-                    " WHERE catId = ?";
+                    " title = ?" +
+                    " img = ?" +
+                    " content = ?" +
+                    " hashtag = ?" +
+                    " WHERE newsId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
 
-            ps.setString(1, category.getCatName());
-            ps.setInt(2, category.getCatId());
+            ps.setString(1, news.getTitle());
+            ps.setString(2, news.getImg());
+            ps.setString(3, news.getContent());
+            ps.setString(4, news.getHashtag());
+            ps.setInt(5, news.getNewsId());
 
             // Execute query
             result = ps.executeUpdate();
@@ -172,31 +187,32 @@ public class CategoryDAO implements IDAO<Category>{
         }
         return result;
     }
+    public ArrayList<News> select3NewNews() {
+        ArrayList<News> list = new ArrayList<>();
+        String query = "SELECT * FROM news\n" +
+                "ORDER BY newsId DESC\n" +
+                "LIMIT 3";
 
-    public boolean checkCategoryExist(String catName) {
-        boolean result = false;
         try {
             // Create db connection
             Connection connect = JDBCUtil.getConnection();
 
-            // Create sql statement
-            String sql = "SELECT * FROM category WHERE catName = ?";
-            PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1, catName);
-
-            // Execute query
+            PreparedStatement ps = connect.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
-            // Get data from db
-
             while (rs.next()) {
-                result = true;
+                int newsId = rs.getInt("newsId");
+                String title = rs.getString("title");
+                String img = rs.getString("img");
+                String content = rs.getString("content");
+                String hashtag = rs.getString("hashtag");
+
+                News news = new News(newsId, title, img, content, hashtag);
+                list.add(news);
             }
-
         } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        return result;
+        }
+        return list;
     }
 }

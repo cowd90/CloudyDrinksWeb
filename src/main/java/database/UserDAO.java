@@ -46,8 +46,7 @@ public class UserDAO implements IDAO<User>{
         return result;
     }
 
-    @Override
-    public User selectById(User user) {
+    public User selectById(String id) {
         User result = null;
         try {
             // Create db connection
@@ -56,7 +55,7 @@ public class UserDAO implements IDAO<User>{
             // Create sql statement
             String sql = "SELECT * FROM user WHERE userId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1, user.getUserId());
+            ps.setString(1, id);
 
             // Execute query
             ResultSet rs = ps.executeQuery();

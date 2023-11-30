@@ -1,3 +1,4 @@
+<%@ page import="database.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="vi">
 <head>
@@ -28,31 +29,23 @@
     <!-- #region Slide show -->
     <div class="slide-show_container">
         <div class="timer-bar"><div></div></div>
+        <%
+            NewsDAO newsDAO = new NewsDAO();
+            ArrayList<News> newsList = newsDAO.select3NewNews();
+            for (News news : newsList) {
+        %>
         <div class="slides fadeIn">
-            <div
-                    class="banner"
-                    style="
-              background-image: url('https://gongcha.com.vn/wp-content/uploads/2023/07/cover-web-nha%CC%83n-01-scaled.jpg');
-            "
-            ></div>
-        </div>
-        <div class="slides fadeIn">
-            <div
-                    class="banner"
-                    style="
-              background-image: url('https://gongcha.com.vn/wp-content/uploads/2023/10/cover-web-grape-scaled.jpg');
-            "
-            ></div>
-        </div>
-        <div class="slides fadeIn">
-            <div
-                    class="banner"
-                    style="
-              background-image: url('https://gongcha.com.vn/wp-content/uploads/2023/06/Cover-web_rainbow-01-1-scaled.jpg');
-            "
-            ></div>
-        </div>
 
+            <div
+                    class="banner"
+                    style="
+              background-image: url(<%=news.getImg()%>);
+            "
+            ></div>
+        </div>
+        <%
+            }
+        %>
         <button class="prev">❮</button>
         <button class="next">❯</button>
 
