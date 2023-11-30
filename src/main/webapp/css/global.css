@@ -72,8 +72,6 @@ a.active, .dark-theme a.active {
 }
 .products_container .product {
     position: relative;
-    padding: 24px 44px;
-
 }
 .products_container .product .card::after {
     visibility: hidden;
@@ -115,8 +113,8 @@ a.active, .dark-theme a.active {
     z-index: 3;
 }
 .products_container .product .more-info .product-link {
-    width: 160px;
-    height: 160px;
+    width: 150px;
+    height: 150px;
     color: white;
     border-radius: 999px;
     background: #bc2839;
@@ -126,6 +124,8 @@ a.active, .dark-theme a.active {
     display: none;
 }
 .products_container .product .more-info .product-link svg {
+    width: 96px;
+    height: 96px;
     transform-origin: top center;
     transition: all linear 0.15s;
 }
@@ -137,13 +137,26 @@ a.active, .dark-theme a.active {
 }
 .products_container .product .more-info:hover .product-link p {
     display: block;
+    font-size: 1rem;
 }
 /*</editor-fold>*/
+.dark-theme .products_container .product .card {
+    background: #333;
+    background: linear-gradient(45deg, #121212 0%, #232425 50%, #333 80%, #414141 100%);
+    border: 1px solid;
+}
+.dark-theme .products_container .product .card .card-body .card-title {
+    color: var(--font-color_dark-theme_2);
+}
 
 @media only screen and (max-width: 1200px) {
     .content_container {
         width: 100%;
         max-width: 970px;
+    }
+
+    .products_container .product .more-info:hover .product-link p {
+        font-size: 0.9375rem;
     }
 }
 
@@ -151,5 +164,9 @@ a.active, .dark-theme a.active {
     .content_container {
         width: 100%;
         max-width: 750px;
+    }
+
+    .products_container .product .more-info:hover .product-link p {
+        font-size: 0.875rem;
     }
 }

@@ -62,13 +62,16 @@
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice()+"")%> VNĐ</p>
                     </div>
-                    <div class="quantity d-flex align-items-center mb-5">
+                    <div class="quantity d-flex align-items-center mb-4">
                         <div id="decrease-btn" onclick="plusQuantity(-1)">-</div>
                         <input type="number" id="prod-quantity" name="quantity" value="1" class="d-none">
                         <label for="prod-quantity">1</label>
                         <div id="increase-btn" onclick="plusQuantity(1)">+</div>
 
                     </div>
+
+                    <div class="mb-3 fw-semibold text-uppercase">Chọn size <span class="text-danger">*</span></div>
+                    <div class="product-size_container d-flex flex-wrap gap-3 mb-4">
                     <div class="mb-3">Chọn size (bắt buộc)</div>
                     <div class="product-size_container d-flex flex-wrap gap-3 mb-5">
 
@@ -85,6 +88,17 @@
                             }
                         %>
 
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="basic-addon1">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="gray" class="bi bi-card-list" viewBox="0 0 16 16">
+                              <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"></path>
+                              <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"></path>
+                            </svg>
+                        </span>
+                        <input type="text" name="notes" class="form-control lh-lg" maxlength="200"
+                               placeholder="Ghi chú thêm cho món này" aria-label="Your notes" aria-describedby="basic-addon1">
                     </div>
                     <button type="submit" class="mt-3">
                         <span id="valueOfOrder"></span>
