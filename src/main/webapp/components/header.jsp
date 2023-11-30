@@ -80,7 +80,7 @@
                 if (obj != null) {
                     user = (User) obj;
                 }
-                if (user == null) {
+                if (user != null) {
             %>
 
             <div class="user_container d-flex align-items-center">
