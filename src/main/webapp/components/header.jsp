@@ -5,582 +5,54 @@
     String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
 %>
 
-<style type="text/css">
-
-    header {
-        position: relative;
-        background: #fff;
-        transition: top linear 0.15s;
-    }
-
-    header.float {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        z-index: 99;
-    }
-
-    header.hidden {
-        top: -151px;
-    }
-
-    header .header_container {
-        height: 90px;
-        width: 100%;
-        max-width: 1200px;
-        padding: 0 1rem;
-    }
-
-    header .header_container .more-menu_container {
-        visibility: hidden;
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        padding-top: 12px;
-        opacity: 0;
-        z-index: 99;
-        transition: all linear 0.3s;
-    }
-
-    header .header_container .more-menu_container .more-menu_content {
-        list-style: none;
-        background: var(--background-color_light-theme);
-        padding: 20px;
-        border-bottom: 3px solid var(--main-color);
-        border-radius: 4px 4px 0 0;
-        box-shadow: 0 4px 12px 2px rgba(0, 0, 0, 0.3);
-    }
-
-    .logo img {
-        padding: 5px;
-        width: 90px;
-        height: 90px;
-    }
-
-    /* <editor-fold desc="Menu điều hướng"> */
-    .main-nav_container {
-        position: relative;
-    }
-
-    .main-nav_container > ul {
-        list-style: none;
-        font-size: 1rem;
-    }
-
-    .main-nav_container > ul > li {
-        position: relative;
-    }
-
-    .main-nav_container > ul > li > a {
-        display: inline-block;
-        font-weight: 600;
-        color: var(--font-color_light-theme);
-        padding: 1rem 1.2rem;
-        transition: all linear 0.3s;
-    }
-
-    .main-nav_container > ul > li:hover > a {
-        color: var(--main-color) !important;
-        background: #eee;
-    }
-
-    .main-nav_container .sub-nav_container .sub-nav_content {
-        text-align: center;
-        width: 50vw;
-        max-width: 500px;
-    }
-
-    .main-nav_container > ul > li:hover .more-menu_container {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .main-nav_container .sub-nav_container .sub-nav_content .sub-nav_item {
-        padding: 12px;
-        display: inline-block;
-    }
-
-    .main-nav_container .sub-nav_container .sub-nav_content .sub-nav_item a {
-        color: var(--font-color_light-theme);
-    }
-
-    .main-nav_container
-    .sub-nav_container
-    .sub-nav_content
-    .sub-nav_item
-    a:hover {
-        text-decoration: underline;
-        color: var(--main-color);
-    }
-
-    /* </editor-fold> */
-
-    /*<editor-fold desc="Thanh tìm kiếm">*/
-    .search-bar_container form {
-        position: relative;
-    }
-
-    .search-bar_container form line {
-        display: none;
-        position: absolute;
-        height: 100%;
-        border: 2.5px solid var(--main-color);
-    }
-
-    .search-bar_container form .search-content {
-        font-size: 1rem;
-        width: 220px;
-        caret-color: var(--main-color);
-        color: var(--font-color_light-theme);
-        padding-top: 6px;
-        padding-bottom: 6px;
-        border: 1px solid #ddd;
-        border-right: none;
-    }
-
-    .search-bar_container form .search-content::placeholder {
-        color: #666;
-        font-weight: 400;
-    }
-
-    .search-bar_container form .search-content:focus {
-        outline: none;
-    }
-
-    .search-bar_container form .search-content:focus ~ line {
-        display: block;
-    }
-
-    .search-bar_container
-    form
-    .search-content:not(:placeholder-shown)
-    ~ .search-btn {
-        color: var(--main-color);
-    }
-
-    .search-bar_container form .search-btn {
-        font-size: 1rem;
-        color: #999;
-        background-color: #f1f1f1;
-        padding: 2px 1rem;
-        border: 1px solid #ddd;
-        border-left: none;
-        transition: all linear 0.3s;
-    }
-
-    .search-bar_container form .search-btn:hover {
-        color: #fff !important;
-        background-color: var(--main-color);
-        border-color: var(--main-color);
-    }
-
-    /* </editor-fold>*/
-
-    /* <editor-fold desc="Chức năng người dùng"> */
-    .user_container {
-        margin: 0 1.3rem;
-        padding-left: 1rem;
-    }
-
-    .user_container .user-acc_wrapper {
-        position: relative;
-        width: 38px;
-        height: 38px;
-    }
-
-    .user_container .user-acc_wrapper .user-icon {
-        border: 2px solid #333;
-        border-radius: 999px;
-    }
-
-    .user_container .user-acc_wrapper .user-icon i {
-        font-size: 1.3rem;
-        color: #333;
-    }
-
-    .user_container .user-acc_wrapper .user-acc_content {
-        position: relative;
-        text-align: center;
-        width: 200px;
-    }
-
-    .user_container .user-acc_wrapper .user-acc_content::before {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 0;
-        border-left: 11px solid transparent;
-        border-right: 11px solid transparent;
-        border-bottom: 11px solid var(--background-color_light-theme);
-    }
-
-    .user_container .user-acc_wrapper:hover .more-menu_container {
-        visibility: visible;
-        opacity: 1;
-    }
-
-    .user_container .user-acc_wrapper .user-acc_content li:not(:last-child) {
-        padding-bottom: 8px;
-    }
-
-    .user_container .user-acc_wrapper .user-acc_content a {
-        color: var(--font-color_light-theme);
-    }
-
-    .user_container .user-acc_wrapper .user-acc_content a:hover {
-        text-decoration: underline;
-        color: var(--main-color);
-        cursor: pointer;
-    }
-
-    /* </editor-fold> */
-
-    /* <editor-fold desc="Giỏ hàng"> */
-    .cart_container {
-        margin: 0 1.3rem;
-        padding-right: 1rem;
-    }
-
-    .cart_container .cart_wrapper {
-        position: relative;
-    }
-
-    .cart_container .cart_wrapper i {
-        position: relative;
-        font-size: 1.5rem;
-        color: #333;
-    }
-
-    .cart_container .cart_wrapper i .item-count {
-        position: absolute;
-        bottom: 70%;
-        left: 70%;
-        font-size: 16px;
-        font-weight: 600;
-        text-align: center;
-        width: 22px;
-        height: 22px;
-        padding: 4px;
-        border-radius: 999px;
-        color: #fff;
-        background: #f8492f;
-    }
-
-    .cart_container .cart_wrapper .more-menu_container {
-        padding-top: 18px;
-        transform-origin: top left;
-        scale: 0.5;
-        transform: translateX(-90%);
-        transition: all linear 0.1s;
-    }
-
-    .cart_container .cart_wrapper:hover .more-menu_container {
-        visibility: visible;
-        opacity: 1;
-        scale: 1;
-    }
-
-    .cart_container .cart_wrapper .cart-content {
-        position: relative;
-        width: 400px;
-    }
-
-    .cart_container .cart_wrapper .cart-content::before {
-        content: "";
-        display: inline-block;
-        position: absolute;
-        bottom: 100%;
-        left: 88%;
-        width: 0;
-        height: 0;
-        border-left: 11px solid transparent;
-        border-right: 11px solid transparent;
-        border-bottom: 11px solid var(--background-color_light-theme);
-    }
-
-    .cart_container .cart_wrapper .cart-content .no-product {
-        text-align: center;
-    }
-
-    .cart_container .cart_wrapper .cart-content .no-product img {
-        width: 120px;
-        height: 120px;
-        height: fit-content;
-    }
-
-    .cart_container .cart_wrapper .cart-content .product-item {
-        font-size: 14px;
-        padding: 12px 0;
-    }
-
-    .cart_container .cart_wrapper .cart-content .product-item img {
-        width: 100px;
-    }
-
-    .cart_container .cart_wrapper .cart-content .product-item .product-info {
-        padding: 0 12px 0 8px;
-    }
-
-    .cart_container .cart_wrapper .cart-content .product-item .product-name {
-        font-weight: 600;
-        line-height: 1.3;
-        margin: 8px 0 12px;
-    }
-
-    .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper {
-        text-align: center;
-    }
-
-    .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper a {
-        font-weight: 600;
-    }
-
-    .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper a:hover {
-        text-decoration: underline;
-        color: var(--main-color);
-    }
-
-    /* </editor-fold> */
-
-    /* <editor-fold desc="Đổi theme"> */
-    .mode_container {
-        margin-left: 4rem;
-    }
-
-    .mode_container .item {
-        color: var(--font-color_light-theme);
-    }
-
-    .mode_container .item:hover {
-        cursor: pointer;
-    }
-
-    .mode_container .item.hidden {
-        display: none;
-    }
-
-    .mode_container .dark-theme_icon {
-        color: midnightblue;
-        position: relative;
-    }
-
-    .mode_container .dark-theme_icon::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        width: 1.5rem;
-        height: 1.5rem;
-        border-radius: 999px;
-        background: #fff8de;
-        filter: blur(8px);
-        opacity: 0.6;
-    }
-
-    .mode_container .light-theme_icon {
-        position: relative;
-    }
-
-    .mode_container .light-theme_icon::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translateX(-50%) translateY(-50%);
-        width: 1.5rem;
-        height: 1.5rem;
-        border-radius: 999px;
-        background: #f4e99b;
-        filter: blur(8px);
-        opacity: 0.6;
-    }
-
-    /* </editor-fold> */
-
-    /* <editor-fold desc="Dark mode css"> */
-    .dark-theme header {
-        background: var(--background-color_dark-theme);
-    }
-
-    .dark-theme header .header_container .more-menu_content {
-        background-color: var(--background-color_dark-theme_2);
-    }
-
-    .dark-theme
-    .main-nav_container
-    .sub-nav_container
-    .sub-nav_content
-    .sub-nav_item
-    a {
-        color: var(--font-color_dark-theme_2);
-    }
-
-    .dark-theme .mode_container .item {
-        color: var(--font-color_dark-theme);
-    }
-
-    .dark-theme .main-nav_container li a,
-    .dark-theme .user_container .user-acc_wrapper .user-icon i,
-    .dark-theme .cart_container .cart_wrapper i {
-        color: var(--font-color_dark-theme);
-    }
-
-    .dark-theme .user_container .user-acc_wrapper .user-icon {
-        border: 2px solid var(--font-color_dark-theme);
-    }
-
-    .dark-theme .user_container .user-acc_wrapper .user-acc_content,
-    .dark-theme .user_container .user-acc_wrapper .user-acc_content a,
-    .dark-theme
-    .cart_container
-    .cart_wrapper
-    .cart-content
-    .go-to-cart_wrapper
-    a:hover {
-        color: var(--font-color_dark-theme_2);
-    }
-
-    .dark-theme .user_container .user-acc_wrapper .user-acc_content::before {
-        border-bottom-color: var(--background-color_dark-theme_2);
-    }
-
-    .dark-theme .cart_container .cart_wrapper i .item-count {
-        color: #fff;
-    }
-
-    .dark-theme .cart_container .cart_wrapper .cart-content::before {
-        border-bottom-color: var(--background-color_dark-theme_2);
-    }
-
-    .dark-theme .cart_container .cart_wrapper .cart-content .no-product {
-        color: var(--font-color_dark-theme_2);
-    }
-
-    /* </editor-fold> */
-
-    /* #region responsive */
-    @media only screen and (max-width: 1200px) {
-        header .header_container {
-            height: auto;
-        }
-
-        header .header_container .left-header,
-        header .header_container .right-header {
-            height: 80px;
-        }
-
-        header .header_container .left-header .logo {
-            display: none;
-        }
-
-        .cart_container {
-            position: fixed;
-            bottom: 3rem;
-            right: 3rem;
-            padding: 0;
-            margin: 0;
-            background-color: var(--main-color);
-            border-radius: 6px;
-            z-index: 99;
-            cursor: pointer;
-        }
-
-        .cart_container .cart_wrapper {
-            padding: 16px;
-        }
-
-        .cart_container .cart_wrapper i {
-            color: var(--background-color_light-theme);
-        }
-
-        .dark-theme .cart_container .cart_wrapper i {
-            color: var(--background-color_light-theme);
-        }
-
-        .cart_container .cart_wrapper i .item-count {
-            bottom: 100%;
-            left: 100%;
-            color: #eee;
-            background: #f8492f;
-        }
-
-        .cart_container .cart_wrapper .cart-content {
-            border-bottom: none !important;
-            border-radius: 4px !important;
-        }
-
-        .cart_container .cart_wrapper .cart-content::before {
-            transform: rotateZ(180deg);
-            bottom: auto;
-            top: 100%;
-        }
-
-        .cart_container .cart_wrapper .more-menu_container {
-            top: auto;
-            bottom: 100%;
-            padding: 0 0 12px;
-            transform-origin: bottom left;
-        }
-
-        .cart_container .cart_wrapper:hover .more-menu_container {
-            visibility: visible;
-            opacity: 1;
-            scale: 1;
-        }
-
-        .cart_container .cart_wrapper .cart-content .product-item {
-            order: 2;
-        }
-
-        .cart_container .cart_wrapper .cart-content .go-to-cart_wrapper {
-            margin: 8px;
-        }
-
-        .mode_container {
-            margin-left: 3rem;
-            margin-right: 1.2rem;
-        }
-    }
-
-    /* #endregion */
-</style>
+<link rel="stylesheet" href="<%=url%>/css/header.css">
 
 <header class="d-flex justify-content-center align-items-center">
-    <div
-            class="header_container d-flex justify-content-between align-items-center"
-    >
-        <div class="left-header d-flex justify-content-center">
-            <div class="logo">
-                <a href="<%=url%>"
-                ><img
-                        src="https://media.istockphoto.com/id/1354776457/vector/default-image-icon-vector-missing-picture-page-for-website-design-or-mobile-app-no-photo.jpg?s=612x612&w=0&k=20&c=w3OW0wX3LyiFRuDHo9A32Q0IUMtD4yjXEvQlqyYk9O4="
-                        alt=""
-                /></a>
+    <div class="header_container d-flex justify-content-between align-items-center">
+        <button id="expand-list">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                      d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"></path>
+            </svg>
+        </button>
+        <div class="left-header d-flex justify-content-start gap-5 gap-lg-2">
+            <div class="logo d-flex justify-content-between justify-content-lg-center align-items-center py-3 py-lg-0 px-4 px-lg-0">
+                <a href="<%=url%>">
+                    <img src="https://i.imgur.com/P5Z5eYv.png" alt="Cloudy Drinks logo" />
+                </a>
+                <div id="close-btn" class="hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-x-square" viewBox="0 0 16 16">
+                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </div>
             </div>
+
             <!-- Menu điều hướng chính -->
-            <div class="main-nav_container d-flex">
-                <ul class="d-flex align-items-center px-4 m-0">
+            <div class="main-nav_container d-flex justify-content-center">
+                <ul class="d-flex align-items-center flex-column flex-lg-row px-3 m-0">
                     <li><a href="<%=url%>">Trang chủ</a></li>
                     <li><a href="">Giới thiệu</a></li>
-                    <li>
+                    <li id="menu">
                         <a href="<%=url%>/categories/">Thực đơn</a>
                         <div class="more-menu_container sub-nav_container">
                             <div class="more-menu_content sub-nav_content">
+                                <div id="h-back-btn" class="hidden d-flex flex-column align-items-center gap-3">
+                                    <div class="d-flex w-100 align-items-center justify-content-end gap-3">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-arrow-left-square" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm11.5 5.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                                        </svg>
+                                        <span>Back</span>
+                                    </div>
+                                    <div class="sub-nav_item"><a href="<%=url%>/categories">Tất cả danh mục</a></div>
+                                </div>
+
                                 <div class="sub-nav_item"><a href="">Kem</a></div>
                                 <div class="sub-nav_item"><a href="">Trà trái cây</a></div>
                                 <div class="sub-nav_item"><a href="">Okinawa</a></div>
                                 <div class="sub-nav_item"><a href="">Trà nguyên chất</a></div>
                                 <div class="sub-nav_item"><a href="">Latte Series</a></div>
-                                <div class="sub-nav_item">
-                                    <a href="">Thức uống đặc biệt Gong Cha</a>
-                                </div>
+                                <div class="sub-nav_item"><a href="">Thức uống đặc biệt Gong Cha</a></div>
                             </div>
                         </div>
                     </li>
@@ -592,21 +64,15 @@
             <div class="search-bar_container d-flex align-items-center">
                 <div class="search-bar">
                     <form action="./handle" method="get" class="d-flex m-0">
-                        <input
-                                type="text"
-                                name=""
-                                id=""
-                                class="search-content px-4 lh-lg"
-                                placeholder="Tìm kiếm"
-                                spellcheck="false"
-                        />
+                        <input type="text" placeholder="Tìm kiếm sản phẩm" spellcheck="false"
+                               name="keyword" class="search-content px-3"/>
                         <button type="submit" class="search-btn btn rounded-0">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
-                        <line></line>
                     </form>
                 </div>
             </div>
+
             <!-- Người dùng -->
             <%
                 Object obj = session.getAttribute("user");
@@ -614,14 +80,12 @@
                 if (obj != null) {
                     user = (User) obj;
                 }
-                if (user != null) {
+                if (user == null) {
             %>
 
             <div class="user_container d-flex align-items-center">
                 <div class="user-acc_wrapper item p-0">
-                    <div
-                            class="user-icon d-flex align-items-center justify-content-center w-100 h-100"
-                    >
+                    <div class="user-icon d-flex align-items-center justify-content-center w-100 h-100">
                         <i class="fa-solid fa-user"></i>
                     </div>
                     <div class="more-menu_container">
@@ -658,9 +122,7 @@
                 <div class="cart_wrapper">
                     <i class="fa-solid fa-cart-shopping">
                         <!-- Icon khi giỏ hàng có hàng -->
-                        <div
-                                class="item-count d-flex justify-content-center align-items-center"
-                        >
+                        <div class="item-count d-flex justify-content-center align-items-center">
                             !
                         </div>
                     </i>
@@ -730,8 +192,8 @@
                     <div class="dark-theme_icon item">
                         <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
+                                width="18"
+                                height="18"
                                 fill="currentColor"
                                 class="bi bi-moon-stars-fill"
                                 viewBox="0 0 16 16"
@@ -745,8 +207,8 @@
                     <div class="light-theme_icon item">
                         <svg
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="20"
-                                height="20"
+                                width="18"
+                                height="18"
                                 fill="currentColor"
                                 class="bi bi-brightness-high-fill"
                                 viewBox="0 0 16 16"
@@ -761,54 +223,6 @@
     </div>
 </header>
 
-<script>
-    const $ = document.querySelector.bind(document);
-    const $$ = document.querySelectorAll.bind(document);
+<div id="layer" class="hidden"></div>
 
-    // <editor-fold desc="Xác định theme được lưu trong localStorage">
-    let theme;
-    if (!localStorage.getItem('cloudyDrinksTheme')) {
-        localStorage.setItem("cloudyDrinksTheme", "light");
-        theme = localStorage.getItem('cloudyDrinksTheme');
-        console.log(theme);
-    } else {
-        theme = localStorage.getItem('cloudyDrinksTheme');
-    }
-    if (theme === "dark") {
-        document.body.classList.add("dark-theme");
-        $(".mode_container .dark-theme_icon").classList.add("hidden");
-    } else $(".mode_container .light-theme_icon").classList.add("hidden");
-    // </editor-fold>
-
-    const toggleDarkTheme = () => {
-        if (theme === "dark") {
-            localStorage.setItem("cloudyDrinksTheme", "light");
-        } else {
-            localStorage.setItem("cloudyDrinksTheme", "dark");
-        }
-        document.body.classList.toggle("dark-theme");
-        document.querySelectorAll(".change-mode .item").forEach((itemIcon) => {
-            itemIcon.classList.toggle("hidden");
-        });
-    };
-
-    // <editor-fold desc="Defined whether header should be floated and hidden">
-    var lastScrollTop = 0;
-
-    window.addEventListener(
-        "scroll",
-        function () {
-            var st = window.scrollY || document.documentElement.scrollTop;
-            if (st > 100) document.querySelector("header").classList.add("float");
-            else document.querySelector("header").classList.remove("float");
-            if (st > lastScrollTop) {
-                document.querySelector("header").classList.add("hidden");
-            } else if (st < lastScrollTop) {
-                document.querySelector("header").classList.remove("hidden");
-            } // else was horizontal scroll
-            lastScrollTop = st <= 100 ? 100 : st;
-        },
-        false
-    );
-    // </editor-fold>
-</script>
+<script src="<%=url%>/js/header.js"></script>
