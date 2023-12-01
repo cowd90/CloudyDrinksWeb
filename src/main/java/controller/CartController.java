@@ -72,8 +72,15 @@ public class CartController extends HttpServlet {
 //        RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
 //        rd.forward(request, response);
 
+//        PrintWriter out = response.getWriter();
+//        out.println(productId + " " + quantityPara + " " + sizeId);
+
+        String quantityPara = request.getParameter("quantity");
+        String sizeId = request.getParameter("size");
+        String productId = request.getParameter("pid");
+
         PrintWriter out = response.getWriter();
-        out.println("a");
+        out.println(productId + " " + quantityPara + " " + sizeId);
 
     }
 }

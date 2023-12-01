@@ -16,9 +16,7 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productId = request.getParameter("pid");
-
-        ProductDAO productDAO = new ProductDAO();
-        Product product = productDAO.selectById(productId);
+        Product product = new ProductDAO().selectById(productId);
 
         request.setAttribute("product", product);
         RequestDispatcher rd = getServletContext().getRequestDispatcher("/products/index.jsp");

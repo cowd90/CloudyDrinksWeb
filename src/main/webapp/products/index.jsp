@@ -33,26 +33,27 @@
     <% String newUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
     <link rel="stylesheet" href="<%=newUrl%>/css/global.css">
     <link rel="stylesheet" href="<%=newUrl%>/css/products.css">
-    <script>
-        $(document).ready(function () {
-            $("#submit").on('click', function (e) {
-                e.preventDefault();
-                var pid = $("#product-id").val();
-                var quantity = $("#prod-quantity").val();
-                var sizeId = document.myform.size.value;
+<%--    <script>--%>
+<%--        $(document).ready(function () {--%>
+<%--            $('#add').on('click', function(e) {--%>
+<%--                e.preventDefault();--%>
+<%--                let pid = $(name='pid').val();--%>
+<%--                let size = $("select[name='size']").val();--%>
+<%--                let quantity = $(name='quantity').val();--%>
 
-                $.ajax({
-                    url: "CloudyDrinksWeb/cart-controller",
-                    type: "POST",
-                    data: {pid:pid, quantity:quantity, sizeId:sizeId},
-                    success: function (data) {
-                        alert(data)
-                    }
-                })
-            })
-        })
-    </script>
-</head>
+<%--                $.ajax({--%>
+<%--                    type: 'POST',--%>
+<%--                    data: {pid:pid, size:size, quantity:quantity},--%>
+<%--                    url: '/CloudyDrinksWeb/cart-controller',--%>
+<%--                    success: function (data) {--%>
+<%--                        console.log(data)--%>
+<%--                    }--%>
+<%--                })--%>
+
+<%--            });--%>
+<%--        });--%>
+<%--    </script>--%>
+<%--</head>--%>
 <body>
 <div class="page-container">
     <%@include file="../components/header.jsp"%>
@@ -77,8 +78,8 @@
             </div>
             <div class="col-6 py-4">
 
-                <form name="myform">
-                    <input class="hidden" id="product-id" value="<%=product.getProductId()%>">
+                <form>
+                    <input name="pid" value="<%=product.getProductId()%>" class="hidden">
                     <h1 class="product-name mb-3"><%=product.getProductName()%></h1>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice()+"")%> VNĐ</p>
@@ -119,7 +120,7 @@
                         <input type="text" name="notes" class="form-control lh-lg" maxlength="200"
                                placeholder="Ghi chú thêm cho món này" aria-label="Your notes" aria-describedby="basic-addon1">
                     </div>
-                    <button type="submit" class="mt-3" id="submit">
+                    <button type="submit" class="mt-3" id="add">
                         <span id="valueOfOrder"></span>
                         <span>- Thêm vào giỏ hàng</span>
                     </button>
