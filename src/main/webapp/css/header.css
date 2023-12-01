@@ -161,12 +161,16 @@ header .header_container .more-menu_container .more-menu_content {
 }
 
 #search_result-container {
+    display: none;
     position: absolute;
     top: 100%;
     left: 0;
     right: 0;
     padding-top: 6px;
     z-index: 99;
+}
+.search-bar_container form .search-content:not(:placeholder-shown) ~ #search_result-container {
+    display: block;
 }
 #search_result-container .wrapper {
     max-height: 300px;

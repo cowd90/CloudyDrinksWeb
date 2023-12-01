@@ -1,5 +1,3 @@
-let header = $("header");
-
 let categories = $$(".content_wrapper .category-item");
 let catLinks = $$(".menu-nav_inner .nav a");
 
