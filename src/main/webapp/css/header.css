@@ -105,11 +105,7 @@ header .header_container .more-menu_container .more-menu_content {
     color: var(--font-color_light-theme);
 }
 
-.main-nav_container
-.sub-nav_container
-.sub-nav_content
-.sub-nav_item
-a:hover {
+.main-nav_container .sub-nav_container .sub-nav_content .sub-nav_item a:hover {
     text-decoration: underline;
     color: var(--main-color);
 }
@@ -164,6 +160,60 @@ a:hover {
     border-color: var(--main-color);
 }
 
+#search_result-container {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding-top: 6px;
+    z-index: 99;
+}
+.search-bar_container form .search-content:not(:placeholder-shown) ~ #search_result-container {
+    display: block;
+}
+#search_result-container .wrapper {
+    max-height: 300px;
+    background: var(--background-color_light-theme);
+    padding: 0 8px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+#search_result-container .wrapper::-webkit-scrollbar {
+    background: transparent;
+    width: 6px;
+}
+#search_result-container .wrapper::-webkit-scrollbar-thumb {
+    background: #b9d3e0;
+    border-radius: 6px;
+}
+#search_result-container .wrapper .no-item {
+    text-align: center;
+    margin: 16px 0;
+}
+#search_result-container .wrapper .item:not(:last-child) {
+    padding: 6px 0;
+    border-bottom: 1px solid #c4c4c44d;
+}
+#search_result-container .wrapper .item:hover {
+    filter: brightness(90%);
+}
+#search_result-container .wrapper .item .img {
+    width: 35%;
+    height: 100px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+#search_result-container .wrapper .item .heading {
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+#search_result-container .wrapper .item .body > p {
+    font-size: 0.75rem;
+    margin: 0;
+}
 /* </editor-fold>*/
 
 /* <editor-fold desc="Chức năng người dùng"> */
@@ -299,7 +349,7 @@ a:hover {
 .cart_container .cart_wrapper .cart-content .no-product img {
     width: 120px;
     height: 120px;
-    height: fit-content;
+    object-fit: contain;
 }
 
 .cart_container .cart_wrapper .cart-content .product-item {
@@ -404,6 +454,10 @@ a:hover {
     color: var(--font-color_dark-theme_2);
 }
 
+.dark-theme #search_result-container .wrapper {
+    background: var(--background-color_dark-theme_2);
+}
+
 .dark-theme .mode_container .item {
     color: var(--font-color_dark-theme);
 }
@@ -460,11 +514,6 @@ a:hover {
 @media only screen and (max-width: 1200px) {
     header .header_container {
         padding: 0 1rem;
-        height: auto;
-    }
-
-    header .header_container .left-header,
-    header .header_container .right-header {
         height: 80px;
     }
 
