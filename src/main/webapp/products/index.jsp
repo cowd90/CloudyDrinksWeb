@@ -29,31 +29,11 @@
             integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
             crossorigin="anonymous"
     ></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <% String newUrl = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath(); %>
     <link rel="stylesheet" href="<%=newUrl%>/css/global.css">
     <link rel="stylesheet" href="<%=newUrl%>/css/products.css">
-<%--    <script>--%>
-<%--        $(document).ready(function () {--%>
-<%--            $('#add').on('click', function(e) {--%>
-<%--                e.preventDefault();--%>
-<%--                let pid = $(name='pid').val();--%>
-<%--                let size = $("select[name='size']").val();--%>
-<%--                let quantity = $(name='quantity').val();--%>
 
-<%--                $.ajax({--%>
-<%--                    type: 'POST',--%>
-<%--                    data: {pid:pid, size:size, quantity:quantity},--%>
-<%--                    url: '/CloudyDrinksWeb/cart-controller',--%>
-<%--                    success: function (data) {--%>
-<%--                        console.log(data)--%>
-<%--                    }--%>
-<%--                })--%>
-
-<%--            });--%>
-<%--        });--%>
-<%--    </script>--%>
-<%--</head>--%>
+</head>
 <body>
 <div class="page-container">
     <%@include file="../components/header.jsp"%>
@@ -117,7 +97,7 @@
                               <path d="M5 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 5 8m0-2.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-1-5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0M4 8a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0m0 2.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0"></path>
                             </svg>
                         </span>
-                        <input type="text" name="notes" class="form-control lh-lg" maxlength="200"
+                        <input autocomplete="off" type="text" name="notes" class="form-control lh-lg" maxlength="200"
                                placeholder="Ghi chú thêm cho món này" aria-label="Your notes" aria-describedby="basic-addon1">
                     </div>
                     <button type="submit" class="mt-3" id="add">
@@ -195,6 +175,38 @@
     </div>
 </div>
 
+<script>
+
+    $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);
+
+    function AddToCart(e) {
+        e.preventDefault();
+        let xhttp;
+        let pid = $("input[name='pid']").value;
+        let size = $("input[name='size']").value;
+        let quantity = $("input[name='quantity']").value;
+        let notes = $("input[name='notes']").value;
+
+        let url = "cart-controller?pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;
+        console.log(url)
+
+        if (window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest();
+        } else {
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4) {
+                let data = xhttp.responseText;
+                alert(data)
+            }
+        }
+        xhttp.open("POST", url, true);
+        xhttp.send();
+        xhttp.abort();
+    }
+</script>
 <script src="<%=url%>/js/products.js"></script>
 </body>
 </html>

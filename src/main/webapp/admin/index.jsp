@@ -1,3 +1,6 @@
+<%@ page import="database.CategoryDAO" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.Category" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -41,7 +44,7 @@
                 <div class="tab-pane show active" id="add-category" role="tabpanel" aria-labelledby="add-category-tab" tabindex="0">
                     <div class="row p-3">
                         <div class="col-6">
-                            <form action="" method="get"
+                            <form action="${pageContext.request.contextPath}/admin-controller" method="post"
                                   class="row-cols-1 d-flex flex-column gap-3" >
                                 <input type="text" name="catName" placeholder="Tên danh mục">
                                 <input type="submit" value="Thêm danh mục">
@@ -52,10 +55,17 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="remove-category" role="tabpanel" aria-labelledby="remove-category-tab" tabindex="0">
-                    <form action="" method="" class="row">
+                    <form action="${pageContext.request.contextPath}/admin-controller" method="post" class="row">
                         <div class="col-6">
                             <select name="delCatId">
-                                <option value="iddanhmuc">Tên danh mục</option>
+                                <%
+                                    ArrayList<Category> categories = new CategoryDAO().selectAll();
+                                    for (Category category : categories) {
+                                %>
+                                <option value="<%=category.getCatId()%>"><%=category.getCatName()%></option>
+                                <%
+                                    }
+                                %>
                             </select>
                         </div>
                         <div class="col-6">

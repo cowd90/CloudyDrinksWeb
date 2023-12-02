@@ -8,6 +8,7 @@ import model.Size;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CartDAO implements IDAO<Cart>{
@@ -33,8 +34,10 @@ public class CartDAO implements IDAO<Cart>{
                 int productId = rs.getInt("productId");
                 int sizeId = rs.getInt("sizeId");
                 int quantity = rs.getInt("quantity");
+                String note = rs.getString("note");
+                Timestamp time = rs.getTimestamp("time");
 
-                Cart cart = new Cart(cartId, userId, productId, sizeId, quantity);
+                Cart cart = new Cart(cartId, userId, productId, sizeId, quantity, note, time);
                 result.add(cart);
 
             }
@@ -70,8 +73,10 @@ public class CartDAO implements IDAO<Cart>{
                 int productId = rs.getInt("productId");
                 int sizeId = rs.getInt("sizeId");
                 int quantity = rs.getInt("quantity");
+                String note = rs.getString("note");
+                Timestamp time = rs.getTimestamp("time");
 
-                result = new Cart(cartId, userId, productId, sizeId, quantity);
+                result = new Cart(cartId, userId, productId, sizeId, quantity, note, time);
             }
 
         } catch (Exception e) {
@@ -90,7 +95,7 @@ public class CartDAO implements IDAO<Cart>{
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "INSERT INTO cart VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO cart VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             ps.setString(1, cartItem.getCartId());
@@ -98,6 +103,8 @@ public class CartDAO implements IDAO<Cart>{
             ps.setInt(3, cartItem.getProductId());
             ps.setInt(4, cartItem.getSizeId());
             ps.setInt(5, cartItem.getQuantity());
+            ps.setString(6, cartItem.getNote());
+            ps.setTimestamp(7, cartItem.getTime());
 
             // Execute query
             result = ps.executeUpdate();
@@ -137,11 +144,13 @@ public class CartDAO implements IDAO<Cart>{
             String sql = "UPDATE cart" +
                     " SET " +
                     " quantity = ?" +
+                    " note = ?" +
                     " WHERE cartId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             ps.setInt(1, cartItem.getQuantity());
             ps.setString(2, cartItem.getCartId());
+            ps.setString(2, cartItem.getNote());
 
             // Execute query
             result = ps.executeUpdate();
@@ -202,8 +211,10 @@ public class CartDAO implements IDAO<Cart>{
                 int productId = rs.getInt("productId");
                 int sizeId = rs.getInt("sizeId");
                 int quantity = rs.getInt("quantity");
+                String note = rs.getString("note");
+                Timestamp time = rs.getTimestamp("time");
 
-                Cart cart = new Cart(cartId, userId, productId, sizeId, quantity);
+                Cart cart = new Cart(cartId, userId, productId, sizeId, quantity, note, time);
                 result.add(cart);
 
             }
@@ -245,7 +256,7 @@ public class CartDAO implements IDAO<Cart>{
         ArrayList<Cart> list = new ArrayList<>();
         String query = "SELECT * FROM cart \n" +
                 "WHERE userId = ? \n" +
-                "ORDER BY cartId DESC\n" +
+                "ORDER BY time DESC\n" +
                 "LIMIT 3 ";
 
         try {
@@ -263,8 +274,10 @@ public class CartDAO implements IDAO<Cart>{
                 int productId = rs.getInt("productId");
                 int sizeId = rs.getInt("sizeId");
                 int quantity = rs.getInt("quantity");
+                String note = rs.getString("note");
+                Timestamp time = rs.getTimestamp("time");
 
-                Cart cart = new Cart(cartId, userId, productId, sizeId, quantity);
+                Cart cart = new Cart(cartId, userId, productId, sizeId, quantity, note, time);
                 list.add(cart);
             }
         } catch (Exception e) {
