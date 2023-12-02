@@ -100,7 +100,7 @@
                         <input autocomplete="off" type="text" name="notes" class="form-control lh-lg" maxlength="200"
                                placeholder="Ghi chú thêm cho món này" aria-label="Your notes" aria-describedby="basic-addon1">
                     </div>
-                    <button type="submit" class="mt-3" id="add">
+                    <button type="submit" class="main-btn mt-3" id="add">
                         <span id="valueOfOrder"></span>
                         <span>- Thêm vào giỏ hàng</span>
                     </button>

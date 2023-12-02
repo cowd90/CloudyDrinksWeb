@@ -70,6 +70,33 @@ a.active, .dark-theme a.active {
     border: 1px solid #c4c4c44d;
 }
 
+.main-btn {
+    padding: 12px;
+    background: var(--main-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+#increase-btn, #decrease-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+    color: #fff;
+    background: var(--main-color);
+    border: none;
+    border-radius: 999px;
+    outline: none;
+    cursor: pointer;
+    user-select: none;
+}
+#increase-btn.disabled, #decrease-btn.disabled {
+    cursor: auto;
+}
+
 /*<editor-fold desc="Danh sách sản phẩm có nút xem chi tiết">*/
 .products_container {
     padding: 12px 0 24px;
@@ -172,5 +199,11 @@ a.active, .dark-theme a.active {
 
     .products_container .product .more-info:hover .product-link p {
         font-size: 0.875rem;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    html {
+        font-size: 12px;
     }
 }

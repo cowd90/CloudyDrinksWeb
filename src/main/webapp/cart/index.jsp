@@ -8,7 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Giỏ hàng - Cloudy Drinks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Giỏ hàng | Cloudy Drinks</title>
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/P5Z5eYv.png">
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -49,47 +51,55 @@
 <%--                </div>--%>
 
                 <div class="cart-item row my-3">
-                    <div class="col-4">
+                    <div class="col-3">
                         <img class="cart-img"
                              src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
                     </div>
-                    <div class="cart-item_info col-5 my-4">
-                        <div class="name mb-3 d-flex justify-content-between align-items-center">
-                            <span>Grape Milk Tea</span>
-                            <span class="fst-italic fs-5">x1</span>
+                    <div class="cart-item_info col-6 my-4">
+                        <input type="hidden" name="variantId" value="<%-- id's item --%>">
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <span class="name">Grape Milk Tea</span>
+                            <span class="fst-italic fs-5">x<span class="quantity">1</span></span>
                         </div>
-                        <p class="mb-2"><span>Size: </span><span>Vừa</span></p>
+                        <p class="mb-2"><span>Size: </span><span class="size">Vừa</span></p>
                         <p class="mb-2"><span>Giá: </span><span>59,000đ</span></p>
-                        <p class="mb-2"><span>Ghi chú thêm: </span><span>Không có</span></p>
+                        <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">Không có</span></p>
                     </div>
                     <div class="user-action col-3 d-flex flex-column justify-content-center align-items-center gap-3">
-<%--                        <div class="quantity d-flex align-items-center mb-4">--%>
-<%--                            <div class="decrease-btn" onclick="plusQuantity(-1)">-</div>--%>
-<%--                            <input type="number" id="prod-quantity" name="quantity" value="1" class="d-none">--%>
-<%--                            <label for="prod-quantity">1</label>--%>
-<%--                            <div class="increase-btn" onclick="plusQuantity(1)">+</div>--%>
-<%--                        </div>--%>
-                        <button class="border-0">Thay đổi thông tin</button>
+                        <button class="change_info-btn border-0">Thay đổi thông tin</button>
                         <button class="border-0">Xóa khỏi giỏ hàng</button>
                     </div>
                 </div>
                 <div class="break-line"></div>
 
-                <div class="cart-item row">
-                    <div class="col-4">
+                <div class="cart-item row my-3">
+                    <div class="col-3">
                         <img class="cart-img"
                              src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
                     </div>
-                    <div class="col-5 my-4">
-                        <div class="cart-item_name mb-3">Grape Milk Tea</div>
-                        <p><span>Size: </span><span>Vừa</span></p>
-                        <p><span>Giá: </span><span>59,000đ</span></p>
-                        <p><span>Ghi chú thêm: </span><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut, consectetur dolorum ea facilis fugit illum officia porro similique vero! Delectus distinctio iusto repellendus reprehenderit! Autem fugit illo impedit perspiciatis quos.</span></p>
+                    <div class="cart-item_info col-6 my-4">
+                        <input type="hidden" name="variantId" value="<%-- id's item --%>">
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <span class="name">Món nào đó</span>
+                            <span class="fst-italic fs-5">x<span class="quantity">3</span></span>
+                        </div>
+                        <p class="mb-2"><span>Size: </span><span class="size">Lớn</span></p>
+                        <p class="mb-2"><span>Giá: </span><span>59,000đ</span></p>
+                        <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">Ít đường, nhiều sữa</span></p>
                     </div>
+                    <div class="user-action col-3 d-flex flex-column justify-content-center align-items-center gap-3">
+                        <button class="change_info-btn border-0">Thay đổi thông tin</button>
+                        <button class="border-0">Xóa khỏi giỏ hàng</button>
+                    </div>
+                </div>
+                <div class="break-line"></div>
+
+                <div id="change_cart_info-container">
+
                 </div>
             </div>
             <div class="col-12 col-lg-3">
-                <div class="cart-control row">
+                <div class="cart-control row pt-3">
                     <div class="col-4 col-lg-12 mb-3">
                         <a href="<%=url%>/categories" class="d-flex align-items-center fw-bolder">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
