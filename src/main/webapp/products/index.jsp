@@ -8,7 +8,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Okinawa Milk Foam Smoothie - Cloudy Drinks</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Okinawa Milk Foam Smoothie | Cloudy Drinks</title>
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/P5Z5eYv.png">
     <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -95,7 +97,7 @@
                                placeholder="Ghi chú thêm cho món này" aria-label="Your notes" aria-describedby="basic-addon1">
                     </div>
 
-                    <button type="submit" class="mt-3">
+                    <button type="submit" class="main-btn mt-3">
                         <span id="valueOfOrder"></span>
                         <span>- Thêm vào giỏ hàng</span>
                     </button>
