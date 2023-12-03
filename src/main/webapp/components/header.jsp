@@ -82,7 +82,7 @@
                                 <a href="" class="item d-flex justify-content-center align-items-center">
                                     <div class="img"
                                          style="background-image: url('https://gongcha.com.vn/wp-content/uploads/2019/06/Mango-Milktea.png')"></div>
-                                    <div>
+                                    <div class="content">
                                         <div class="heading">Trà Sữa Xoài Trân Châu Đen</div>
                                         <div class="body">
                                             <p>56,000đ (S)</p>
@@ -133,7 +133,7 @@
                     </div>
                     <div class="more-menu_container">
                         <ul class="more-menu_content user-acc_content">
-                            <li><a href="./auth/">Trang cá nhân</a></li>
+                            <li><a href="<%=url%>/history">Quản lý đơn hàng</a></li>
                             <li><a href="<%=url%>/user-controller?action=change-password">Đổi mật khẩu</a></li>
                             <li><a href="<%=url%>/user-controller?action=sign-out">Đăng xuất</a></li>
                         </ul>

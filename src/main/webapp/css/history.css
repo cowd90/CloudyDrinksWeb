@@ -1,0 +1,91 @@
+/* Giữ lại cho đến khi làm xong footer */
+body {
+    height: 2000px;
+}
+
+.nav-link {
+    color: var(--font-color_light-theme);
+}
+.nav-link:hover {
+    color: var(--main-color);
+    background: rgba(var(--main-color-rgb), 0.15);
+}
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    background: var(--main-color);
+}
+.dark-theme .nav-link {
+    color: var(--font-color_dark-theme);
+}
+
+.banner {
+    color: var(--font-color_light-theme);
+    background-image: url("https://gongcha.com.vn/wp-content/uploads/2018/03/banner-lienhe.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 125px 0 140px;
+}
+.banner .title {
+    font-size: 2.25rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.banner p {
+    margin-bottom: 8px;
+}
+
+.his_item .time {
+    font-size: 1.25rem;
+    word-spacing: 2px;
+}
+.his_item .name {
+    font-weight: 700;
+    text-transform: capitalize;
+}
+.his_item .contact p {
+    font-style: italic;
+    text-transform: capitalize;
+    margin: 0;
+}
+.his_item .total {
+    color: var(--main-color);
+}
+
+#received_dialog-container, #canceled_dialog-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+#received_dialog-container dialog,
+#canceled_dialog-container dialog {
+    width: 350px;
+    max-width: 90vw;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.4);
+}
+#received_dialog-container .heading,
+#canceled_dialog-container .heading {
+    text-align: center;
+    padding: 12px;
+}
+#received_dialog-container .message,
+#canceled_dialog-container .message {
+    color: var(--main-color);
+}
+
+.no_data img {
+    min-width: 25%;
+    max-width: 50%;
+    width: 350px;
+    border-radius: 8px;
+    box-shadow: 4px 4px 12px 0 rgba(0, 0, 0, 0.3);
+}
+
+@media only screen and (max-width: 768px) {
+    .banner {
+        padding: 100px 0 115px;
+    }
+}

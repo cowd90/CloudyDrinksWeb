@@ -6,6 +6,7 @@
 }
 
 :root {
+    --main-color-rgb: 184, 31, 50;
     --main-color: #b81f32;
     --background-color_light-theme: #fff;
     --background-color_dark-theme: #242526;
@@ -70,12 +71,27 @@ a.active, .dark-theme a.active {
     border: 1px solid #c4c4c44d;
 }
 
-.main-btn {
+.main-btn, .cancel-btn {
+    text-align: center;
     padding: 12px;
-    background: var(--main-color);
     color: white;
     border: none;
     border-radius: 4px;
+}
+.main-btn {
+    background: var(--main-color);
+}
+.cancel-btn {
+    background: #c0c0c0;
+}
+.main-btn:hover, .cancel-btn:hover {
+    filter: brightness(95%);
+}
+
+.link:hover {
+    color: var(--main-color);
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 #increase-btn, #decrease-btn {
