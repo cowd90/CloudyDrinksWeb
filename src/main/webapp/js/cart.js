@@ -75,7 +75,7 @@ function createChangeInfoDialog(id, name, size, quantity, desc) {
                 <div class="quantity d-flex align-items-center mb-3">
                     <span class="me-5">Số lượng:</span>
                     <div id="decrease-btn" onclick="plusQuantity(-1)">-</div>
-                        <input type="number" id="prod-quantity" name="newQuantity" value="1" class="d-none">
+                        <input type="number" id="prod-quantity" name="newQuantity" value="${quantity}" class="d-none">
                         <label for="prod-quantity">${quantity}</label>
                     <div id="increase-btn" onclick="plusQuantity(1)">+</div>
                 </div>

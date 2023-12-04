@@ -2,11 +2,13 @@ package controller;
 
 import database.CartDAO;
 import database.ProductDAO;
+import database.SizeDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
 import model.Cart;
 import model.Product;
+import model.Size;
 import model.User;
 import util.RandomKey;
 
@@ -49,19 +51,29 @@ public class CartController extends HttpServlet {
             int quantity = Integer.parseInt(quantityPara);
 
             CartDAO cartDAO = new CartDAO();
+            Cart cartItem;
+
+            // Get size price and product price
+            Product p = new ProductDAO().selectById(productId);
+            Size s = new SizeDAO().selectById(sizeId);
+            int totalPrice = 0;
 
             if (cartDAO.checkIfExists(productId, sizeId)) {
-                Cart cartItem = cartDAO.selectById(productId, sizeId);
+                cartItem = cartDAO.selectById(productId, sizeId);
 
                 int newQuantity = cartItem.getQuantity() + quantity;
+                totalPrice = (cartItem.getTotalPrice() / cartItem.getQuantity()) * newQuantity;
                 cartItem.setQuantity(newQuantity);
+                cartItem.setTotalPrice(totalPrice);
+                cartItem.setNote(notes);
 
                 if (cartDAO.update(cartItem) > 0) {
                     url = "/products/index.jsp";
                 }
 
             } else {
-                Cart cartItem = new Cart();
+
+                cartItem = new Cart();
                 String cartId = RandomKey.generateKey();
                 cartItem.setCartId(cartId);
                 cartItem.setUserId(user.getUserId());
@@ -70,6 +82,10 @@ public class CartController extends HttpServlet {
                 cartItem.setQuantity(quantity);
                 cartItem.setNote(notes);
 
+                totalPrice = (p.getPrice() + s.getUpSizePrice()) * quantity;
+                cartItem.setTotalPrice(totalPrice);
+
+                // Get real time
                 Date todaysDate = new Date(new java.util.Date().getTime());
                 Calendar c = Calendar.getInstance();
                 c.setTime(todaysDate);
@@ -91,8 +107,6 @@ public class CartController extends HttpServlet {
             url = "/auth/index.jsp";
         }
 
-        PrintWriter out = response.getWriter();
-        out.println("Add to cart successfully!");
         RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
         rd.forward(request, response);
 

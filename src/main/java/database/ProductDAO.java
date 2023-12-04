@@ -326,6 +326,36 @@ public class ProductDAO implements IDAO<Product>{
         return list;
     }
 
+    public ArrayList<Product> searchByName(String key) {
+        ArrayList<Product> list = new ArrayList<>();
+        String query = "SELECT * FROM product \n" +
+                "WHERE productName like ?";
+
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            PreparedStatement ps = connect.prepareStatement(query);
+            ps.setString(1, "%" + key + "%");
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int productId = rs.getInt("productId");
+                String productName = rs.getString("productName");
+                String productImage = rs.getString("productImage");
+                int price = rs.getInt("price");
+                String productDesc = rs.getString("productDesc");
+                int catId = rs.getInt("catId");
+
+                Product product = new Product(productId, productName, productImage, price, productDesc, catId);
+                list.add(product);
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
         System.out.println(dao.select6NewProduct());

@@ -5,6 +5,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="https://i.imgur.com/P5Z5eYv.png">
     <%
         Object pObj = request.getAttribute("product");
         Product product = (Product) pObj;
@@ -58,8 +60,7 @@
             </div>
             <div class="col-6 py-4">
 
-                <form>
-                    <input name="pid" value="<%=product.getProductId()%>" class="hidden">
+                <form action="cart-controller?pid=<%=product.getProductId()%>" method="post">
                     <h1 class="product-name mb-3"><%=product.getProductName()%></h1>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice()+"")%> VNĐ</p>
@@ -175,38 +176,38 @@
     </div>
 </div>
 
-<script>
+<%--<script>--%>
 
-    $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);
+<%--    $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);--%>
 
-    function AddToCart(e) {
-        e.preventDefault();
-        let xhttp;
-        let pid = $("input[name='pid']").value;
-        let size = $("input[name='size']").value;
-        let quantity = $("input[name='quantity']").value;
-        let notes = $("input[name='notes']").value;
+<%--    function AddToCart(e) {--%>
+<%--        e.preventDefault();--%>
+<%--        let xhttp;--%>
+<%--        let pid = $("input[name='pid']").value;--%>
+<%--        let size = $("input[name='size']").value;--%>
+<%--        let quantity = $("input[name='quantity']").value;--%>
+<%--        let notes = $("input[name='notes']").value;--%>
 
-        let url = "cart-controller?pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;
-        console.log(url)
+<%--        let url = "cart-controller?pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;--%>
+<%--        console.log(url)--%>
 
-        if (window.XMLHttpRequest) {
-            xhttp = new XMLHttpRequest();
-        } else {
-            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
+<%--        if (window.XMLHttpRequest) {--%>
+<%--            xhttp = new XMLHttpRequest();--%>
+<%--        } else {--%>
+<%--            xhttp = new ActiveXObject("Microsoft.XMLHTTP");--%>
+<%--        }--%>
 
-        xhttp.onreadystatechange = function () {
-            if (this.readyState === 4) {
-                let data = xhttp.responseText;
-                alert(data)
-            }
-        }
-        xhttp.open("POST", url, true);
-        xhttp.send();
-        xhttp.abort();
-    }
-</script>
+<%--        xhttp.onreadystatechange = function () {--%>
+<%--            if (this.readyState === 4) {--%>
+<%--                let data = xhttp.responseText;--%>
+<%--                alert(data)--%>
+<%--            }--%>
+<%--        }--%>
+<%--        xhttp.open("POST", url, true);--%>
+<%--        xhttp.send();--%>
+<%--        xhttp.abort();--%>
+<%--    }--%>
+<%--</script>--%>
 <script src="<%=url%>/js/products.js"></script>
 </body>
 </html>

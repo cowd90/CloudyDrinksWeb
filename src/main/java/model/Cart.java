@@ -8,18 +8,20 @@ public class Cart extends Product {
     private int productId;
     private int sizeId;
     private int quantity;
+    private int totalPrice;
     private String note;
     private Timestamp time;
 
     public Cart() {
     }
 
-    public Cart(String cartId, String userId, int productId, int sizeId, int quantity, String note, Timestamp time) {
+    public Cart(String cartId, String userId, int productId, int sizeId, int quantity, int totalPrice, String note, Timestamp time) {
         this.cartId = cartId;
         this.userId = userId;
         this.productId = productId;
         this.sizeId = sizeId;
         this.quantity = quantity;
+        this.totalPrice = totalPrice;
         this.note = note;
         this.time = time;
     }
@@ -66,6 +68,14 @@ public class Cart extends Product {
         this.quantity = quantity;
     }
 
+    public int getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(int totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
     public String getNote() {
         return note;
     }
@@ -90,6 +100,7 @@ public class Cart extends Product {
                 ", productId=" + productId +
                 ", sizeId=" + sizeId +
                 ", quantity=" + quantity +
+                ", totalPrice=" + totalPrice +
                 ", note='" + note + '\'' +
                 ", time=" + time +
                 '}';

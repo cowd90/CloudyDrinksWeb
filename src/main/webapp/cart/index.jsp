@@ -1,11 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: khoap
-  Date: 11/24/2023
-  Time: 7:20 PM
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -36,56 +29,55 @@
 
     <div class="banner"></div>
 
+    <%
+        CartDAO cartDAO = new CartDAO();
+        ArrayList<Cart> cartList = cartDAO.selectAllItem(user.getUserId());
+        int itemQuantity = 0;
+        for (Cart cart : cartList) {
+            itemQuantity += cart.getQuantity();
+        }
+    %>
+
     <div class="content_container">
         <div class="page-title">Giỏ hàng
-            <span class="card-quantity">(3 sản phẩm)</span>
+            <span class="card-quantity">(<%=itemQuantity%> sản phẩm)</span>
         </div>
         <div class="page-cart-container row">
             <div class="col-12 col-lg-9">
 
+                <%
+                    int total = 0;
+                    if (!cartDAO.checkIfUserHasCart(user.getUserId())) {
+                %>
                 <!-- Khi giỏ hàng không có sản phẩm -->
-<%--                <div class="no-product">--%>
-<%--                    <img class="w-100 h-100 object-fit-contain"--%>
-<%--                         src="https://i.imgur.com/WSiKOpQ.png" alt="Không có sản phẩm trong giỏ hàng">--%>
-<%--                    <h5 class="text-center">Bạn chưa có sản phẩm nào</h5>--%>
-<%--                </div>--%>
-
-                <div class="cart-item row my-3">
-                    <div class="col-3">
-                        <img class="cart-img"
-                             src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
-                    </div>
-                    <div class="cart-item_info col-6 my-4">
-                        <input type="hidden" name="variantId" value="<%-- id's item --%>">
-                        <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <span class="name">Grape Milk Tea</span>
-                            <span class="fst-italic fs-5">x<span class="quantity">1</span></span>
-                        </div>
-                        <p class="mb-2"><span>Size: </span><span class="size">Vừa</span></p>
-                        <p class="mb-2"><span>Giá: </span><span>59,000đ</span></p>
-                        <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">Không có</span></p>
-                    </div>
-                    <div class="user-action col-3 d-flex flex-column justify-content-center align-items-center gap-3">
-                        <button class="change_info-btn border-0">Thay đổi thông tin</button>
-                        <button class="border-0">Xóa khỏi giỏ hàng</button>
-                    </div>
+                <div class="no-product">
+                    <img class="w-100 h-100 object-fit-contain"
+                         src="https://i.imgur.com/WSiKOpQ.png" alt="Không có sản phẩm trong giỏ hàng">
+                    <h5 class="text-center">Bạn chưa có sản phẩm nào</h5>
                 </div>
-                <div class="break-line"></div>
-
+                <%
+                } else {
+                    for (Cart cart : cartList) {
+                        Product p = new ProductDAO().selectById(cart.getProductId() + "");
+                        Size s = new SizeDAO().selectById(cart.getSizeId() + "");
+                        total += cart.getTotalPrice();
+                %>
                 <div class="cart-item row my-3">
                     <div class="col-3">
                         <img class="cart-img"
-                             src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
+                             src="<%=p.getProductImage()%>" alt="<%=p.getProductName()%>">
                     </div>
                     <div class="cart-item_info col-6 my-4">
-                        <input type="hidden" name="variantId" value="<%-- id's item --%>">
+                        <input type="hidden" name="variantId" value="<%=cart.getCartId()%>">
                         <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <span class="name">Món nào đó</span>
-                            <span class="fst-italic fs-5">x<span class="quantity">3</span></span>
+                            <span class="name"><%=p.getProductName()%></span>
+                            <span class="fst-italic fs-5">x<span class="quantity"><%=cart.getQuantity()%></span></span>
                         </div>
-                        <p class="mb-2"><span>Size: </span><span class="size">Lớn</span></p>
-                        <p class="mb-2"><span>Giá: </span><span>59,000đ</span></p>
-                        <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">Ít đường, nhiều sữa</span></p>
+                        <p class="mb-2"><span>Size: </span><span class="size"><%=s.getSizeName()%></span></p>
+                        <p class="mb-2"><span>Giá: </span><span>
+                        <%=NumberCurrencyFormat.numberCurrencyFormat(cart.getTotalPrice() + "")%>đ</span></p>
+                        <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">
+                        <%=(cart.getNote().trim().equals("")) ? "Không có" : cart.getNote()%></span></p>
                     </div>
                     <div class="user-action col-3 d-flex flex-column justify-content-center align-items-center gap-3">
                         <button class="change_info-btn border-0">Thay đổi thông tin</button>
@@ -97,6 +89,10 @@
                 <div id="change_cart_info-container">
 
                 </div>
+                <%
+                        }
+                    }
+                %>
             </div>
             <div class="col-12 col-lg-3">
                 <div class="cart-control row pt-3">
@@ -110,7 +106,7 @@
                     <div class="d-flex flex-column gap-3 col-8 col-lg-12">
                         <div>
                             <div class="fs-5 fw-bolder">Thành tiền:</div>
-                            <div id="valueOfCart">134,000đ</div>
+                            <div id="valueOfCart"><%=NumberCurrencyFormat.numberCurrencyFormat(total+"")%>đ</div>
                         </div>
                         <button type="submit">Thanh toán ngay</button>
 
