@@ -32,10 +32,11 @@
 </head>
 <body>
     <div class="content_container">
-        <h1 class="py-3 text-center">Cloudy Drinks</h1>
+        <h1 class="brand py-3 text-center">Cloudy Drinks</h1>
         <div class="row">
-            <div class="col-md-8 order-2 order-md-1">
-                <form action="" method="post">
+            <div class="col-md-8 order-2 order-md-1 row justify-content-center">
+                <!-- FORM  /?name=&phoneNumber=&district=&ward=&address=-->
+                <form action="" method="get" id="checkoutInfo" class="col-12 col-md-6 m-0">
                     <section id="contact_container">
                         <div class="fs-5 fw-bolder d-flex align-items-center gap-2 mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-card-heading" viewBox="0 0 16 16">
@@ -44,44 +45,34 @@
                             </svg>
                             Thông tin nhận hàng
                         </div>
-                        <div class="row">
-                            <div class="dropdown col-9">
-                                <div class="dropdown-toggle w-100 d-flex justify-content-between align-items-center"
-                                     role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <div id="displaySelectedContact">Thông tin đã lưu</div>
-                                </div>
-
-                                <div class="dropdown-menu">
-
-                                    <div class="dropdown-item">
-                                        <p>Sunny Biolie - 0907036729</p>
-                                        <p>Số 3127 Phạm Thế Hiển, Phường 16, Quận 11, TP Hồ Chí Minh</p>
-                                    </div>
-                                    <div class="dropdown-item">
-                                        <p>Chí Khoa - 0907036729</p>
-                                        <p>Phường 16, Quận 11, TP Hồ Chí Minh</p>
-                                    </div>
-                                    <div class="dropdown-item">
-                                        <p>Sunny Biolie - 0907036729</p>
-                                        <p>Số 3127 Phạm Thế Hiển, Phường 16, Quận 11, TP Hồ Chí Minh</p>
-                                    </div>
-
-                                </div>
-
+                        <div class="">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="">
+                                <label for="name">Họ tên người nhận</label>
                             </div>
-                            <div class="col-3 d-flex justify-content-center align-items-center">
-                                <span class="link fw-bolder text-center">Nhập thông tin mới</span>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="">
+                                <label for="phoneNumber">Số điện thoại</label>
+                            </div>
+                            <div class="lock mb-3">TP Hồ Chí Minh</div>
+                            <div class="mb-3">
+                                <select class="form-select mb-3" id="district" name="district">
+                                    <option value="" selected>Chọn Quận / Huyện</option>
+                                </select>
+
+                                <select class="form-select" id="ward" name="ward">
+                                    <option value="" selected>Chọn Phường / Xã</option>
+                                </select>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="address" name="address" placeholder="">
+                                <label for="address">Số nhà, tên đường</label>
                             </div>
                         </div>
 
-                        <select name="contactId" id="" hidden>
-                            <option value="" selected disabled hidden></option>
-                            <option value="123Z"></option>
-                            <option value="35as"></option>
-                            <option value="rani"></option>
-                        </select>
-
                     </section>
+                </form>
+                <div class="col-12 col-md-6">
                     <section>
                         <div class="fs-5 fw-bolder d-flex align-items-center gap-2 mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-truck" viewBox="0 0 16 16">
@@ -105,61 +96,31 @@
                             Thanh toán khi giao hàng (COD)
                         </div>
                     </section>
-                    <div class="row align-items-center gap-3 gap-md-0">
-                        <div class="mb-3 mb-md-0 d-flex d-md-block justify-content-center order-2 order-md-1 col-12 col-md-6">
-                            <a href="../cart" class=" link fw-bolder">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"></path>
-                                </svg>
-                                <span> Quay về giỏ hàng</span></a>
-                        </div>
-                        <div class="d-flex justify-content-end order-1 col-12 col-md-6">
-                            <button class="main-btn">Đặt hàng</button>
-                        </div>
+                </div>
+
+                <div class="row align-items-center gap-3 gap-md-0">
+                    <div class="text-end mb-3 mb-md-0 d-flex d-md-block justify-content-center order-2 order-md-1 col-12 col-md-6">
+                        <a href="../cart" class=" link fw-bolder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5M10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5"></path>
+                            </svg>
+                            <span> Quay về giỏ hàng</span></a>
                     </div>
-                </form>
-                <dialog open id="manage_contact">
-                    <div>
-                        <h3 class="heading">Quản lý thông tin nhận hàng</h3>
-                        <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link active" id="add_contact_info-tab" data-bs-toggle="pill" data-bs-target="#add_contact_info" type="button"
-                                        role="tab" aria-controls="add_contact_info" aria-selected="true">Thêm</button>
-                            </li>
-                            <li class="nav-item" role="presentation">
-                                <button class="nav-link" id="remove_contact_info-tab" data-bs-toggle="pill" data-bs-target="#remove_contact_info" type="button"
-                                        role="tab" aria-controls="remove_contact_info" aria-selected="false">Xóa</button>
-                            </li>
-                        </ul>
-                        <div class="tab-content" id="pills-tabContent">
-                            <div class="tab-pane fade show active" id="add_contact_info"
-                                 role="tabpanel" aria-labelledby="add_contact_info-tab" tabindex="0">
-                                <form id="add">
-                                    <input type="hidden" name="">
-                                    <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="name" placeholder="">
-                                        <label for="name">Họ và tên</label>
-                                    </div>
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="phoneNumber" placeholder="">
-                                        <label for="phoneNumber">Số điện thoại</label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="tab-pane fade" id="remove_contact_info"
-                                 role="tabpanel" aria-labelledby="remove_contact_info-tab" tabindex="0">
-                                ...
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-end order-1 col-12 col-md-6">
+                        <button type="submit" form="checkoutInfo" class="main-btn">Đặt hàng</button>
                     </div>
-                </dialog>
+                </div>
+
             </div>
             <div class="col-md-4 order-1 mb-3 border-2 border-bottom border-dark-subtle">
-                <div class="d-flex">
-                    <div class="" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <div class="d-flex mb-3">
+                    <div class="pointer d-flex align-items-center gap-3" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         <div class="order-title">Đơn hàng
                             <span class="card-quantity">(3 sản phẩm)</span>
                         </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
+                            <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"></path>
+                        </svg>
                     </div>
                 </div>
                 <div class="collapse show py-3" id="collapseExample">

@@ -2,38 +2,42 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 let contactContainer = $("#contact_container");
-let contactDropdownContent = $("#contact_container .dropdown-menu");
 
-syncSelectContact();
+getData();
+async function getData() {
+    const response = await fetch("https://raw.githubusercontent.com/SunnyBiolie/Station/master/hcm_address_data.json");
+    const data = await response.json();
+    renderCity(data);
+}
+let temp;
+const districts = $("#district");
+const wards = $("#ward");
+function renderCity(data) {
 
-function syncSelectContact() {
-    let contactItemsInfo = $$("#contact_container .dropdown-menu .dropdown-item");
-    let contactItemsId = $$("#contact_container select[name='contactId'] option");
-
-    if (contactItemsInfo.length !== contactItemsId.length - 1) {
-        console.log("Có lỗi bất đồng bộ về số lượng, vui lòng admin kiểm tra lại hoặc reload lại trang");
-        return null;
+    for (const dis of data[0].districts) {
+        districts.options[districts.options.length] = new Option(dis.name, dis.name);
     }
 
-    contactItemsInfo.forEach(item => {
-        item.addEventListener("click",
-            () => showSelectedContactInfo(item),
-            false)
-    });
+    districts.onchange = function () {
+        wards.length = 1;
+        if (this.value !== "") {
+            let dataWards = data[0].districts.filter(n => n.name === this.value)[0].wards.sort();
+            dataWards = dataWards.sort((a, b) => {
+                const nameA = a.name.toUpperCase();
+                const nameB = b.name.toUpperCase();
+                if (nameA < nameB) {
+                    return -1;
+                }
+                if (nameA > nameB) {
+                    return 1;
+                }
 
-    contactItemsInfo.forEach((item, index) => {
-        item.addEventListener("click",
-            () => selectContactIdWhileClickInfo(contactItemsId, index+1),
-            false)
-    });
-}
+                return 0;
+            });
 
-
-function showSelectedContactInfo(contactInfo) {
-    let displayPosition = $("#displaySelectedContact");
-    displayPosition.innerHTML = contactInfo.innerHTML;
-}
-function selectContactIdWhileClickInfo(contactItemsId, index) {
-    contactItemsId[index].selected = true;
-    console.log($("#contact_container select[name='contactId']").value);
+            for (const w of dataWards) {
+                wards.options[wards.options.length] = new Option(w.name, w.name);
+            }
+        }
+    };
 }

@@ -94,6 +94,10 @@ a.active, .dark-theme a.active {
     cursor: pointer;
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 #increase-btn, #decrease-btn {
     display: flex;
     align-items: center;

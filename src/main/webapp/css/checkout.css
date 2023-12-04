@@ -1,46 +1,45 @@
+.brand {
+    color: var(--main-color);
+    font-weight: 600;
+}
+
 section {
     margin-bottom: 1.5rem;
-}
-#contact_container #displaySelectedContact {
-    text-align: left;
-    text-wrap: wrap;
-}
-#contact_container .dropdown .dropdown-toggle {
-    padding: 0.3rem 0.6rem;
-    border: 1px solid #ccc;
-    border-radius: 0.25rem;
-}
-#contact_container .dropdown-menu {
-    max-height: 45vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-}
-#contact_container #displaySelectedContact p,
-#contact_container .dropdown-item p {
-    margin: 0;
 }
 
 .lock {
     color: #666;
     background: #eee;
-    padding: 1rem 1rem 1rem 2rem;
+    padding: 1rem 1rem 1rem 1.75rem;
     border-radius: 0.25rem;
 }
 
 .order-title {
     font-size: 1.25rem;
     font-weight: 700;
-    margin: 12px 0;
 }
 .order-title .card-quantity {
     font-size: 1.2rem;
     font-weight: 600;
 }
 
+button.main-btn {
+    width: 100%;
+}
+
 #cart-container {
-    max-height: 50vh;
-    overflow-x: hidden;
+    max-height: 40vh;
+    overflow-x: auto;
     overflow-y: auto;
+}
+#cart-container::-webkit-scrollbar {
+    background: transparent;
+    width: 6px;
+    height: 6px;
+}
+#cart-container::-webkit-scrollbar-thumb {
+    background: #b9d3e0;
+    border-radius: 6px;
 }
 #cart-container .item .img {
     width: 100%;
@@ -60,30 +59,13 @@ section {
     color: var(--main-color);
 }
 
-dialog#manage_contact {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width: 600px;
-    max-width: 90%;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.4);
-}
-dialog#manage_contact .heading {
-    text-align: center;
-    padding: 12px;
-}
-
 @media only screen and (max-width: 768px) {
     .content_container {
         width: 90%;
         max-width: 532px;
     }
 
-    button.main-btn {
-        width: 100%;
+    #cart-container {
+        overflow-x: hidden;
     }
 }
