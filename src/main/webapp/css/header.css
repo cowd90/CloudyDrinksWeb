@@ -206,6 +206,9 @@ header .header_container .more-menu_container .more-menu_content {
     background-position: center;
     background-size: contain;
 }
+#search_result-container .wrapper .item .content {
+    width: 65%;
+}
 #search_result-container .wrapper .item .heading {
     font-size: 0.875rem;
     font-weight: 600;

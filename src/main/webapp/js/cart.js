@@ -91,7 +91,7 @@ function createChangeInfoDialog(id, name, size, quantity, desc) {
                 </div>
                 <div class="d-flex justify-content-center gap-4">
                     <button type="submit" class="main-btn disabled" disabled>Xác nhận</button>
-                    <button class="main-btn px-4" onclick="removeChangeInfoDialog()">Hủy</button>
+                    <button class="cancel-btn px-4" onclick="removeChangeInfoDialog()">Hủy</button>
                 </div>
             </form>
         </dialog>
