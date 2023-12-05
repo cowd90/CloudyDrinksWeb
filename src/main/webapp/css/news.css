@@ -1,0 +1,31 @@
+.banner {
+    color: var(--font-color_light-theme);
+    background-image: url("https://gongcha.com.vn/wp-content/uploads/2018/03/banner-tintuc-uudai.png");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 125px 0 140px;
+}
+.banner .title {
+    font-size: 2.25rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.banner p {
+    margin-bottom: 8px;
+}
+
+.card-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+}

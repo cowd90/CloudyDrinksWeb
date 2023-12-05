@@ -185,7 +185,7 @@ header .header_container .more-menu_container .more-menu_content {
     width: 6px;
 }
 #search_result-container .wrapper::-webkit-scrollbar-thumb {
-    background: #b9d3e0;
+    background: var(--scrollbar_thumb-color);
     border-radius: 6px;
 }
 #search_result-container .wrapper .no-item {
@@ -668,6 +668,10 @@ header .header_container .more-menu_container .more-menu_content {
 
     header .header_container .user_container .more-menu_container {
         transform: translateX(-70%);
+    }
+    .user_container .user-acc_wrapper {
+        width: 32px;
+        height: 32px;
     }
     .user_container .user-acc_wrapper .user-acc_content::before {
         left: 70%;

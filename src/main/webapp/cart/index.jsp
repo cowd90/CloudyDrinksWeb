@@ -117,5 +117,8 @@
     </div>
 
     <script id="change-cart-url" src="<%=url%>/js/cart.js" data-url="<%=url%>"></script>
+    <%@include file="../components/footer.jsp" %>
+
+    <script id="change-cart-url" src="<%=url%>/js/cart.js" data-url="<%=url%>"></script>
 </body>
 </html>

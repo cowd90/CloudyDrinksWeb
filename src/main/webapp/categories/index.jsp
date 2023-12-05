@@ -110,6 +110,8 @@
 
         </div>
     </div>
+
+    <%@include file="../components/footer.jsp" %>
 </div>
 
 <script src="<%=url%>/js/categories.js"></script>
