@@ -15,6 +15,8 @@
     --font-color_dark-theme_2: #eee;
     --font-color_light-theme: #212529;
 
+    --scrollbar_thumb-color: #b9d3e0;
+
     --large-breakpoint: 1200px;
     --medium-breakpoint: 992px;
     --small-breakpoint: 768px;
@@ -32,6 +34,13 @@ span,
 a,
 div {
     font-family: "Open Sans", sans-serif !important;
+}
+
+.dark-theme::-webkit-scrollbar {
+    background: #424242;
+}
+.dark-theme::-webkit-scrollbar-thumb {
+    background: #686868;
 }
 
 a {
@@ -71,6 +80,12 @@ a.active, .dark-theme a.active {
     border: 1px solid #c4c4c44d;
 }
 
+.main-btn_outline {
+    color: var(--main-color) !important;
+    background: none;
+    border: 2px solid var(--main-color);
+    padding: 12px;
+}
 .main-btn, .cancel-btn {
     text-align: center;
     padding: 12px;
@@ -96,6 +111,10 @@ a.active, .dark-theme a.active {
 
 .pointer {
     cursor: pointer;
+}
+
+.sub-text {
+    font-size: 0.75rem;
 }
 
 #increase-btn, #decrease-btn {

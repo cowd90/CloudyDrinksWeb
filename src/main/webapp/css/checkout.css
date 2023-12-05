@@ -38,7 +38,7 @@ button.main-btn {
     height: 6px;
 }
 #cart-container::-webkit-scrollbar-thumb {
-    background: #b9d3e0;
+    background: var(--scrollbar_thumb-color);
     border-radius: 6px;
 }
 #cart-container .item .img {
