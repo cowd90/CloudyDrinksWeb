@@ -160,6 +160,8 @@
 
         </div>
     </div>
+
+    <%@include file="../components/footer.jsp" %>
 </div>
 
 <script src="../js/categories.js"></script>

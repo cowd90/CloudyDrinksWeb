@@ -134,6 +134,8 @@
         </div>
     </div>
 
+    <%@include file="../components/footer.jsp" %>
+
     <script src="<%=url%>/js/history.js"></script>
 </body>
 </html>

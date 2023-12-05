@@ -13,7 +13,7 @@
 
 <link rel="stylesheet" href="<%=furl%>/css/footer.css">
 
-<footer class="overflow-hidden">
+<footer class="overflow-hidden mt-5">
     <div class="content_container row">
         <div class="left col-lg-3 text-center text-lg-end text-white py-xl-5 pe-xl-3">
             <div class="brand fs-2">Cloudy Drinks</div>

@@ -56,7 +56,7 @@
                             </div>
                         </div>
                     </li>
-                    <li><a href="">Tin tức</a></li>
+                    <li><a href="<%=url%>/news">Tin tức</a></li>
                 </ul>
             </div>
         </div>

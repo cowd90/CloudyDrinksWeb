@@ -120,6 +120,8 @@
         </div>
     </div>
 
+    <%@include file="../components/footer.jsp" %>
+
     <script src="<%=url%>/js/cart.js"></script>
 </body>
 </html>

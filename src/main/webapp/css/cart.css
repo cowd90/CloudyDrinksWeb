@@ -1,7 +1,3 @@
-body {
-    height: 3000px;
-}
-
 .banner {
     color: var(--font-color_light-theme);
     background-image: url("https://gongcha.com.vn/wp-content/uploads/2023/11/cover-web.ginger4-scaled.jpg");

@@ -326,6 +326,9 @@
             </div>
         </div>
     </div>
+
+    <%@include file="../components/footer.jsp" %>
+
 </div>
 
 <script src="<%=url%>/js/products.js"></script>
