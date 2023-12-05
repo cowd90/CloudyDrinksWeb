@@ -1,4 +1,12 @@
-<%--
+<%@ page import="database.CartDAO" %>
+<%@ page import="model.Cart" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.User" %>
+<%@ page import="model.Product" %>
+<%@ page import="database.SizeDAO" %>
+<%@ page import="model.Size" %>
+<%@ page import="database.ProductDAO" %>
+<%@ page import="util.NumberCurrencyFormat" %><%--
   Created by IntelliJ IDEA.
   User: khoap
   Date: 12/2/2023
@@ -116,7 +124,21 @@
                 <div class="d-flex mb-3">
                     <div class="pointer d-flex align-items-center gap-3" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                         <div class="order-title">Đơn hàng
-                            <span class="card-quantity">(3 sản phẩm)</span>
+                            <%
+                                Object obj = session.getAttribute("user");
+                                User user = null;
+                                if (obj != null) {
+                                    user = (User) obj;
+                                }
+
+                                CartDAO cartDAO = new CartDAO();
+                                ArrayList<Cart> cartList = cartDAO.selectAllItem(user.getUserId());
+                                int itemQuantity = 0;
+                                for (Cart cart : cartList) {
+                                    itemQuantity += cart.getQuantity();
+                                }
+                            %>
+                            <span class="card-quantity">(<%=itemQuantity%> sản phẩm)</span>
                         </div>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-caret-down" viewBox="0 0 16 16">
                             <path d="M3.204 5h9.592L8 10.481 3.204 5zm-.753.659 4.796 5.48a1 1 0 0 0 1.506 0l4.796-5.48c.566-.647.106-1.659-.753-1.659H3.204a1 1 0 0 0-.753 1.659z"></path>
@@ -125,85 +147,40 @@
                 </div>
                 <div class="collapse show py-3" id="collapseExample">
                     <div id="cart-container" class="mb-2">
+                        <%
+                            int total = 0;
+                            for (Cart cart : cartList) {
+                                Product p = new ProductDAO().selectById(cart.getProductId() + "");
+                                Size s = new SizeDAO().selectById(cart.getSizeId() + "");
+                                total += cart.getTotalPrice();
+                        %>
                         <div class="item row pb-1">
                             <div class="col-3">
                                 <img class="img"
-                                     src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
+                                     src="<%=p.getProductImage()%>" alt="<%=p.getProductName()%>">
                             </div>
                             <div class="item_info col-6">
-                                <p class="name">Grape Milk Tea</p>
+                                <p class="name"><%=p.getProductName()%></p>
                                 <p class="d-flex justify-content-between align-items-center">
-                                    <span>(Vừa)</span>
-                                    <span class="fst-italic">x2</span>
+                                    <span>(<%=s.getSizeName()%>)</span>
+                                    <span class="fst-italic">x<%=cart.getQuantity()%></span>
                                 </p>
-                                <p>59,000đ</p>
+                                <p><%=NumberCurrencyFormat.numberCurrencyFormat(p.getPrice()+s.getUpSizePrice())%>đ</p>
                             </div>
                             <div class="col-3 d-flex align-items-center">
-                                118,000đ
+                                <%=NumberCurrencyFormat.numberCurrencyFormat(cart.getTotalPrice())%>đ
                             </div>
                         </div>
                         <div class="break-line mb-1"></div>
-
-                        <div class="item row pb-1">
-                            <div class="col-3">
-                                <img class="img"
-                                     src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
-                            </div>
-                            <div class="item_info col-6">
-                                <p class="name">Grape Milk Tea</p>
-                                <p class="d-flex justify-content-between align-items-center">
-                                    <span>(Vừa)</span>
-                                    <span class="fst-italic">x2</span>
-                                </p>
-                                <p>59,000đ</p>
-                            </div>
-                            <div class="col-3 d-flex align-items-center">
-                                118,000đ
-                            </div>
-                        </div>
-                        <div class="break-line mb-1"></div>
-                        <div class="item row pb-1">
-                            <div class="col-3">
-                                <img class="img"
-                                     src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
-                            </div>
-                            <div class="item_info col-6">
-                                <p class="name">Grape Milk Tea</p>
-                                <p class="d-flex justify-content-between align-items-center">
-                                    <span>(Vừa)</span>
-                                    <span class="fst-italic">x2</span>
-                                </p>
-                                <p>59,000đ</p>
-                            </div>
-                            <div class="col-3 d-flex align-items-center">
-                                118,000đ
-                            </div>
-                        </div>
-                        <div class="break-line mb-1"></div>
-                        <div class="item row pb-1">
-                            <div class="col-3">
-                                <img class="img"
-                                     src="https://gongcha.com.vn/wp-content/uploads/2023/10/TRA-SUA-NHO.png" alt="">
-                            </div>
-                            <div class="item_info col-6">
-                                <p class="name">Grape Milk Tea</p>
-                                <p class="d-flex justify-content-between align-items-center">
-                                    <span>(Vừa)</span>
-                                    <span class="fst-italic">x2</span>
-                                </p>
-                                <p>59,000đ</p>
-                            </div>
-                            <div class="col-3 d-flex align-items-center">
-                                118,000đ
-                            </div>
-                        </div>
-                        <div class="break-line mb-1"></div>
+                        <%
+                            }
+                        %>
                     </div>
                     <div class="order-control">
                         <div class="d-flex flex-column gap-3">
                             <div>
                                 <div class="fs-5 fw-bolder">Tổng tiền:</div>
-                                <div id="valueOfCart">134,000đ</div>
+                                <div id="valueOfCart"><%=NumberCurrencyFormat.numberCurrencyFormat(total)%>đ</div>
                             </div>
 
                         </div>

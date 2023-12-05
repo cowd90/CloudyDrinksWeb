@@ -88,6 +88,42 @@ public class CartDAO implements IDAO<Cart>{
         return result;
     }
 
+    public Cart selectByCartId(String cid) {
+        Cart result = null;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "SELECT * FROM cart WHERE cartId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, cid);
+
+            // Execute query
+            ResultSet rs = ps.executeQuery();
+
+            // Get data from db
+
+            while (rs.next()) {
+                String cartId = rs.getString("cartId");
+                String userId = rs.getString("userId");
+                int productId = rs.getInt("productId");
+                int sizeId = rs.getInt("sizeId");
+                int quantity = rs.getInt("quantity");
+                int totalPrice = rs.getInt("totalPrice");
+                String note = rs.getString("note");
+                Timestamp time = rs.getTimestamp("time");
+
+                result = new Cart(cartId, userId, productId, sizeId, quantity, totalPrice, note, time);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     @Override
     public int insert(Cart cartItem) {
         int result = 0;
@@ -323,8 +359,8 @@ public class CartDAO implements IDAO<Cart>{
     }
 
 //    public static void main(String[] args) {
-//        CartDAO cartDAO = new CartDAO();
-//        System.out.println(cartDAO.countCartQuantity("1700706798560"));
+//        Cart cart = new CartDAO().selectByCartId("NndMvnO7vn");
+//        System.out.println(cart);
 //    }
 
 }

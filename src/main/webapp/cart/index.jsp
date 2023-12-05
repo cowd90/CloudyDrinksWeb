@@ -1,4 +1,4 @@
-        <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -75,7 +75,7 @@
                         </div>
                         <p class="mb-2"><span>Size: </span><span class="size"><%=s.getSizeName()%></span></p>
                         <p class="mb-2"><span>Giá: </span><span>
-                        <%=NumberCurrencyFormat.numberCurrencyFormat(cart.getTotalPrice() + "")%>đ</span></p>
+                        <%=NumberCurrencyFormat.numberCurrencyFormat(cart.getTotalPrice())%>đ</span></p>
                         <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">
                         <%=(cart.getNote().trim().equals("")) ? "Không có" : cart.getNote()%></span></p>
                     </div>
@@ -106,7 +106,7 @@
                     <div class="d-flex flex-column gap-3 col-8 col-lg-12">
                         <div>
                             <div class="fs-5 fw-bolder">Thành tiền:</div>
-                            <div id="valueOfCart"><%=NumberCurrencyFormat.numberCurrencyFormat(total+"")%>đ</div>
+                            <div id="valueOfCart"><%=NumberCurrencyFormat.numberCurrencyFormat(total)%>đ</div>
                         </div>
                         <a href="<%=url%>/checkout" class="main-btn">Thanh toán ngay</a>
 
@@ -116,6 +116,6 @@
         </div>
     </div>
 
-    <script src="<%=url%>/js/cart.js"></script>
+    <script id="change-cart-url" src="<%=url%>/js/cart.js" data-url="<%=url%>"></script>
 </body>
 </html>

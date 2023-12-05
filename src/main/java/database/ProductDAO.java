@@ -356,6 +356,33 @@ public class ProductDAO implements IDAO<Product>{
         return list;
     }
 
+    public boolean checkIfProductExist(String pname) {
+        boolean result = false;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "SELECT * FROM product WHERE productName = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, pname);
+
+            // Execute query
+            ResultSet rs = ps.executeQuery();
+
+            // Get data from db
+
+            while (rs.next()) {
+                result = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public static void main(String[] args) {
         ProductDAO dao = new ProductDAO();
         System.out.println(dao.select6NewProduct());

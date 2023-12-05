@@ -1,6 +1,8 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const rootUrl = $("#add-product-url").getAttribute("data-url");
+
 let productImgInput = $("#product_img-input");
 
 
@@ -50,7 +52,7 @@ $("#add_prod-btn").onclick = (e) => {
             .then(url => {
                 $("input[name='prodImgLink']").value = url;
 
-                let link = `./?prodName=${productName}&prodImgLink=${url}&prodPrice=${productPrice}&belongCat=${belongCategory}&prodDesc=${productDesc}`;
+                let link = `${rootUrl}/add-product?prodName=${productName}&prodImgLink=${url}&prodPrice=${productPrice}&belongCat=${belongCategory}&prodDesc=${productDesc}`;
                 const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {

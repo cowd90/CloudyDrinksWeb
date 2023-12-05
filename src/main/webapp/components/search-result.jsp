@@ -1,5 +1,8 @@
 <%@ page import="model.Product" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="database.ProductDAO" %>
+<%@ page import="model.Size" %>
+<%@ page import="util.NumberCurrencyFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -23,16 +26,21 @@
     <%
     } else {
         for (Product product : products) {
+            ArrayList<Size> sizes = new ProductDAO().getSizesByProductId(product.getProductId());
     %>
-    <a href="" class="item d-flex justify-content-center align-items-center">
+    <a href="${pageContext.request.contextPath}/product-controller?pid=<%=product.getProductId()%>" class="item d-flex justify-content-center align-items-center">
         <div class="img"
              style="background-image: url('<%=product.getProductImage()%>')"></div>
-        <div>
+        <div class="content">
             <div class="heading"><%=product.getProductName()%></div>
             <div class="body">
-                <p>56,000đ (S)</p>
-                <p>62,000đ (M)</p>
-                <p>70,000đ (L)</p>
+                <%
+                    for (Size size : sizes) {
+                %>
+                <p><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice() + size.getUpSizePrice())%>đ (<%=size.getSizeName()%>)</p>
+                <%
+                    }
+                %>
             </div>
         </div>
     </a>

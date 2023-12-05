@@ -1,5 +1,6 @@
 let dialogContainer = $("#change_cart_info-container");
 
+const rootUrl = $("#change-cart-url").getAttribute("data-url");
 
 function plusQuantity(number) {
     let inputQuantity = $("#prod-quantity");
@@ -106,12 +107,13 @@ function removeChangeInfoDialog() {
 function submitDialogChangeInfo(e) {
     e.preventDefault();
     let dialog = $("#change_cart_info-container dialog");
-
     let cartItemId = dialog.querySelector("input[name='cartItemId']").value;
+
     let newQuantity = dialog.querySelector("#prod-quantity").value;
     let newDesc = dialog.querySelector("input[name='newNotes']").value;
+    let link = `${rootUrl}/change-cart?cartItemId=${cartItemId}&newQuantity=${newQuantity}&newDesc=${newDesc}`;
 
-    let link = `./?cartItemId=${cartItemId}&newQuantity=${newQuantity}&newDesc=${newDesc}`;
+    alert(link);
     const xhr = new XMLHttpRequest();
     console.log(link);
     xhr.onreadystatechange = function() {
@@ -119,7 +121,8 @@ function submitDialogChangeInfo(e) {
             console.log(this.responseText);
         }
     }
-    xhr.open('GET', link, true);
-    xhr.send(null);
+    xhr.open('POST', link, true);
+    xhr.send();
     xhr.abort();
+    alert("end")
 }

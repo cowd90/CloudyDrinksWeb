@@ -1,7 +1,12 @@
 <%@ page import="database.CategoryDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="model.Category" %>
+<%@ page import="model.Product" %>
+<%@ page import="database.ProductDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+%>
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,6 +51,7 @@
                         <div class="col-6">
                             <form action="${pageContext.request.contextPath}/admin-controller" method="post"
                                   class="row-cols-1 d-flex flex-column gap-3" >
+                                <input name="action" type="hidden" value="add-category">
                                 <input type="text" name="catName" placeholder="Tên danh mục">
                                 <input type="submit" value="Thêm danh mục">
                             </form>
@@ -56,6 +62,7 @@
                 </div>
                 <div class="tab-pane" id="remove-category" role="tabpanel" aria-labelledby="remove-category-tab" tabindex="0">
                     <form action="${pageContext.request.contextPath}/admin-controller" method="post" class="row">
+                        <input name="action" type="hidden" value="remove-category">
                         <div class="col-6">
                             <select name="delCatId">
                                 <%
@@ -100,7 +107,13 @@
                                 <input type="number" name="prodPrice" placeholder="Giá sản phẩm">
                                 <select name="belongCat">
                                     <option value="" selected disabled hidden>Tên danh mục</option>
-                                    <option value="0">Test</option>
+                                    <%
+                                        for (Category category : categories) {
+                                    %>
+                                    <option value="<%=category.getCatId()%>"><%=category.getCatName()%></option>
+                                    <%
+                                        }
+                                    %>
                                 </select>
                                 <input type="text" name="prodDesc" placeholder="Mô tả sản phẩm">
 
@@ -113,10 +126,18 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="remove-product" role="tabpanel" aria-labelledby="remove-product-tab" tabindex="0">
-                    <form action="" method="" class="row">
+                    <form action="${pageContext.request.contextPath}/admin-controller" method="post" class="row">
+                        <input name="action" value="remove-product" type="hidden">
                         <div class="col-6">
                             <select name="delProdId">
-                                <option value="idsp">Tên sản phẩm</option>
+                                <%
+                                    ArrayList<Product> products = new ProductDAO().selectAll();
+                                    for (Product product : products) {
+                                %>
+                                <option value="<%=product.getProductId()%>"><%=product.getProductName()%></option>
+                                <%
+                                    }
+                                %>
                             </select>
                         </div>
                         <div class="col-6">
@@ -129,7 +150,7 @@
         </section>
     </div>
 
-    <script src="../js/admin.js" type="module"></script>
+    <script id="add-product-url" src="../js/admin.js" type="module" data-url="<%=url%>"></script>
 
 </body>
 </html>

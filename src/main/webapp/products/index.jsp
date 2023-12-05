@@ -60,10 +60,10 @@
             </div>
             <div class="col-6 py-4">
 
-                <form action="cart-controller?pid=<%=product.getProductId()%>" method="post">
+                <form action="<%=url%>/cart-controller?pid=<%=product.getProductId()%>" method="post">
                     <h1 class="product-name mb-3"><%=product.getProductName()%></h1>
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice()+"")%> VNĐ</p>
+                        <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice())%> VNĐ</p>
                     </div>
                     <div class="quantity d-flex align-items-center mb-4">
                         <div id="decrease-btn" onclick="plusQuantity(-1)">-</div>
@@ -84,7 +84,7 @@
                             %>
                             <input type="radio" name="size" value="<%=size.getSizeId()%>" id="size-<%=size.getSizeId()%>"
                                    data-prod="<%=size.getUpSizePrice()%>">
-                            <label for="size-<%=size.getSizeId()%>" class="sizeBtn"><%=size.getSizeName()%> + <%=NumberCurrencyFormat.numberCurrencyFormat(size.getUpSizePrice()+"")%>đ</label>
+                            <label for="size-<%=size.getSizeId()%>" class="sizeBtn"><%=size.getSizeName()%> + <%=NumberCurrencyFormat.numberCurrencyFormat(size.getUpSizePrice())%>đ</label>
                             <%
                                 }
                             %>
@@ -187,6 +187,8 @@
 <%--        let size = $("input[name='size']").value;--%>
 <%--        let quantity = $("input[name='quantity']").value;--%>
 <%--        let notes = $("input[name='notes']").value;--%>
+
+<%--        alert(pid +"-"+ size +"-"+ quantity +"-"+ notes)--%>
 
 <%--        let url = "cart-controller?pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;--%>
 <%--        console.log(url)--%>
