@@ -9,7 +9,7 @@ body {
 .page-container {
     position: relative;
     display: block;
-    background-image: url("https://gongcha.com.vn/wp-content/uploads/2023/07/cover-web-nha%CC%83n-01-scaled.jpg");
+    background-image: url("https://wallpapercave.com/wp/wp9389225.jpg");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -22,7 +22,7 @@ body {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.auth-wrapper {
+.action-wrapper {
     width: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     margin: 2rem 0;
@@ -30,13 +30,13 @@ body {
     border-radius: 0.375rem;
     color: #fff;
 }
-.auth-wrapper .title {
+.action-wrapper .title {
     margin-bottom: 2rem;
 }
-.auth-wrapper .input-wrapper {
+.action-wrapper .input-wrapper {
     position: relative;
 }
-.auth-wrapper .input-wrapper input {
+.action-wrapper .input-wrapper input {
     width: 100%;
     padding: 1.5rem 1.5rem 0.25rem 1.5rem;
     border-radius: 0.375rem;
@@ -44,7 +44,7 @@ body {
     background-color: rgb(64, 64, 64);
     outline: none;
 }
-.auth-wrapper .input-wrapper label {
+.action-wrapper .input-wrapper label {
     position: absolute;
     top: 1rem;
     left: 1.5rem;
@@ -53,43 +53,22 @@ body {
     transform-origin: 0;
     transition: all linear 0.15s;
 }
-.auth-wrapper .input-wrapper input:placeholder-shown ~ label {
+.action-wrapper .input-wrapper input:placeholder-shown ~ label {
     scale: 1;
 }
-.auth-wrapper .input-wrapper input:not(:placeholder-shown) ~ label,
-.auth-wrapper .input-wrapper input:focus ~ label {
+.action-wrapper .input-wrapper input:not(:placeholder-shown) ~ label,
+.action-wrapper .input-wrapper input:focus ~ label {
     transform: translateY(-0.75rem);
     scale: 0.75;
     transform-origin: 0;
 }
-.auth-wrapper button[type="submit"] {
+.action-wrapper button[type="submit"] {
     background: var(--main-color);
     padding: 0.75rem 0;
     outline: none;
     margin-top: 2rem;
     border: none;
     border-radius: 0.375rem;
-}
-.auth-wrapper form.hidden {
-    display: none;
-}
-.auth-wrapper .other-methods .icon-wrapper {
-    width: 2.5rem;
-    height: 2.5rem;
-    background: #fff;
-    border-radius: 999px;
-    cursor: pointer;
-}
-.auth-wrapper .other-methods .icon-wrapper:hover {
-    opacity: 0.75;
-}
-.auth-wrapper .form-footer {
-    color: rgb(115, 115, 115);
-    margin-top: 2.5rem;
-}
-.auth-wrapper .form-footer span:hover {
-    cursor: pointer;
-    text-decoration: underline;
 }
 
 /* #region dialog */
@@ -161,15 +140,24 @@ dialog.error .dialog-header .dialog-icon {
 }
 /* #endregion */
 
+.form-message {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 0.25rem;
+}
+.input-wrapper.invalid .form-message {
+    color: #f33a58;
+}
+
 @media only screen and (min-width: 768px) {
-    .auth-wrapper {
+    .action-wrapper {
         width: 60%;
         max-width: 28rem;
     }
 }
 
 @media only screen and (min-width: 1024px) {
-    .auth-wrapper {
+    .action-wrapper {
         width: 40%;
         max-width: 28rem;
     }
