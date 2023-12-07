@@ -13,13 +13,11 @@ body.dark-theme {
 }
 
 .banner .breadcrumb .breadcrumb-item {
-    font-size: 18px;
+    font-size: 1.125rem;
 }
-
 .banner .breadcrumb .breadcrumb-item.active span {
     font-weight: bolder;
 }
-
 .banner .breadcrumb .breadcrumb-item a:hover {
     text-decoration: underline;
 }

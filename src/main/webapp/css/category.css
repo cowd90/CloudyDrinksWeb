@@ -1,0 +1,99 @@
+.banner {
+    color: var(--font-color_light-theme);
+    background-image: url("https://gongcha.com.vn/wp-content/uploads/2020/08/banner-menu-1900-x-335.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 135px 0 140px;
+}
+.banner .title {
+    font-size: 2.25rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.banner p {
+    margin-bottom: 8px;
+}
+.banner .breadcrumb .breadcrumb-item {
+    font-size: 1.125rem;
+}
+.banner .breadcrumb .breadcrumb-item.active span {
+    font-weight: bolder;
+}
+.banner .breadcrumb .breadcrumb-item a:hover {
+    text-decoration: underline;
+}
+.dark-theme .banner .breadcrumb .breadcrumb-item a {
+    color: var(--font-color_light-theme);
+}
+
+/*<editor-fold desc="Danh mục và sản phẩm">*/
+.category-item .title {
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+    background: #ccc;
+    padding: 1rem 0;
+    margin-bottom: 12px;
+}
+.products_container .product {
+    padding: 24px 62px;
+}
+.products_container .product .card .card-img-top {
+    padding: 0 24px;
+}
+/*</editor-fold>*/
+.dark-theme .category-item .title {
+    background: #434343;
+}
+
+/*<editor-fold desc="Responsive">*/
+@media only screen and (max-width: 1200px) {
+    .banner {
+        padding: 100px 0 115px;
+    }
+
+    .products_container .product {
+        padding: 16px 36px;
+    }
+    .products_container .product .card .card-img-top {
+        padding: 0 18px;
+    }
+    .products_container .product .card .card-body .card-title {
+        font-size: 1.125rem;
+    }
+    .products_container .product .more-info .product-link {
+        width: 130px;
+        height: 130px;
+    }
+    .products_container .product .more-info .product-link svg {
+        width: 84px;
+        height: 84px;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .banner {
+        padding: 90px 0 90px;
+    }
+
+    .products_container .product {
+        padding: 12px 24px;
+    }
+    .products_container .product .card .card-img-top {
+        padding: 0 12px;
+    }
+    .products_container .product .card .card-body .card-title {
+        font-size: 1.0625rem;
+        margin: 4px;
+    }
+    .products_container .product .more-info .product-link {
+        width: 115px;
+        height: 115px;
+    }
+    .products_container .product .more-info .product-link svg {
+        width: 78px;
+        height: 78px;
+    }
+}
+/*</editor-fold>*/

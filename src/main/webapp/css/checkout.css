@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif:opsz@12..24&display=swap');
+
 .brand {
+    font-family: 'Hedvig Letters Serif', serif !important;
     color: var(--main-color);
-    font-weight: 600;
 }
 
 section {
