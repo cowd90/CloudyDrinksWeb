@@ -5,17 +5,15 @@ public class News {
     private String title;
     private String img;
     private String content;
-    private String hashtag;
 
     public News() {
     }
 
-    public News(int newsId, String title, String img, String content, String hashtag) {
+    public News(int newsId, String title, String img, String content) {
         this.newsId = newsId;
         this.title = title;
         this.img = img;
         this.content = content;
-        this.hashtag = hashtag;
     }
 
     public int getNewsId() {
@@ -50,14 +48,6 @@ public class News {
         this.content = content;
     }
 
-    public String getHashtag() {
-        return hashtag;
-    }
-
-    public void setHashtag(String hashtag) {
-        this.hashtag = hashtag;
-    }
-
     @Override
     public String toString() {
         return "News{" +
@@ -65,7 +55,6 @@ public class News {
                 ", title='" + title + '\'' +
                 ", img='" + img + '\'' +
                 ", content='" + content + '\'' +
-                ", hashtag='" + hashtag + '\'' +
                 '}';
     }
 }

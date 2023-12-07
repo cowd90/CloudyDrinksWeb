@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: khoap
-  Date: 12/5/2023
-  Time: 3:27 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="database.*" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -42,44 +36,26 @@
     
     <div class="content_container">
         <div class="row pt-5">
-
+            <%
+                NewsDAO newsDAO = new NewsDAO();
+                ArrayList<News> newNews = newsDAO.select3NewNews();
+                for (News news : newNews) {
+            %>
             <div class="col-6 col-lg-4">
                 <div class="card">
-                    <img src="http://gongcha.com.vn/wp-content/uploads/2023/03/395x280-02.jpg" class="card-img-top" alt="news">
+                    <img src="<%=news.getImg()%>" class="card-img-top" alt="<%=news.getTitle()%>">
                     <div class="card-body">
-                        <h5 class="card-title">Gong Cha đón hè với Series Đào Hoàng Kim</h5>
-                        <p class="card-text">Bài viết được cung cấp từ Zing News 21/3/2023 09:30 (GMT+7): https://zingnews.vn/gong-cha-viet-nam-ban-them-ca-phe-mo-lai-hoat-dong-nhuong-quyen-post1413828.html Golden Trust có kế hoạch phát triển thêm…</p>
+                        <h5 class="card-title"><%=news.getTitle()%></h5>
+                        <p class="card-text"><%=news.getContent()%></p>
                         <div class="d-flex justify-content-end">
                             <button class=main-btn>Chi tiết</button>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="col-6 col-lg-4">
-                <div class="card">
-                    <img src="http://gongcha.com.vn/wp-content/uploads/2023/03/395x280-02.jpg" class="card-img-top" alt="news">
-                    <div class="card-body">
-                        <h5 class="card-title">Gong Cha đón hè với Series Đào Hoàng Kim</h5>
-                        <p class="card-text">Bài viết được cung cấp từ Zing News 21/3/2023 09:30 (GMT+7): https://zingnews.vn/gong-cha-viet-nam-ban-them-ca-phe-mo-lai-hoat-dong-nhuong-quyen-post1413828.html Golden Trust có kế hoạch phát triển thêm…</p>
-                        <div class="d-flex justify-content-end">
-                            <button class=main-btn>Chi tiết</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-6 col-lg-4">
-                <div class="card">
-                    <img src="http://gongcha.com.vn/wp-content/uploads/2023/03/395x280-02.jpg" class="card-img-top" alt="news">
-                    <div class="card-body">
-                        <h5 class="card-title">Gong Cha đón hè với Series Đào Hoàng Kim</h5>
-                        <p class="card-text">Bài viết được cung cấp từ Zing News 21/3/2023 09:30 (GMT+7): https://zingnews.vn/gong-cha-viet-nam-ban-them-ca-phe-mo-lai-hoat-dong-nhuong-quyen-post1413828.html Golden Trust có kế hoạch phát triển thêm…</p>
-                        <div class="d-flex justify-content-end">
-                            <button class=main-btn>Chi tiết</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <%
+                }
+            %>
         </div>
     </div>
 

@@ -31,9 +31,8 @@ public class NewsDAO implements IDAO<News>{
                 String title = rs.getString("title");
                 String img = rs.getString("img");
                 String content = rs.getString("content");
-                String hashtag = rs.getString("hashtag");
 
-                News news = new News(newsId, title, img, content, hashtag);
+                News news = new News(newsId, title, img, content);
                 result.add(news);
 
             }
@@ -67,9 +66,8 @@ public class NewsDAO implements IDAO<News>{
                 String title = rs.getString("title");
                 String img = rs.getString("img");
                 String content = rs.getString("content");
-                String hashtag = rs.getString("hashtag");
 
-                result = new News(newsId, title, img, content, hashtag);
+                result = new News(newsId, title, img, content);
             }
 
         } catch (Exception e) {
@@ -88,14 +86,13 @@ public class NewsDAO implements IDAO<News>{
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "INSERT INTO size VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO size VALUES (?, ?, ?, ?)";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             ps.setInt(1, news.getNewsId());
             ps.setString(2, news.getTitle());
             ps.setString(3, news.getImg());
             ps.setString(4, news.getContent());
-            ps.setString(5, news.getHashtag());
 
             // Execute query
             result = ps.executeUpdate();
@@ -166,15 +163,13 @@ public class NewsDAO implements IDAO<News>{
                     " title = ?" +
                     " img = ?" +
                     " content = ?" +
-                    " hashtag = ?" +
                     " WHERE newsId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             ps.setString(1, news.getTitle());
             ps.setString(2, news.getImg());
             ps.setString(3, news.getContent());
-            ps.setString(4, news.getHashtag());
-            ps.setInt(5, news.getNewsId());
+            ps.setInt(4, news.getNewsId());
 
             // Execute query
             result = ps.executeUpdate();
@@ -205,9 +200,8 @@ public class NewsDAO implements IDAO<News>{
                 String title = rs.getString("title");
                 String img = rs.getString("img");
                 String content = rs.getString("content");
-                String hashtag = rs.getString("hashtag");
 
-                News news = new News(newsId, title, img, content, hashtag);
+                News news = new News(newsId, title, img, content);
                 list.add(news);
             }
         } catch (Exception e) {

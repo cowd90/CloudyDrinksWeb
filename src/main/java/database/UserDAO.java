@@ -29,11 +29,12 @@ public class UserDAO implements IDAO<User>{
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
+                boolean isAdmin = rs.getBoolean("isAdmin");
                 String verificationCode = rs.getString("verificationCode");
                 Timestamp authCodeValidTime = rs.getTimestamp("authCodeValidTime");
-                Boolean isVerified = rs.getBoolean("isVerified");
+                boolean isVerified = rs.getBoolean("isVerified");
 
-                User user = new User(userId, username, password, email, verificationCode, authCodeValidTime, isVerified);
+                User user = new User(userId, username, password, email, isAdmin, verificationCode, authCodeValidTime, isVerified);
                 result.add(user);
 
             }
@@ -67,11 +68,12 @@ public class UserDAO implements IDAO<User>{
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
+                boolean isAdmin = rs.getBoolean("isAdmin");
                 String verificationCode = rs.getString("verificationCode");
                 Timestamp authCodeValidTime = rs.getTimestamp("authCodeValidTime");
-                Boolean isVerified = rs.getBoolean("isVerified");
+                boolean isVerified = rs.getBoolean("isVerified");
 
-                result = new User(userId, username, password, email, verificationCode, authCodeValidTime, isVerified);
+                result = new User(userId, username, password, email, isAdmin, verificationCode, authCodeValidTime, isVerified);
             }
 
         } catch (Exception e) {
@@ -253,11 +255,12 @@ public class UserDAO implements IDAO<User>{
                 String username = rs.getString("username");
                 String password = rs.getString("password");
                 String email = rs.getString("email");
+                boolean isAdmin = rs.getBoolean("isAdmin");
                 String verificationCode = rs.getString("verificationCode");
                 Timestamp authCodeValidTime = rs.getTimestamp("authCodeValidTime");
                 Boolean isVerified = rs.getBoolean("isVerified");
 
-                result = new User(userId, username, password, email, verificationCode, authCodeValidTime, isVerified);
+                result = new User(userId, username, password, email, isAdmin, verificationCode, authCodeValidTime, isVerified);
                 break;
             }
 
@@ -367,4 +370,8 @@ public class UserDAO implements IDAO<User>{
         }
         return result;
     }
+
+//    public static void main(String[] args) {
+//        System.out.println(new UserDAO().selectById("admin"));
+//    }
 }

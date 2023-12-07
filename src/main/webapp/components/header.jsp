@@ -71,7 +71,7 @@
         <div class="right-header d-flex justify-content-center">
             <div class="search-bar_container d-flex align-items-center position-relative">
                 <div class="search-bar">
-                    <form name="myform" action="./handle" method="get" class="d-flex m-0">
+                    <form name="myform" class="d-flex m-0">
                         <input autocomplete="off" type="text" placeholder="Tìm kiếm sản phẩm" spellcheck="false"
                                name="keyword" class="search-content px-3" onkeyup="Search()"/>
                         <button type="submit" class="search-btn btn rounded-0">
@@ -257,7 +257,7 @@
         let key = document.myform.keyword.value;
 
         if (key !== "") {
-            let url = "search-controller?keyword=" + key;
+            let url = "<%=url%>/search-controller?keyword=" + key;
 
             if (window.XMLHttpRequest) {
                 xhttp = new XMLHttpRequest();

@@ -80,7 +80,7 @@
                         </svg>
                     </div>
                 </div>
-                <div class="list-product_content d-flex gap-3 gap-lg-4">
+                <div class="list-product_content col-12 col-md-9 d-flex gap-3 gap-lg-4">
                     <%
                         ProductDAO productDAO = new ProductDAO();
                         ArrayList<Product> newProducts = productDAO.select6NewProduct();
