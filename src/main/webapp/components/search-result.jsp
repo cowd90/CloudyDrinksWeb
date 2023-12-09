@@ -6,11 +6,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-<%
-    String url = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
-%>
-<link rel="stylesheet" href="<%=url%>/css/header.css">
-<script src="<%=url%>/js/header.js"></script>
 <body>
     <%
         ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("productListSearch");
@@ -36,8 +31,9 @@
             <div class="body">
                 <%
                     for (Size size : sizes) {
+                        String sizeName = "(" + size.getSizeName() + ")";
                 %>
-                <p><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice() + size.getUpSizePrice())%>đ (<%=size.getSizeName()%>)</p>
+                <p><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice() + size.getUpSizePrice())%>đ <%=(product.getCatId()!=7)?sizeName:""%></p>
                 <%
                     }
                 %>

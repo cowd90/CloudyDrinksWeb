@@ -106,9 +106,6 @@ public class UserDAO implements IDAO<User>{
             // Execute query
             result = ps.executeUpdate();
 
-            System.out.println("Query: " + sql);
-            System.out.println("Có " + result + " dòng đã bị thay đổi");
-
             // Close connection
             JDBCUtil.closeConnection(connect);
         } catch (Exception e) {
@@ -287,8 +284,6 @@ public class UserDAO implements IDAO<User>{
             // Execute query
             result = ps.executeUpdate();
 
-            System.out.println("Có " + result + " dòng được cập nhật");
-
             // Close connection
             JDBCUtil.closeConnection(connect);
 
@@ -296,46 +291,6 @@ public class UserDAO implements IDAO<User>{
             e.printStackTrace();
         }
         return result > 0;
-    }
-
-    public int updateInfo(User user) {
-        int result = 0;
-        try {
-            // Create db connection
-            Connection connect = JDBCUtil.getConnection();
-
-            // Create sql statement
-            String sql = "UPDATE user" +
-                    " SET " +
-                    " username = ?" +
-                    ", password = ?" +
-                    ", email = ?" +
-                    ", verificationCode = ?" +
-                    ", authCodeValidTime = ?" +
-                    ", isVerified = ?" +
-                    " WHERE userId = ?";
-
-            PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1, user.getUsername());
-            ps.setString(2, user.getPassword());
-            ps.setString(3, user.getEmail());
-            ps.setString(4, user.getVerificationCode());
-            ps.setTimestamp(5, user.getAuthCodeValidTime());
-            ps.setBoolean(6, user.isVerified());
-            ps.setString(7, user.getUsername());
-
-            // Execute query
-            result = ps.executeUpdate();
-
-            System.out.println("Có " + result + " dòng được cập nhật");
-
-            // Close connection
-            JDBCUtil.closeConnection(connect);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
     }
 
     public int updateVerifyInformation(User user) {

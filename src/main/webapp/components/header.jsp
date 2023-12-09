@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="sub-nav_item"><a href="<%=url%>/categories">Tất cả danh mục</a></div>
                                 </div>
-                                <div class="sub-nav_item"><a href=""><%=category.getCatName()%></a></div>
+                                <div class="sub-nav_item"><a href="<%=url%>/category-controller?catId=<%=category.getCatId()%>"><%=category.getCatName()%></a></div>
                                 <%
                                     }
                                 %>
@@ -121,7 +121,7 @@
                     <div class="more-menu_container">
                         <ul class="more-menu_content user-acc_content">
                             <li><a href="<%=url%>/history">Quản lý đơn hàng</a></li>
-                            <li><a href="<%=url%>/user-controller?action=change-password">Đổi mật khẩu</a></li>
+                            <li><a href="<%=url%>/actions">Đổi mật khẩu</a></li>
                             <li><a href="<%=url%>/user-controller?action=sign-out">Đăng xuất</a></li>
                         </ul>
                     </div>
@@ -130,47 +130,36 @@
             <!--</editor-fold>-->
 
             <!-- <editor-fold desc="Giỏ hàng"> -->
-            <%
-                CartDAO cartDAO = new CartDAO();
-                boolean hasItem = cartDAO.checkIfUserHasCart(user.getUserId());
-
-                if (!hasItem) {
-            %>
             <div class="cart_container d-flex align-items-center">
-                <div class="cart_wrapper">
+                <div id="right-sector" class="cart_wrapper">
                     <i class="fa-solid fa-cart-shopping">
+                        <%
+                            CartDAO cartDAO = new CartDAO();
+                            boolean hasItem = cartDAO.checkIfUserHasCart(user.getUserId());
+                            if (hasItem) {
+                        %>
                         <!-- Icon khi giỏ hàng có hàng -->
                         <div class="item-count d-flex justify-content-center align-items-center">
                             !
                         </div>
+                        <%
+                            }
+                        %>
                     </i>
                     <div class="more-menu_container">
                         <div class="more-menu_content cart-content">
                             <!-- <editor-fold desc="Không có sản phẩm"> -->
+                            <%
+                                if (!hasItem) {
+                            %>
                             <div class="no-product">
                                 <img src="https://i.imgur.com/WSiKOpQ.png" alt="Giỏ hàng trống"/>
                                 <h5>Bạn chưa có sản phẩm nào</h5>
                             </div>
+                            <%
+                                } else {
+                            %>
                             <!-- </editor-fold> -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <%
-                } else {
-            %>
-            <div class="cart_container d-flex align-items-center">
-                <div class="cart_wrapper">
-                    <i class="fa-solid fa-cart-shopping">
-                        <!-- Icon khi giỏ hàng có hàng -->
-                        <div
-                                class="item-count d-flex justify-content-center align-items-center"
-                        >
-                            !
-                        </div>
-                    </i>
-                    <div class="more-menu_container">
-                        <div class="more-menu_content cart-content">
                             <%
                                 ArrayList<Cart> cartList = cartDAO.select3Cart(user.getUserId());
                                 ProductDAO pDAO = new ProductDAO();
@@ -204,13 +193,13 @@
                                 <a href="<%=url%>/cart">Xem tất cả <span>(<%=cartDAO.countCartQuantity(user.getUserId())%>)</span> trong giỏ hàng</a>
                             </div>
                             <!--</editor-fold>-->
+                            <%
+                                }
+                            %>
                         </div>
                     </div>
                 </div>
             </div>
-            <%
-                }
-            %>
             <!-- </editor-fold> -->
             <% } %>
 
@@ -250,6 +239,9 @@
         </div>
     </div>
 </header>
+<div id="layer" class="hidden"></div>
+
+<script src="<%=url%>/js/header.js"></script>
 <script type="text/javascript">
 
     function Search() {
@@ -266,7 +258,7 @@
             }
 
             xhttp.onreadystatechange = function () {
-                if (xhttp.readyState === 4) {
+                if (xhttp.readyState === 4 && xhttp.status === 200) {
                     document.getElementById("search-result").innerHTML = xhttp.responseText;
                 }
             }
@@ -278,5 +270,37 @@
 
     }
 </script>
-<div id="layer" class="hidden"></div>
-<script src="<%=url%>/js/header.js"></script>
+<%--<script id="change-cart-url" src="<%=url%>/js/cart.js" data-url="<%=url%>"></script>--%>
+<script>
+    init();
+    function init() {
+        $$("button[type='submit']#remove-item").forEach(button => {
+            button.addEventListener("click", (e) => RemoveFromCart(e), false);
+        })
+    }
+    function RemoveFromCart(e) {
+        e.preventDefault();
+        let cartItemId = $("input[name='variantId']").value;
+        console.log(cartItemId)
+        let link = "<%=url%>/cart-controller?action=remove-item&cartItemId=" + cartItemId;
+
+        const xhr = new XMLHttpRequest();
+        console.log(link);
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                console.log(this.responseText);
+                let parts = xhr.responseText.split('|')
+                $("#cart-field").innerHTML = parts[0];
+                $("#right-sector").innerHTML = parts[1];
+
+                init();
+            }
+        }
+        xhr.open('POST', link, true);
+        xhr.send();
+    }
+</script>
+<script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
+<script>
+    new Snowflakes();
+</script>

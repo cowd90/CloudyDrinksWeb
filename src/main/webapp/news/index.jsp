@@ -25,85 +25,50 @@
     <link rel="stylesheet" href="../css/news.css">
 </head>
 <body>
-    <%@include file="../components/header.jsp" %>
+<%@include file="../components/header.jsp" %>
 
-    <div class="banner">
-        <div class="content_container">
-            <div class="title">Tin tức</div>
-            <p>Xem những tin tức mới nhất đến từ Cloudy Drinks</p>
-        </div>
-    </div>
-    
+<div class="banner">
     <div class="content_container">
-        <div class="row pt-5">
-            <%
-                NewsDAO newsDAO = new NewsDAO();
-                ArrayList<News> newNews = newsDAO.select3NewNews();
-                for (News news : newNews) {
-            %>
-            <div class="col-6 col-lg-4">
-        <div class="news-container row pt-5 pb-4">
-
-            <!--<editor-fold desc="Một tin tức">-->
-            <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                <div class="card">
-                    <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2023/03/395x280-02.jpg')" class="card-img-top"></div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5 class="card-title">Gong Cha đón hè với Series Đào Hoàng Kim</h5>
-                            <p class="link justify-content-center align-items-center gap-2 text-end">Chi tiết</p>
-                        </div>
-                        <p class="card-text">Bài viết được cung cấp từ Zing News 21/3/2023 09:30 (GMT+7): https://zingnews.vn/gong-cha-viet-nam-ban-them-ca-phe-mo-lai-hoat-dong-nhuong-quyen-post1413828.html Golden Trust có kế hoạch phát triển thêm…</p>
-                        <div class="d-flex justify-content-end">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--</editor-fold>-->
-
-            <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                <div class="card">
-                    <img src="<%=news.getImg()%>" class="card-img-top" alt="<%=news.getTitle()%>">
-                    <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2023/03/395x280-02.jpg')" class="card-img-top"></div>
-                    <div class="card-body">
-                        <h5 class="card-title"><%=news.getTitle()%></h5>
-                        <p class="card-text"><%=news.getContent()%></p>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5 class="card-title">Gong Cha đón hè với Series Đào Hoàng Kim</h5>
-                            <p class="link justify-content-center align-items-center gap-2 text-end">Chi tiết</p>
-                        </div>
-                        <p class="card-text">Bài viết được cung cấp từ Zing News 21/3/2023 09:30 (GMT+7): https://zingnews.vn/gong-cha-viet-nam-ban-them-ca-phe-mo-lai-hoat-dong-nhuong-quyen-post1413828.html Golden Trust có kế hoạch phát triển thêm…</p>
-                        <div class="d-flex justify-content-end">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-sm-6 col-lg-4 mb-4">
-                <div class="card">
-                    <div style="background-image: url('http://gongcha.com.vn/wp-content/uploads/2023/03/395x280-02.jpg')" class="card-img-top"></div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <h5 class="card-title">Gong Cha đón hè với Series Đào Hoàng Kim</h5>
-                            <p class="link justify-content-center align-items-center gap-2 text-end">Chi tiết</p>
-                        </div>
-                        <p class="card-text">Bài viết được cung cấp từ Zing News 21/3/2023 09:30 (GMT+7): https://zingnews.vn/gong-cha-viet-nam-ban-them-ca-phe-mo-lai-hoat-dong-nhuong-quyen-post1413828.html Golden Trust có kế hoạch phát triển thêm…</p>
-                        <div class="d-flex justify-content-end">
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <%
-                }
-            %>
-
-        </div>
-        <div class="d-flex justify-content-center align-items-center">
-            <button class="more-news main-btn px-5">Xem thêm</button>
-        </div>
+        <div class="title">Tin tức</div>
+        <p>Xem những tin tức mới nhất đến từ Cloudy Drinks</p>
     </div>
+</div>
 
-    <%@include file="../components/footer.jsp" %>
+<div class="content_container">
+    <div class="news-container row pt-5 pb-4">
 
-    <script src="../js/news.js"></script>
+        <!--<editor-fold desc="Một tin tức">-->
+        <%
+            ArrayList<News> newNews = new NewsDAO().select3NewNews();
+            for (News news : newNews) {
+        %>
+        <div class="col-12 col-sm-6 col-lg-4 mb-4">
+            <div class="card">
+                <div style="background-image: url(<%=news.getImg()%>)" class="card-img-top"></div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h5 class="card-title"><%=news.getTitle()%></h5>
+                        <p class="link justify-content-center align-items-center gap-2 text-end">Chi tiết</p>
+                    </div>
+                    <p class="card-text"><%=news.getContent()%></p>
+                    <div class="d-flex justify-content-end">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--</editor-fold>-->
+        <%
+            }
+        %>
+
+    </div>
+    <div class="d-flex justify-content-center align-items-center">
+        <button class="more-news main-btn px-5">Xem thêm</button>
+    </div>
+</div>
+
+<%@include file="../components/footer.jsp" %>
+
+<script id="load-more-url" src="../js/news.js" data-url="<%=url%>"></script>
 </body>
 </html>

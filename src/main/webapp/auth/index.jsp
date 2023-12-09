@@ -310,28 +310,6 @@
 
             </div>
 
-            <!--<editor-fold desc="Container chứa dialog của trang">-->
-<%--            <div id="dialog-container">--%>
-<%--                <script>--%>
-<%--                    // Phải để trong hàm window.onload để code bên trong thực thi sau code của file auth.js (code khởi tạo các hàm)--%>
-<%--                    window.onload = () => {--%>
-<%--                        let typeOfDialog = "success"; // success, error--%>
-<%--                        let title = "SUCCESS";--%>
-<%--                        // Mỗi phần tử của array sẽ được render trong 1 thẻ p--%>
-<%--                        let arrayOfMess = [--%>
-<%--                            "Line 1",--%>
-<%--                            "Now you can use this account to log in."--%>
-<%--                        ];--%>
-<%--                        let buttonContent = "Continue";--%>
-
-<%--                        createDialog(typeOfDialog, title, arrayOfMess, buttonContent);--%>
-<%--                        showDialog();--%>
-<%--                    }--%>
-<%--                </script>--%>
-
-<%--            </div>--%>
-            <!--</editor-fold>-->
-
         </div>
     </div>
 </div>

@@ -44,7 +44,7 @@
         <div class="row">
             <div class="col-md-8 order-2 order-md-1 row justify-content-center">
                 <!-- FORM  /?name=&phoneNumber=&district=&ward=&address=-->
-                <form action="" method="get" id="checkoutInfo" class="col-12 col-md-6 m-0">
+                <form action="${pageContext.request.contextPath}/order-controller" method="post" id="checkoutInfo" class="col-12 col-md-6 m-0">
                     <section id="contact_container">
                         <div class="fs-5 fw-bolder d-flex align-items-center gap-2 mb-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-card-heading" viewBox="0 0 16 16">

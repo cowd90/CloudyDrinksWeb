@@ -1,10 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: khoap
-  Date: 12/3/2023
-  Time: 10:40 AM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="database.*" %>
+<%@ page import="util.TimeFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -59,23 +54,27 @@
             <div class="tab-content">
                 <!-- Đang giao -->
                 <div class="tab-pane fade show active p-3" id="delivering" role="tabpanel" aria-labelledby="delivering-tab" tabindex="0">
-
+                    <%
+                        OrderDAO orderDAO = new OrderDAO();
+                        ArrayList<Order> orders = orderDAO.selectDelivering(user.getUserId());
+                        for (Order order : orders) {
+                    %>
                     <!--<editor-fold desc="Một item của mục đang giao">-->
                     <div class="his_item">
-                        <input type="hidden" name="variantId" value="<%-- id --%>">
-                        <p class="time">11:42 AM, 03/12/2023</p>
+                        <input type="hidden" name="variantId" value="<%=order.getOrderId()%>">
+                        <p class="time"><%=TimeFormat.formatTime(order.getTime())%></p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="name w-75">Trà sữa dâu</h3>
+                            <h3 class="name w-75"><%=orderDAO.getProductNameById(order.getProductId())%></h3>
                             <i class="fs-5 fw-bolder w-25 d-flex align-items-center gap-5">
-                                <span>(Lớn)</span><span>x2</span>
+                                <span>(<%=orderDAO.getSizeNameById(order.getSizeId())%>)</span><span>x<%=order.getQuantity()%></span>
                             </i>
                         </div>
                         <div class="contact mb-3 d-flex flex-column gap-2">
-                            <p>Phạm Nguyễn Chí Khoa - 0907036729</p>
-                            <p>1357 đường Phạm Thế Hiển, Phường 8, Quận 11, TP Hồ Chí Minh</p>
+                            <p><%=order.getReceiverName()%> - <%=order.getPhoneNumber()%></p>
+                            <p><%=order.getAddress()%></p>
                         </div>
                         <div class="fs-5 fw-bolder text-end mb-3">
-                            Thành tiền: <span class="total">134,000đ</span>
+                            Thành tiền: <span class="total"><%=NumberCurrencyFormat.numberCurrencyFormat(order.getTotalPrice())%>đ</span>
                         </div>
 
                         <!--<editor-fold desc="Phần .his_item bỏ phần này sẽ là các item của mục đã nhận hoặc đã hủy">-->
@@ -88,47 +87,90 @@
                         <div class="break-line mb-3"></div>
                     </div>
                     <!--</editor-fold>-->
-
-                    <div class="his_item">
-                        <input type="hidden" name="variantId" value="sample001">
-                        <p class="time">11:42 AM, 03/12/2023</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h3 class="name w-75">Strawberry Choco Cookie Smoothie</h3>
-                            <i class="fs-5 fw-bolder w-25 d-flex align-items-center gap-5">
-                                <span>(Vừa)</span><span>x1</span>
-                            </i>
-                        </div>
-                        <div class="contact mb-3 d-flex flex-column gap-2">
-                            <p>Phạm Nguyễn Chí Khoa - 0907036729</p>
-                            <p>1357 đường Phạm Thế Hiển, Phường 8, Quận 11, TP Hồ Chí Minh</p>
-                        </div>
-                        <div class="fs-5 fw-bolder text-end mb-3">
-                            Thành tiền: <span class="total">70.000đ</span>
-                        </div>
-                        <div class="d-flex align-items-center gap-3 mb-3">
-                            <button class="received main-btn">Đã nhận được hàng</button>
-                            <button class="canceled cancel-btn">Hủy đơn hàng</button>
-                        </div>
-                        <div class="break-line mb-3"></div>
-                    </div>
-
                     <div id="received_dialog-container">
-
                     </div>
                     <div id="canceled_dialog-container">
 
                     </div>
+                    <%
+                        }
+                    %>
                 </div>
                 <!-- Đã giao -->
                 <div class="tab-pane fade" id="delivered" role="tabpanel" aria-labelledby="delivered-tab" tabindex="0">
+                    <%
+                        ArrayList<Order> delivered = orderDAO.selectDelivered(user.getUserId());
+                        if (delivered.isEmpty()) {
+                    %>
                     <div class="no_data d-flex flex-column justify-content-center align-items-center gap-4">
                         <img src="https://i.imgur.com/K2aCpO0.jpg" alt="No data">
                         <div class="fs-5 fw-bolder">Không có dữ liệu</div>
                     </div>
+                    <%
+                    } else {
+                        for (Order order : delivered) {
+                    %>
+                    <div class="his_item">
+                        <input type="hidden" name="variantId" value="<%=order.getOrderId()%>">
+                        <p class="time"><%=TimeFormat.formatTime(order.getTime())%></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="name w-75"><%=orderDAO.getProductNameById(order.getProductId())%></h3>
+                            <i class="fs-5 fw-bolder w-25 d-flex align-items-center gap-5">
+                                <span>(<%=orderDAO.getSizeNameById(order.getSizeId())%>)</span><span>x<%=order.getQuantity()%></span>
+                            </i>
+                        </div>
+                        <div class="contact mb-3 d-flex flex-column gap-2">
+                            <p><%=order.getReceiverName()%> - <%=order.getPhoneNumber()%></p>
+                            <p><%=order.getAddress()%></p>
+                        </div>
+                        <div class="fs-5 fw-bolder text-end mb-3">
+                            Thành tiền: <span class="total"><%=NumberCurrencyFormat.numberCurrencyFormat(order.getTotalPrice())%>đ</span>
+                        </div>
+
+                        <div class="break-line mb-3"></div>
+                    </div>
+                    <%
+                            }
+                        }
+                    %>
                 </div>
                 <!-- Đã hủy -->
                 <div class="tab-pane fade" id="canceled" role="tabpanel" aria-labelledby="canceled-tab" tabindex="0">
-                    ...
+                    <%
+                        ArrayList<Order> cancel = orderDAO.selectCancelItems(user.getUserId());
+                        if (cancel.isEmpty()) {
+                    %>
+                    <div class="no_data d-flex flex-column justify-content-center align-items-center gap-4">
+                        <img src="https://i.imgur.com/K2aCpO0.jpg" alt="No data">
+                        <div class="fs-5 fw-bolder">Không có dữ liệu</div>
+                    </div>
+                    <%
+                    } else {
+                        for (Order order : cancel) {
+                    %>
+                    <div class="his_item">
+                        <input type="hidden" name="variantId" value="<%=order.getOrderId()%>">
+                        <p class="time"><%=TimeFormat.formatTime(order.getTime())%></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h3 class="name w-75"><%=orderDAO.getProductNameById(order.getProductId())%></h3>
+                            <i class="fs-5 fw-bolder w-25 d-flex align-items-center gap-5">
+                                <span>(<%=orderDAO.getSizeNameById(order.getSizeId())%>)</span><span>x<%=order.getQuantity()%></span>
+                            </i>
+                        </div>
+                        <div class="contact mb-3 d-flex flex-column gap-2">
+                            <p><%=order.getReceiverName()%> - <%=order.getPhoneNumber()%></p>
+                            <p><%=order.getAddress()%></p>
+                        </div>
+                        <div class="fs-5 fw-bolder text-end mb-3">
+                            Thành tiền: <span class="total"><%=NumberCurrencyFormat.numberCurrencyFormat(order.getTotalPrice())%>đ</span>
+                        </div>
+
+                        <div class="break-line mb-3"></div>
+                    </div>
+                    <%
+                            }
+                        }
+                    %>
                 </div>
             </div>
         </div>
@@ -136,6 +178,6 @@
 
     <%@include file="../components/footer.jsp" %>
 
-    <script src="<%=url%>/js/history.js"></script>
+    <script id="root-url" src="<%=url%>/js/history.js" data-url="<%=url%>"></script>
 </body>
 </html>

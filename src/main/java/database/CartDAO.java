@@ -1,9 +1,6 @@
 package database;
 
-import model.Cart;
-import model.News;
-import model.Product;
-import model.Size;
+import model.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -163,13 +160,38 @@ public class CartDAO implements IDAO<Cart>{
     }
 
     @Override
-    public int delete(Cart product) {
-        return 0;
+    public int delete(Cart cart) {
+        int result = 0;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "DELETE FROM cart WHERE cartId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, cart.getCartId());
+
+            // Execute query
+            result = ps.executeUpdate();
+
+            // Close connection
+            JDBCUtil.closeConnection(connect);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override
     public int deleteAll(ArrayList<Cart> arr) {
-        return 0;
+        int count = 0;
+        for (Cart cart : arr) {
+            count += this.delete(cart);
+        }
+        return count;
     }
 
     @Override
@@ -239,7 +261,9 @@ public class CartDAO implements IDAO<Cart>{
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "SELECT * FROM cart WHERE userId = ?";
+            String sql = "SELECT * FROM cart \n" +
+                    "WHERE userId = ? \n" +
+                    "ORDER BY time DESC";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, uid);
 
@@ -277,7 +301,9 @@ public class CartDAO implements IDAO<Cart>{
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "SELECT * FROM cart WHERE userId = ?";
+            String sql = "SELECT * FROM cart \n" +
+                    "WHERE userId = ? \n" +
+                    "ORDER BY time DESC";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, userId);
 

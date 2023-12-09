@@ -61,6 +61,7 @@
             <div class="col-6 py-4">
 
                 <form action="<%=url%>/cart-controller?pid=<%=product.getProductId()%>" method="post">
+                    <input type="hidden" name="action" value="add-to-cart">
                     <h1 class="product-name mb-3"><%=product.getProductName()%></h1>
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <p class="product-price" data-prod="<%=product.getPrice()%>"><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice())%> VNĐ</p>
@@ -72,6 +73,9 @@
                         <div id="increase-btn" onclick="plusQuantity(1)">+</div>
 
                     </div>
+                    <%
+                        if (product.getCatId() != 7) {
+                    %>
                     <div class="mb-3 fw-semibold text-uppercase">Chọn size <span class="text-danger">*</span></div>
                     <div class="product-size_container d-flex flex-wrap gap-3 mb-4">
                         <div class="product-size_container d-flex flex-wrap gap-3 mb-3">
@@ -91,6 +95,9 @@
 
                         </div>
                     </div>
+                    <%
+                        }
+                    %>
                     <div class="input-group mb-3">
                         <span class="input-group-text" id="basic-addon1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="gray" class="bi bi-card-list" viewBox="0 0 16 16">

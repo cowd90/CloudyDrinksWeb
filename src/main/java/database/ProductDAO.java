@@ -383,8 +383,42 @@ public class ProductDAO implements IDAO<Product>{
         return result;
     }
 
-    public static void main(String[] args) {
-        ProductDAO dao = new ProductDAO();
-        System.out.println(dao.select6NewProduct());
+    public ArrayList<Product> selectALlExceptTopping() {
+        ArrayList<Product> result = new ArrayList<>();
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "SELECT product.* \n" +
+                    "FROM product \n" +
+                    "JOIN category ON product.catId = category.catId\n" +
+                    "WHERE catName <> 'Topping'";
+            PreparedStatement ps = connect.prepareStatement(sql);
+
+            // Execute query
+            ResultSet rs = ps.executeQuery();
+
+            // Create object from db
+            while (rs.next()) {
+                int productId = rs.getInt("productId");
+                String productName = rs.getString("productName");
+                String productImage = rs.getString("productImage");
+                int price = rs.getInt("price");
+                String productDesc = rs.getString("productDesc");
+                int catId = rs.getInt("catId");
+
+                Product product = new Product(productId, productName, productImage, price, productDesc, catId);
+                result.add(product);
+
+            }
+
+            JDBCUtil.closeConnection(connect);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
+
 }

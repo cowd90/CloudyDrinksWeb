@@ -22,7 +22,7 @@ import java.util.Calendar;
 public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        doPost(request, response);
     }
 
     @Override
@@ -30,6 +30,18 @@ public class CartController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html; charset=UTF-8");
+
+        String action = request.getParameter("action");
+        if (action.equals("change-cart")) {
+            changeCartInfo(request, response);
+        } else if (action.equals("remove-item")) {
+            removeCartItem(request, response);
+        } else if (action.equals("add-to-cart")) {
+            addToCart(request, response);
+        }
+    }
+
+    private void addToCart(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String url = "";
 
@@ -42,11 +54,6 @@ public class CartController extends HttpServlet {
             String sizeId = request.getParameter("size");
             String quantityPara = request.getParameter("quantity");
             String notes = request.getParameter("notes");
-
-            System.out.println(productId);
-            System.out.println(sizeId);
-            System.out.println(quantityPara);
-            System.out.println(notes);
 
             int quantity = Integer.parseInt(quantityPara);
 
@@ -109,7 +116,48 @@ public class CartController extends HttpServlet {
 
         RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
         rd.forward(request, response);
+    }
+
+    private void removeCartItem(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("Enter controller");
+        String url = "";
+        Object obj = request.getSession().getAttribute("user");
+        User user = (User) obj;
+
+        if (user != null) {
+
+            String cartItemId = request.getParameter("cartItemId");
+
+            CartDAO cartDAO = new CartDAO();
+            Cart cartItem = cartDAO.selectByCartId(cartItemId);
+            if (cartDAO.delete(cartItem) > 0) {
+                url = "/cart/result.jsp";
+            }
 
 
+        } else {
+            url = "/auth/index.jsp";
+        }
+
+        System.out.println("End controller");
+        RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+        rd.forward(request, response);
+    }
+
+    private void changeCartInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String cartItemId = request.getParameter("cartItemId");
+        String newQuantity = request.getParameter("newQuantity");
+        String newDesc = request.getParameter("newDesc");
+
+        Cart cart = new CartDAO().selectByCartId(cartItemId);
+        cart.setTotalPrice((cart.getTotalPrice() / cart.getQuantity()) * Integer.parseInt(newQuantity));
+        cart.setQuantity(Integer.parseInt(newQuantity));
+        cart.setNote(newDesc);
+
+        new CartDAO().update(cart);
+
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/cart/result.jsp");
+        rd.forward(request, response);
     }
 }

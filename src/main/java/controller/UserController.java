@@ -28,14 +28,22 @@ public class UserController extends HttpServlet {
         response.setContentType("text/html; charset=UTF-8");
 
         String action = request.getParameter("action");
-        if (action.equals("sign-in")) {
-            signIn(request, response);
-        } else if (action.equals("sign-out")) {
-            signOut(request, response);
-        } else if (action.equals("sign-up")) {
-            signUp(request, response);
-        } else if (action.equals("verify-account")) {
-            confirmAccount(request, response);
+        switch (action) {
+            case "sign-in":
+                signIn(request, response);
+                break;
+            case "sign-out":
+                signOut(request, response);
+                break;
+            case "sign-up":
+                signUp(request, response);
+                break;
+            case "verify-account":
+                confirmAccount(request, response);
+                break;
+            case "change-password":
+                changePassword(request, response);
+                break;
         }
     }
 
@@ -83,9 +91,7 @@ public class UserController extends HttpServlet {
 
             RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
             rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -178,9 +184,7 @@ public class UserController extends HttpServlet {
             }
             RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
             rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -216,23 +220,65 @@ public class UserController extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
             rd.forward(request, response);
 
-        } catch (ServletException e) {
+        } catch (ServletException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
+        }
+    }
+
+    private void changePassword(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String oldPassword = request.getParameter("oldPass");
+            String newPassword = request.getParameter("newPass");
+
+            String oldPassword_SHA1 = Encode.ToSHA1(oldPassword);
+            String newPwd_SHA1 = Encode.ToSHA1(newPassword);
+            ArrayList<String> error = new ArrayList<>();
+            String url = "/actions/index.jsp";
+
+            HttpSession session = request.getSession();
+            Object obj = session.getAttribute("user");
+            User user = null;
+
+            if (obj != null) {
+                user = (User) obj;
+            }
+            if (user == null) {
+                error.add("Please log in account");
+            } else {
+                if (!oldPassword_SHA1.equals(user.getPassword())) {
+                    error.add("Password is incorrect!");
+                } else {
+                    if (newPwd_SHA1.equals(oldPassword_SHA1)) {
+                        error.add("The new password you entered is the same as the old password. Enter a different password");
+                        url = "/actions/index.jsp";
+                    } else {
+                        UserDAO userDAO = new UserDAO();
+                        User updatedUser = userDAO.selectById(user.getUserId());
+                        newPassword = Encode.ToSHA1(newPassword);
+                        updatedUser.setPassword(newPassword);
+                        if (userDAO.changePassword(updatedUser)) {
+                            url = "/index.jsp";
+                        }
+                    }
+                }
+            }
+            request.setAttribute("error", error);
+            RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+            rd.forward(request, response);
+
+        } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
     }
 
     public static String getContent(User user) {
         String link = "http://localhost:8080/CloudyDrinksWeb_war_exploded/user-controller?action=verify-account&userId=" + user.getUserId()+"&verificationCode="+user.getVerificationCode();
-        String content = "<p>The Cloudy Drinks xin ch&agrave;o bạn <strong>"+user.getUsername()+"</strong>,</p>\r\n"
+
+        return "<p>The Cloudy Drinks xin ch&agrave;o bạn <strong>"+user.getUsername()+"</strong>,</p>\r\n"
                 + "<p>Vui l&ograve;ng x&aacute;c thực t&agrave;i khoản của bạn bằng c&aacute;ch nhập m&atilde; <strong>"+user.getVerificationCode()+"</strong>, hoặc click trực tiếp v&agrave;o đường link sau đ&acirc;y:</p>\r\n"
                 + "<p><a href=\""+link+"\">"+link+"</a></p>\r\n"
                 + "<p>Đ&acirc;y l&agrave; email tự động, vui l&ograve;ng kh&ocirc;ng phản hồi email n&agrave;y.</p>\r\n"
                 + "<p>Tr&acirc;n trọng cảm ơn.</p>";
-
-        return content;
     }
 }

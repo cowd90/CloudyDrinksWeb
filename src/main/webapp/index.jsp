@@ -1,4 +1,5 @@
 <%@ page import="database.*" %>
+<%@ page import="java.util.Random" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="vi">
 <head>
@@ -135,66 +136,25 @@
                     </div>
                 </div>
                 <div class="list-product_content col-12 col-md-9 d-flex gap-3 gap-lg-4">
-                    <a href="" class="product_container card">
+                    <%
+                        ArrayList<Product> products = productDAO.selectALlExceptTopping();
+                        int length = products.size();
+                        for (int i = 0; i < 6; i++) {
+                            int n = new Random().nextInt(length);
+                    %>
+                    <a href="<%=url%>/product-controller?pid=<%=products.get(n).getProductId()%>" class="product_container card">
                         <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
+                                src="<%=products.get(n).getProductImage()%>"
                                 class="card-img-top"
-                                alt=""
+                                alt="<%=products.get(n).getProductName()%>"
                         />
                         <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
+                            <h5 class="card-title"><%=products.get(n).getProductName()%></h5>
                         </div>
                     </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2018/08/Strawberry-Earl-grey-latte.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Dâu Latte</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
-                    <a href="" class="product_container card">
-                        <img
-                                src="https://gongcha.com.vn/wp-content/uploads/2023/06/Hinh-Web-cotton-candy-now.png"
-                                class="card-img-top"
-                                alt=""
-                        />
-                        <div class="card-body">
-                            <h5 class="card-title">Cotton Candy Milk Tea</h5>
-                        </div>
-                    </a>
+                    <%
+                        }
+                    %>
                 </div>
             </div>
         </div>
@@ -203,5 +163,9 @@
 </div>
 
 <script src="./js/home.js"></script>
+<script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
+<script>
+    new Snowflakes();
+</script>
 </body>
 </html>

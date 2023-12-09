@@ -73,14 +73,14 @@ public class CategoryDAO implements IDAO<Category>{
         return result;
     }
 
-    public Category selectByName(String cname) {
-        Category result = null;
+    public int getCatIdByName(String cname) {
+        int result = 0;
         try {
             // Create db connection
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "SELECT * FROM category WHERE catName = ?";
+            String sql = "SELECT catId FROM category WHERE catName = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, cname);
 
@@ -90,10 +90,7 @@ public class CategoryDAO implements IDAO<Category>{
             // Get data from db
 
             while (rs.next()) {
-                int catId = rs.getInt("catId");
-                String catName = rs.getString("catName");
-
-                result = new Category(catId, catName);
+                result = rs.getInt("catId");
             }
 
         } catch (Exception e) {

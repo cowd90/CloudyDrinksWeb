@@ -1,10 +1,5 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: khoap
-  Date: 12/6/2023
-  Time: 11:05 PM
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -39,7 +34,28 @@
         <div class="d-flex justify-content-center">
             <div class="action-wrapper">
                 <form id="change-psw" action="<%=url%>/user-controller" method="post">
-                    <input type="hidden" name="action" value="change-pass">
+                    <%
+                        ArrayList<String> error = new ArrayList<>();
+                        error = (ArrayList<String>) request.getAttribute("error");
+                        System.out.println(error);
+                        if (error != null) {
+                    %>
+                    <div id="dialog-container">
+                        <script>
+                            window.onload = () => {
+                                <%
+                                    Gson gson = new Gson();
+                                %>
+                                createDialog("error", "ERROR", <%=gson.toJson(error)%>, "OK");
+                                showDialog();
+                            }
+                        </script>
+
+                    </div>
+                    <%
+                        }
+                    %>
+                    <input type="hidden" name="action" value="change-password">
                     <h2 class="title">Change Password</h2>
                     <div class="d-flex flex-column gap-3">
                         <div class="input-wrapper">
@@ -57,32 +73,11 @@
                             <label for="confPwd">Confirm Password</label>
                             <span class="form-message"></span>
                         </div>
-                        <button type="submit">Update</button>
+                        <button type="submit" id="update">Update</button>
                     </div>
                 </form>
                 <!--</editor-fold>-->
             </div>
-
-            <!--<editor-fold desc="Container chứa dialog của trang">-->
-<%--            <div id="dialog-container">--%>
-<%--                <script>--%>
-<%--                    // Phải để trong hàm window.onload để code bên trong thực thi sau code của file auth.js (code khởi tạo các hàm)--%>
-<%--                    window.onload = () => {--%>
-<%--                        let typeOfDialog = "success"; // success, error--%>
-<%--                        let title = "SUCCESS";--%>
-<%--                        // Mỗi phần tử của array sẽ được render trong 1 thẻ p--%>
-<%--                        let arrayOfMess = [--%>
-<%--                            "Line 1",--%>
-<%--                            "Now you can use this account to log in."--%>
-<%--                        ];--%>
-<%--                        let buttonContent = "Continue";--%>
-
-<%--                        createDialog(typeOfDialog, title, arrayOfMess, buttonContent);--%>
-<%--                        showDialog();--%>
-<%--                    }--%>
-<%--                </script>--%>
-<%--            </div>--%>
-            <!--</editor-fold>-->
         </div>
     </div>
 </div>

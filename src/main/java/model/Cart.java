@@ -26,6 +26,16 @@ public class Cart extends Product {
         this.time = time;
     }
 
+    public Cart(String userId, int productId, int sizeId, int quantity, int totalPrice, String note, Timestamp time) {
+        this.userId = userId;
+        this.productId = productId;
+        this.sizeId = sizeId;
+        this.quantity = quantity;
+        this.totalPrice = totalPrice;
+        this.note = note;
+        this.time = time;
+    }
+
     public String getCartId() {
         return cartId;
     }

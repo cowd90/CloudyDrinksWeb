@@ -38,7 +38,7 @@
         }
     %>
 
-    <div class="content_container">
+    <div id="cart-field" class="content_container">
         <div class="page-title">Giỏ hàng
             <span class="card-quantity">(<%=itemQuantity%> sản phẩm)</span>
         </div>
@@ -81,14 +81,11 @@
                     </div>
                     <div class="user-action col-3 d-flex flex-column justify-content-center align-items-center gap-3">
                         <button class="change_info-btn border-0">Thay đổi thông tin</button>
-                        <button class="border-0">Xóa khỏi giỏ hàng</button>
+                        <button type="submit" id="remove-item" class="border-0">Xóa khỏi giỏ hàng</button>
                     </div>
                 </div>
                 <div class="break-line"></div>
 
-                <div id="change_cart_info-container">
-
-                </div>
                 <%
                         }
                     }
@@ -115,10 +112,11 @@
             </div>
         </div>
     </div>
+    <div id="change_cart_info-container">
 
-    <script id="change-cart-url" src="<%=url%>/js/cart.js" data-url="<%=url%>"></script>
+    </div>
+
     <%@include file="../components/footer.jsp" %>
-
     <script id="change-cart-url" src="<%=url%>/js/cart.js" data-url="<%=url%>"></script>
 </body>
 </html>

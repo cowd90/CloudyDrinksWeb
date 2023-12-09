@@ -1,31 +1,38 @@
-const receivedContainer = $("#received_dialog-container");
-const canceledContainer = $("#canceled_dialog-container");
+let receivedContainer = $("#received_dialog-container");
+let canceledContainer = $("#canceled_dialog-container");
 
-let deliveringHistoryItem = $$("#delivering .his_item");
+const rootUrl = $("#root-url").getAttribute("data-url");
 
-deliveringHistoryItem.forEach(item => {
-    let id = item.querySelector("input[name='variantId']").value;
+init();
+function init() {
+    receivedContainer = $("#received_dialog-container");
+    canceledContainer = $("#canceled_dialog-container");
+    let deliveringHistoryItem = $$("#delivering .his_item");
 
-    let receivedBtn = item.querySelector(".received");
-    let canceledBtn = item.querySelector(".canceled");
+    deliveringHistoryItem.forEach(item => {
+        let id = item.querySelector("input[name='variantId']").value;
 
-    receivedBtn.onclick = () => {
-        showReceivedDialog(id);
-        let dialog = receivedContainer.querySelector("dialog");
-        dialog.querySelector("button[type='submit']").onclick = (e) => {
-            submitReceivedDialog(e);
-            removeReceivedDialog();
+        let receivedBtn = item.querySelector(".received");
+        let canceledBtn = item.querySelector(".canceled");
+
+        receivedBtn.onclick = () => {
+            showReceivedDialog(id);
+            let dialog = receivedContainer.querySelector("dialog");
+            dialog.querySelector("button[type='submit']").onclick = (e) => {
+                submitReceivedDialog(e);
+                removeReceivedDialog();
+            }
         }
-    }
-    canceledBtn.onclick = () => {
-        showCanceledDialog(id);
-        let dialog = canceledContainer.querySelector("dialog");
-        dialog.querySelector("button[type='submit']").onclick = (e) => {
-            submitCanceledDialog(e);
-            removeCanceledDialog();
+        canceledBtn.onclick = () => {
+            showCanceledDialog(id);
+            let dialog = canceledContainer.querySelector("dialog");
+            dialog.querySelector("button[type='submit']").onclick = (e) => {
+                submitCanceledDialog(e);
+                removeCanceledDialog();
+            }
         }
-    }
-});
+    });
+}
 
 //<editor-fold desc="Dialog của đã nhận đơn hàng">
 function showReceivedDialog(id) {
@@ -61,21 +68,18 @@ function submitReceivedDialog(e) {
 
     let id = dialog.querySelector("input[name='id']").value;
 
-    let link = `./?received=received&id=${id}`;
+    let link = `${rootUrl}/receive-controller?received=received&id=${id}`;
     const xhr = new XMLHttpRequest();
-    console.log(link);
     xhr.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText);
-        // Nên chia responseText thành dạng array vì cần updated
-        // cho 2 mục đang giao và đã nhận
-        // VD: $("#delivering").innerHTML = responseText[0];
-        //     $("#delivered").innerHTML = responseText[1];
+            let parts = xhr.responseText.split('|')
+            $("#delivering").innerHTML = parts[0];
+            $("#delivered").innerHTML = parts[1];
+            init();
         }
     }
     xhr.open('GET', link, true);
-    xhr.send(null);
-    xhr.abort();
+    xhr.send();
 }
 //</editor-fold>
 
@@ -117,20 +121,18 @@ function submitCanceledDialog(e) {
 
     let id = dialog.querySelector("input[name='id']").value;
 
-    let link = `./?canceled=canceled&id=${id}`;
+    let link = `${rootUrl}/cancel-controller?canceled=canceled&id=${id}`;
     const xhr = new XMLHttpRequest();
-    console.log(link);
     xhr.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
-            console.log(this.responseText);
-            // Nên chia responseText thành dạng array vì cần updated
-            // cho 2 mục đang giao và đã nhận
-            // VD: $("#delivering").innerHTML = responseText[0];
-            //     $("#delivered").innerHTML = responseText[1];
+            let parts = xhr.responseText.split('|')
+            $("#delivering").innerHTML = parts[0];
+            $("#canceled").innerHTML = parts[2];
+
+            init();
         }
     }
     xhr.open('GET', link, true);
-    xhr.send(null);
-    xhr.abort();
+    xhr.send();
 }
 //</editor-fold>

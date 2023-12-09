@@ -53,16 +53,15 @@ $("#add_prod-btn").onclick = (e) => {
                 $("input[name='prodImgLink']").value = url;
 
                 let link = `${rootUrl}/add-product?prodName=${productName}&prodImgLink=${url}&prodPrice=${productPrice}&belongCat=${belongCategory}&prodDesc=${productDesc}`;
-                const xhr = new XMLHttpRequest();
+                console.log(link);
+                console.log(url)
+                let xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
                     if (this.readyState === 4 && this.status === 200) {
-                        console.log(this.responseText);
                     }
                 }
-                xhr.open('GET', link, true);
-                xhr.send(null);
-                xhr.abort();
-                console.log(link);
+                xhr.open('POST', link, true);
+                xhr.send();
                 $("#add_product-form").reset();
             })
             .catch(console.error);

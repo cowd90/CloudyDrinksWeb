@@ -209,4 +209,32 @@ public class NewsDAO implements IDAO<News>{
         }
         return list;
     }
+
+    public ArrayList<News> selectNext3News(int amount) {
+        ArrayList<News> list = new ArrayList<>();
+        String query = "SELECT * FROM news\n" +
+                "ORDER BY newsId DESC\n" +
+                "LIMIT 3 OFFSET ?";
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            PreparedStatement ps = connect.prepareStatement(query);
+            ps.setInt(1, amount);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                int newsId = rs.getInt("newsId");
+                String title = rs.getString("title");
+                String img = rs.getString("img");
+                String content = rs.getString("content");
+
+                News news = new News(newsId, title, img, content);
+                list.add(news);
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
 }

@@ -22,43 +22,51 @@ function checkDisableDesBtn() {
     }
 }
 
-let cartItemList = $$(".page-cart-container .cart-item");
-cartItemList.forEach((cartItem) => {
-    let id = cartItem.querySelector("input[name='variantId']").value;
-    let name = cartItem.querySelector(".name").innerText;
-    let quantity = cartItem.querySelector(".quantity").innerText;
-    let size = cartItem.querySelector(".size").innerText;
-    let desc = cartItem.querySelector(".desc").innerText;
-    cartItem.querySelector(".change_info-btn").onclick = () => {
-        showChangeInfoDialog(id, name, size, quantity, desc);
-        checkDisableDesBtn();
-        let dialog = $("#change_cart_info-container dialog");
-        function checkDisableConfirmChangeInfo(newValue, oldValue) {
-            if (newValue[0] !== oldValue[0] || newValue[1] !== oldValue[1]) {
-                dialog.querySelector("button[type='submit']").removeAttribute("disabled");
-                dialog.querySelector("button[type='submit']").classList.remove("disabled");
-            } else {
-                dialog.querySelector("button[type='submit']").setAttribute("disabled", "");
-                dialog.querySelector("button[type='submit']").classList.add("disabled");
+initChangeInfo();
+initRemove();
+
+function initChangeInfo() {
+    let cartItemList = $$(".page-cart-container .cart-item");
+    cartItemList.forEach((cartItem) => {
+        let id = cartItem.querySelector("input[name='variantId']").value;
+        let name = cartItem.querySelector(".name").innerText;
+        let quantity = cartItem.querySelector(".quantity").innerText;
+        let size = cartItem.querySelector(".size").innerText;
+        let desc = cartItem.querySelector(".desc").innerText;
+        cartItem.querySelector(".change_info-btn").onclick = () => {
+            console.log("start")
+            showChangeInfoDialog(id, name, size, quantity, desc);
+            checkDisableDesBtn();
+            let dialog = $("#change_cart_info-container dialog");
+            function checkDisableConfirmChangeInfo(newValue, oldValue) {
+                if (newValue[0] !== oldValue[0] || newValue[1] !== oldValue[1]) {
+                    dialog.querySelector("button[type='submit']").removeAttribute("disabled");
+                    dialog.querySelector("button[type='submit']").classList.remove("disabled");
+                } else {
+                    dialog.querySelector("button[type='submit']").setAttribute("disabled", "");
+                    dialog.querySelector("button[type='submit']").classList.add("disabled");
+                }
             }
-        }
 
-        dialog.querySelector("#decrease-btn").addEventListener("click",
-            () => checkDisableConfirmChangeInfo([dialog.querySelector("#prod-quantity").value, dialog.querySelector("input[name='newNotes']").value], [quantity, desc]),
-            false);
-        dialog.querySelector("#increase-btn").addEventListener("click",
-            () => checkDisableConfirmChangeInfo([dialog.querySelector("#prod-quantity").value, dialog.querySelector("input[name='newNotes']").value], [quantity, desc]),
-            false);
-        dialog.querySelector("input[name='newNotes']").addEventListener("input",
-            (e) => checkDisableConfirmChangeInfo([dialog.querySelector("#prod-quantity").value, e.target.value], [quantity, desc]),
-            false);
+            dialog.querySelector("#decrease-btn").addEventListener("click",
+                () => checkDisableConfirmChangeInfo([dialog.querySelector("#prod-quantity").value, dialog.querySelector("input[name='newNotes']").value], [quantity, desc]),
+                false);
+            dialog.querySelector("#increase-btn").addEventListener("click",
+                () => checkDisableConfirmChangeInfo([dialog.querySelector("#prod-quantity").value, dialog.querySelector("input[name='newNotes']").value], [quantity, desc]),
+                false);
+            dialog.querySelector("input[name='newNotes']").addEventListener("input",
+                (e) => checkDisableConfirmChangeInfo([dialog.querySelector("#prod-quantity").value, e.target.value], [quantity, desc]),
+                false);
 
-        dialog.querySelector("button[type='submit']").onclick = (e) => {
-            submitDialogChangeInfo(e);
-            removeChangeInfoDialog();
+            dialog.querySelector("button[type='submit']").onclick = (e) => {
+                submitDialogChangeInfo(e);
+                removeChangeInfoDialog();
+            }
+
+            console.log("end")
         }
-    }
-});
+    });
+}
 
 function showChangeInfoDialog(id, name, size, quantity, desc) {
     dialogContainer.innerHTML = createChangeInfoDialog(id, name, size, quantity, desc);
@@ -111,18 +119,48 @@ function submitDialogChangeInfo(e) {
 
     let newQuantity = dialog.querySelector("#prod-quantity").value;
     let newDesc = dialog.querySelector("input[name='newNotes']").value;
-    let link = `${rootUrl}/change-cart?cartItemId=${cartItemId}&newQuantity=${newQuantity}&newDesc=${newDesc}`;
+    let link = `${rootUrl}/cart-controller?action=change-cart&cartItemId=${cartItemId}&newQuantity=${newQuantity}&newDesc=${newDesc}`;
 
-    alert(link);
+    let xhr = new XMLHttpRequest();
+    console.log(link);
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            let parts = xhr.responseText.split('|')
+            $("#cart-field").innerHTML = parts[0];
+            $("#right-sector").innerHTML = parts[1];
+
+            initChangeInfo();
+            initRemove();
+        }
+    }
+    xhr.open('POST', link, true);
+    xhr.send();
+}
+
+function initRemove() {
+    $$("button[type='submit']#remove-item").forEach(button => {
+        button.addEventListener("click", (e) => RemoveFromCart(e), false);
+    })
+}
+function RemoveFromCart(e) {
+    e.preventDefault();
+    let cartItemId = $("input[name='variantId']").value;
+    console.log(cartItemId)
+    let link = `${rootUrl}/cart-controller?action=remove-item&cartItemId=` + cartItemId;
+
     const xhr = new XMLHttpRequest();
     console.log(link);
     xhr.onreadystatechange = function() {
         if (this.readyState === 4 && this.status === 200) {
             console.log(this.responseText);
+            let parts = xhr.responseText.split('|')
+            $("#cart-field").innerHTML = parts[0];
+            $("#right-sector").innerHTML = parts[1];
+
+            initChangeInfo();
+            initRemove();
         }
     }
     xhr.open('POST', link, true);
     xhr.send();
-    xhr.abort();
-    alert("end")
 }

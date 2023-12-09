@@ -1,18 +1,17 @@
 package controller;
 
-import database.CategoryDAO;
-import database.ProductDAO;
+import database.NewsDAO;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
-import model.Category;
-import model.Product;
+import model.News;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
-@WebServlet(name = "ProductController", value = "/product-controller")
-public class ProductController extends HttpServlet {
+@WebServlet(name = "NewsController", value = "/news-controller")
+public class NewsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -20,11 +19,13 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productId = request.getParameter("pid");
-        Product product = new ProductDAO().selectById(productId);
 
-        request.setAttribute("product", product);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/products/index.jsp");
+        int newsCount = Integer.parseInt(request.getParameter("newsCount"));
+
+        ArrayList<News> newNews = new NewsDAO().selectNext3News(newsCount);
+
+        request.setAttribute("newNews", newNews);
+        RequestDispatcher rd = request.getRequestDispatcher("/news/more-news.jsp");
         rd.forward(request, response);
     }
 }

@@ -11,8 +11,8 @@ import model.Product;
 import java.io.IOException;
 import java.util.ArrayList;
 
-@WebServlet(name = "ProductController", value = "/product-controller")
-public class ProductController extends HttpServlet {
+@WebServlet(name = "CategoryController", value = "/category-controller")
+public class CategoryController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request, response);
@@ -20,11 +20,15 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productId = request.getParameter("pid");
-        Product product = new ProductDAO().selectById(productId);
+        String catId = request.getParameter("catId");
 
-        request.setAttribute("product", product);
-        RequestDispatcher rd = getServletContext().getRequestDispatcher("/products/index.jsp");
+        ArrayList<Product> products = new ProductDAO().selectByCatId(catId);
+        Category category = new CategoryDAO().selectById(catId);
+        String catName = category.getCatName();
+
+        request.setAttribute("catName", catName);
+        request.setAttribute("productList", products);
+        RequestDispatcher rd = getServletContext().getRequestDispatcher("/category/index.jsp");
         rd.forward(request, response);
     }
 }
