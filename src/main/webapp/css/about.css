@@ -1,0 +1,67 @@
+header.float {
+    position: relative !important;
+    width: 100% !important;
+}
+
+.banner {
+    color: var(--font-color_light-theme);
+    background-image: url("https://www.bardroy.com/wp-content/uploads/2016/04/aboutus-banner-2.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    padding: 105px 0 130px;
+}
+.banner .title {
+    font-size: 2.25rem;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+.banner p {
+    margin-bottom: 8px;
+}
+
+.member.left {
+    opacity: 0;
+    transform: translateX(-70%);
+}
+.member.right {
+    opacity: 0;
+    transform: translateX(70%);
+    flex-direction: row-reverse !important;
+}
+.show {
+    opacity: 1 !important;
+    transform: translateX(0) !important;
+    transition: all linear 0.2s;
+}
+.member .position {
+    border-left: 4px solid #1877F2;
+    padding-left: 1rem;
+}
+.member .member_avatar {
+    width: 100%;
+    padding-top: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+.fb-link > * {
+    color: #1877F2 !important;
+}
+
+@media only screen and (max-width: 1200px) {
+    .banner {
+        padding: 90px 0 110px;
+    }
+}
+@media only screen and (max-width: 992px) {
+    .banner {
+        padding: 70px 0 80px;
+    }
+}
+@media only screen and (max-width: 768px) {
+    .member.right {
+        flex-direction: column-reverse!important;
+    }
+}

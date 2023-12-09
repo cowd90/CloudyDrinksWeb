@@ -5,5 +5,10 @@
 </head>
 <body>
     <div>Chúc mừng bạn đã đăng ký tài khoản thành công. Vui lòng kiểm tra email để xác thực tài khoản</div>
+    <script type="text/javascript">
+        setTimeout(function() {
+            window.location.href = "auth/index.jsp";
+        }, 3000);
+    </script>
 </body>
 </html>
