@@ -143,8 +143,9 @@
                 SizeDAO sDAO = new SizeDAO();
                 Size size = new Size();
                 String sizeName = "";
-                int totalPrice = 0;
-                if (p.getCatId() != 7) {
+                int totalPrice;
+                boolean hasSize = new SizeDAO().hasSize(item.getProductId());
+                if (hasSize) {
                     size = sDAO.selectById(item.getSizeId()+"");
                     sizeName = "(" + size.getSizeName() + ")";
                     totalPrice = (p.getPrice() + size.getUpSizePrice()) * item.getQuantity();

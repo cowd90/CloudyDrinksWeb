@@ -47,7 +47,7 @@ $("#add_product-form").onsubmit = async (e) => {
     let belongCategory = $("select[name='belongCat']").value;
     let productDesc = $("input[name='prodDesc']").value;
 
-    if (productName !== '' && productPrice !== '' && belongCategory !== '' && productDesc !== '') {
+    if (productName !== '' && productPrice !== '' && belongCategory !== '') {
         await uploadImage()
             .then(url => {
                 $("input[name='prodImgLink']").value = url;

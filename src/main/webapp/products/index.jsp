@@ -74,7 +74,8 @@
 
                     </div>
                     <%
-                        if (product.getCatId() != 7) {
+                        boolean hasSize = new SizeDAO().hasSize(product.getProductId());
+                        if (hasSize) {
                     %>
                     <div class="mb-3 fw-semibold text-uppercase">Chọn size <span class="text-danger">*</span></div>
                     <div class="product-size_container d-flex flex-wrap gap-3 mb-4">

@@ -3,6 +3,7 @@
 <%@ page import="database.ProductDAO" %>
 <%@ page import="model.Size" %>
 <%@ page import="util.NumberCurrencyFormat" %>
+<%@ page import="database.SizeDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -22,6 +23,7 @@
     } else {
         for (Product product : products) {
             ArrayList<Size> sizes = new ProductDAO().getSizesByProductId(product.getProductId());
+            boolean hasSize = new SizeDAO().hasSize(product.getProductId());
     %>
     <a href="${pageContext.request.contextPath}/product-controller?pid=<%=product.getProductId()%>" class="item d-flex justify-content-center align-items-center">
         <div class="img"
@@ -33,7 +35,7 @@
                     for (Size size : sizes) {
                         String sizeName = "(" + size.getSizeName() + ")";
                 %>
-                <p><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice() + size.getUpSizePrice())%>đ <%=(product.getCatId()!=7)?sizeName:""%></p>
+                <p><%=NumberCurrencyFormat.numberCurrencyFormat(product.getPrice() + size.getUpSizePrice())%>đ <%=(hasSize)?sizeName:""%></p>
                 <%
                     }
                 %>
