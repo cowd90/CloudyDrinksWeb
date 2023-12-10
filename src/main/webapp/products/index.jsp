@@ -187,40 +187,38 @@
 
 </div>
 
-<%--<script>--%>
+<script>
 
-<%--    $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);--%>
+    $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);
 
-<%--    function AddToCart(e) {--%>
-<%--        e.preventDefault();--%>
-<%--        let xhttp;--%>
-<%--        let pid = $("input[name='pid']").value;--%>
-<%--        let size = $("input[name='size']").value;--%>
-<%--        let quantity = $("input[name='quantity']").value;--%>
-<%--        let notes = $("input[name='notes']").value;--%>
+    function AddToCart(e) {
+        e.preventDefault();
+        let xhttp;
+        let pid = $("input[name='pid']").value;
+        let size = $("input[name='size']").value;
+        let quantity = $("input[name='quantity']").value;
+        let notes = $("input[name='notes']").value;
 
-<%--        alert(pid +"-"+ size +"-"+ quantity +"-"+ notes)--%>
+        alert(pid +"-"+ size +"-"+ quantity +"-"+ notes)
 
-<%--        let url = "cart-controller?pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;--%>
-<%--        console.log(url)--%>
+        let url = "<%=url%>/cart-controller?action=add-to-cart&pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;
+        console.log(url)
 
-<%--        if (window.XMLHttpRequest) {--%>
-<%--            xhttp = new XMLHttpRequest();--%>
-<%--        } else {--%>
-<%--            xhttp = new ActiveXObject("Microsoft.XMLHTTP");--%>
-<%--        }--%>
+        if (window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest();
+        } else {
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
 
-<%--        xhttp.onreadystatechange = function () {--%>
-<%--            if (this.readyState === 4) {--%>
-<%--                let data = xhttp.responseText;--%>
-<%--                alert(data)--%>
-<%--            }--%>
-<%--        }--%>
-<%--        xhttp.open("POST", url, true);--%>
-<%--        xhttp.send();--%>
-<%--        xhttp.abort();--%>
-<%--    }--%>
-<%--</script>--%>
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data = this.responseText;
+            }
+        }
+        xhttp.open("POST", url, true);
+        xhttp.send();
+    }
+</script>
 <script src="<%=url%>/js/products.js"></script>
 </body>
 </html>

@@ -128,7 +128,7 @@ function submitDialogChangeInfo(e) {
     let cartItemId = dialog.querySelector("input[name='cartItemId']").value;
 
     let newQuantity = dialog.querySelector("#prod-quantity").value;
-    let newDesc = dialog.querySelector("input[name='newNotes']").value;
+    let newDesc = encodeURI(dialog.querySelector("input[name='newNotes']").value);
     let link = `${rootUrl}/cart-controller?action=change-cart&cartItemId=${cartItemId}&newQuantity=${newQuantity}&newDesc=${newDesc}`;
 
     let xhr = new XMLHttpRequest();
