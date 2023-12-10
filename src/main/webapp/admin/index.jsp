@@ -98,7 +98,8 @@
                     <div class="row p-3">
                         <div class="col-6">
                             <!-- Form này không gửi dữ liệu, xem AJAX trong js -->
-                            <form id="add_product-form" class="row-cols-1 d-flex flex-column gap-3" >
+                            <form id="add_product-form" class="row-cols-1 d-flex flex-column gap-3"
+                                  action="./" method="get">
                                 <input type="text" name="prodName" placeholder="Tên sản phẩm">
                                 <label for="product_img-input">Hình ảnh sản phẩm</label>
                                 <input type="file" accept="image/*" id="product_img-input">

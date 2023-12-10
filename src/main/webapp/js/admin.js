@@ -39,7 +39,7 @@ async function uploadImage() {
     });
 }
 
-$("#add_prod-btn").onclick = (e) => {
+$("#add_product-form").onsubmit = async (e) => {
     e.preventDefault();
 
     let productName = $("input[name='prodName']").value;
@@ -48,21 +48,11 @@ $("#add_prod-btn").onclick = (e) => {
     let productDesc = $("input[name='prodDesc']").value;
 
     if (productName !== '' && productPrice !== '' && belongCategory !== '' && productDesc !== '') {
-        uploadImage()
+        await uploadImage()
             .then(url => {
                 $("input[name='prodImgLink']").value = url;
 
-                let link = `${rootUrl}/add-product?prodName=${productName}&prodImgLink=${url}&prodPrice=${productPrice}&belongCat=${belongCategory}&prodDesc=${productDesc}`;
-                console.log(link);
-                console.log(url)
-                let xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                    }
-                }
-                xhr.open('POST', link, true);
-                xhr.send();
-                $("#add_product-form").reset();
+                $("#add_product-form").submit();
             })
             .catch(console.error);
     } else {
