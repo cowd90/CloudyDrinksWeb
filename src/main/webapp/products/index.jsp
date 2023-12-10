@@ -148,7 +148,7 @@
                             for (Product p : products) {
                                 if (p.getCatId() == 7) {
                         %>
-                        <div class="product col-4 col-lg-3">
+                        <div class="product col-6 col-sm-4 col-lg-3">
                             <div class="card d-flex align-items-center h-100">
                                 <!-- Ảnh sản phẩm -->
                                 <div style="background-image: url(<%=p.getProductImage()%>)"

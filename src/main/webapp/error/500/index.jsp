@@ -21,6 +21,19 @@
     <div class="title">Oops, something went wrong</div>
     <div class="message">Cloudy Drinks is currently unable to handle this request.</div>
     <div class="error-code">500</div>
+    <a class="button" href="<%=url%>/">Về trang chủ</a>
+    <div id="Clouds">
+        <div class="Cloud Foreground"></div>
+        <div class="Cloud Background"></div>
+        <div class="Cloud Foreground"></div>
+        <div class="Cloud Background"></div>
+        <div class="Cloud Foreground"></div>
+        <div class="Cloud Background"></div>
+        <div class="Cloud Foreground"></div>
+        <div class="Cloud Background"></div>
+        <div class="Cloud Foreground"></div>
+        <div class="Cloud Background"></div>
+    </div>
 </div>
 </body>
 </html>
