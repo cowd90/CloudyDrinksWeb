@@ -76,7 +76,7 @@
                     ArrayList<Product> products = productDAO.selectByCatId(String.valueOf(category.getCatId()));
                     for (Product product : products) {
                     %>
-                    <div class="product col-4">
+                    <div class="product col-6 col-md-4">
                         <div class="card">
                             <!-- Ảnh sản phẩm -->
                             <img src="<%=product.getProductImage()%>"

@@ -15,7 +15,7 @@
         <div class="right col-lg-9 p-xl-5">
             <ul class="d-flex justify-content-start align-items-center">
                 <li><a class="link" href="<%=furl%>/">Trang chủ</a></li>
-                <li><a class="link" href="<%=furl%>/">Giới thiệu</a></li>
+                <li><a class="link" href="<%=furl%>/about">Giới thiệu</a></li>
                 <li><a class="link" href="<%=furl%>/categories">Thực đơn</a></li>
                 <li><a class="link" href="<%=furl%>/news">Tin tức</a></li>
             </ul>

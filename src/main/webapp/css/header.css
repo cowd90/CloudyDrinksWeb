@@ -460,6 +460,9 @@ header .header_container .more-menu_container .more-menu_content {
 .dark-theme #search_result-container .wrapper {
     background: var(--background-color_dark-theme_2);
 }
+.dark-theme .search-bar_container form .search-content {
+    color: var(--font-color_dark-theme);
+}
 
 .dark-theme .mode_container .item {
     color: var(--font-color_dark-theme);
