@@ -31,6 +31,8 @@ public class AdminController extends HttpServlet {
             removeCategory(request, response);
         } else if (action.equals("remove-product")) {
             removeProduct(request, response);
+        } else if (action.equals("add-product")) {
+            addProduct(request, response);
         }
 
     }
@@ -80,4 +82,34 @@ public class AdminController extends HttpServlet {
             rd.forward(request, response);
         }
     }
+
+    private void addProduct(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        System.out.println("enter");
+
+        String prodName = request.getParameter("prodName");
+        String prodPrice = request.getParameter("prodPrice");
+        String belongCat = request.getParameter("belongCat");
+        String prodDesc = request.getParameter("prodDesc");
+        String prodImgLink = request.getParameter("prodImgLink");
+        System.out.println(prodImgLink);
+
+        ProductDAO productDAO = new ProductDAO();
+        // check if product already exists or not then allow to add
+        if (!productDAO.checkIfProductExist(prodName)) {
+            Product product = new Product();
+            product.setProductName(prodName);
+            product.setPrice(Integer.parseInt(prodPrice));
+            product.setProductImage(prodImgLink);
+            product.setCatId(Integer.parseInt(belongCat));
+            product.setProductDesc(prodDesc);
+
+            if (productDAO.insert(product) > 0) {
+                String url = "/admin/index.jsp";
+                RequestDispatcher rd = getServletContext().getRequestDispatcher(url);
+                rd.forward(request, response);
+            }
+
+        }
+    }
+
 }

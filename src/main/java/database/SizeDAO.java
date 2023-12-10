@@ -182,16 +182,19 @@ public class SizeDAO implements IDAO<Size>{
         return result;
     }
 
-    public boolean checkSizeExist(String sizeName) {
+    public boolean hasSize(int productId) {
         boolean result = false;
         try {
             // Create db connection
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "SELECT * FROM size WHERE sizeName = ?";
+            String sql = "SELECT * \n" +
+                    "FROM size  \n" +
+                    "JOIN product ON size.productId = product.productId\n" +
+                    "WHERE product.productId = ?";
             PreparedStatement ps = connect.prepareStatement(sql);
-            ps.setString(1, sizeName);
+            ps.setInt(1, productId);
 
             // Execute query
             ResultSet rs = ps.executeQuery();

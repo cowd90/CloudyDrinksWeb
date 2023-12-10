@@ -85,6 +85,42 @@ public class CartDAO implements IDAO<Cart>{
         return result;
     }
 
+    public Cart selectById(String pid) {
+        Cart result = null;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "SELECT * FROM cart WHERE productId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, pid);
+
+            // Execute query
+            ResultSet rs = ps.executeQuery();
+
+            // Get data from db
+
+            while (rs.next()) {
+                String cartId = rs.getString("cartId");
+                String userId = rs.getString("userId");
+                int productId = rs.getInt("productId");
+                int sizeId = rs.getInt("sizeId");
+                int quantity = rs.getInt("quantity");
+                int totalPrice = rs.getInt("totalPrice");
+                String note = rs.getString("note");
+                Timestamp time = rs.getTimestamp("time");
+
+                result = new Cart(cartId, userId, productId, sizeId, quantity, totalPrice, note, time);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
     public Cart selectByCartId(String cid) {
         Cart result = null;
         try {
@@ -239,6 +275,31 @@ public class CartDAO implements IDAO<Cart>{
             PreparedStatement ps = connect.prepareStatement(sql);
             ps.setString(1, productId);
             ps.setString(2, sizeId);
+
+            // Execute query
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
+
+    public boolean checkIfExists(String productId) {
+        boolean result = false;
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "SELECT * FROM cart WHERE productId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setString(1, productId);
 
             // Execute query
             ResultSet rs = ps.executeQuery();

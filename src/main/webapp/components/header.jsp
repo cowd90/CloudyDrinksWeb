@@ -166,7 +166,17 @@
                                 for (Cart item : cartList) {
                                     Product p = pDAO.selectById(item.getProductId()+"");
                                     SizeDAO sDAO = new SizeDAO();
-                                    Size size = sDAO.selectById(item.getSizeId()+"");
+                                    Size size = new Size();
+                                    String sizeName = "";
+                                    int totalPrice;
+                                    boolean hasSize = new SizeDAO().hasSize(item.getProductId());
+                                    if (hasSize) {
+                                        size = sDAO.selectById(item.getSizeId()+"");
+                                        sizeName = "(" + size.getSizeName() + ")";
+                                        totalPrice = (p.getPrice() + size.getUpSizePrice()) * item.getQuantity();
+                                    } else {
+                                        totalPrice = p.getPrice() * item.getQuantity();
+                                    }
                             %>
                             <!-- <editor-fold desc="Một sản phẩm trong giỏ hàng"> -->
                             <div class="product-item row">
@@ -177,8 +187,8 @@
                                     />
                                 </div>
                                 <div class="product-info col-6">
-                                    <p class="product-name"><%=p.getProductName()%> (<%=size.getSizeName()%>)</p>
-                                    <p class="product-price mb-2"><%=NumberCurrencyFormat.numberCurrencyFormat((p.getPrice() + size.getUpSizePrice()) * item.getQuantity())%> VNĐ</p>
+                                    <p class="product-name"><%=p.getProductName()%> <%=sizeName%></p>
+                                    <p class="product-price mb-2"><%=NumberCurrencyFormat.numberCurrencyFormat(totalPrice)%> VNĐ</p>
                                 </div>
                                 <div class="col-2 d-flex align-items-center">
                                     <p class="product_item-count fst-italic">x<%=item.getQuantity()%></p>

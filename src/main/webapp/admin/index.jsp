@@ -28,8 +28,8 @@
             crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="<%=url%>/css/global.css" />
+    <link rel="stylesheet" href="<%=url%>/css/admin.css">
 </head>
 <body>
     <div id="admin_container" class="content_container d-flex flex-column gap-4">
@@ -97,9 +97,9 @@
                 <div class="tab-pane show active has_preview" id="add-product" role="tabpanel" aria-labelledby="add-product-tab" tabindex="0">
                     <div class="row p-3">
                         <div class="col-6">
-                            <!-- Form này không gửi dữ liệu, xem AJAX trong js -->
                             <form id="add_product-form" class="row-cols-1 d-flex flex-column gap-3"
-                                  action="./" method="get">
+                                  action="<%=url%>/admin-controller" method="post">
+                                <input type="hidden" name="action" value="add-product">
                                 <input type="text" name="prodName" placeholder="Tên sản phẩm">
                                 <label for="product_img-input">Hình ảnh sản phẩm</label>
                                 <input type="file" accept="image/*" id="product_img-input">

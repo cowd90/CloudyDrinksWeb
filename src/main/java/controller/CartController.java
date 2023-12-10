@@ -62,54 +62,108 @@ public class CartController extends HttpServlet {
 
             // Get size price and product price
             Product p = new ProductDAO().selectById(productId);
-            Size s = new SizeDAO().selectById(sizeId);
-            int totalPrice = 0;
+            Size s = new Size();
+            int totalPrice;
+            int newQuantity;
 
-            if (cartDAO.checkIfExists(productId, sizeId)) {
-                cartItem = cartDAO.selectById(productId, sizeId);
+            // product is not topping
+            if (sizeId != null) {
+                s = new SizeDAO().selectById(sizeId);
 
-                int newQuantity = cartItem.getQuantity() + quantity;
-                totalPrice = (cartItem.getTotalPrice() / cartItem.getQuantity()) * newQuantity;
-                cartItem.setQuantity(newQuantity);
-                cartItem.setTotalPrice(totalPrice);
-                cartItem.setNote(notes);
+                // check if the product with the size exists in cart, then update quantity
+                if (cartDAO.checkIfExists(productId, sizeId)) {
+                    cartItem = cartDAO.selectById(productId, sizeId);
 
-                if (cartDAO.update(cartItem) > 0) {
-                    url = "/products/index.jsp";
+                    newQuantity = cartItem.getQuantity() + quantity;
+                    totalPrice = (cartItem.getTotalPrice() / cartItem.getQuantity()) * newQuantity;
+                    cartItem.setQuantity(newQuantity);
+                    cartItem.setTotalPrice(totalPrice);
+                    cartItem.setNote(notes);
+
+                    if (cartDAO.update(cartItem) > 0) {
+                        url = "/products/index.jsp";
+                    }
+
+                } else { // if not, add product to cart
+                    cartItem = new Cart();
+                    String cartId = RandomKey.generateKey();
+                    cartItem.setCartId(cartId);
+                    cartItem.setUserId(user.getUserId());
+                    cartItem.setProductId(Integer.parseInt(productId));
+                    cartItem.setSizeId(Integer.parseInt(sizeId));
+                    cartItem.setQuantity(quantity);
+                    cartItem.setNote(notes);
+
+                    totalPrice = (p.getPrice() + s.getUpSizePrice()) * quantity;
+                    cartItem.setTotalPrice(totalPrice);
+
+                    // Get real time
+                    Date todaysDate = new Date(new java.util.Date().getTime());
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(todaysDate);
+                    c.add(Calendar.DATE, 1);
+                    Timestamp authCodeValidTime = new Timestamp(c.getTimeInMillis());
+
+                    cartItem.setTime(authCodeValidTime);
+
+                    if (cartDAO.insert(cartItem) > 0) {
+                        url = "/products/index.jsp";
+                    }
                 }
 
-            } else {
+                ProductDAO productDAO = new ProductDAO();
+                Product product = productDAO.selectById(productId);
 
-                cartItem = new Cart();
-                String cartId = RandomKey.generateKey();
-                cartItem.setCartId(cartId);
-                cartItem.setUserId(user.getUserId());
-                cartItem.setProductId(Integer.parseInt(productId));
-                cartItem.setSizeId(Integer.parseInt(sizeId));
-                cartItem.setQuantity(quantity);
-                cartItem.setNote(notes);
+                request.setAttribute("product", product);
 
-                totalPrice = (p.getPrice() + s.getUpSizePrice()) * quantity;
-                cartItem.setTotalPrice(totalPrice);
+            } else { // if product is topping
 
-                // Get real time
-                Date todaysDate = new Date(new java.util.Date().getTime());
-                Calendar c = Calendar.getInstance();
-                c.setTime(todaysDate);
-                c.add(Calendar.DATE, 1);
-                Timestamp authCodeValidTime = new Timestamp(c.getTimeInMillis());
+                if (cartDAO.checkIfExists(productId)) {
+                    cartItem = cartDAO.selectById(productId);
 
-                cartItem.setTime(authCodeValidTime);
+                    newQuantity = cartItem.getQuantity() + quantity;
+                    totalPrice = (cartItem.getTotalPrice() / cartItem.getQuantity()) * newQuantity;
+                    cartItem.setQuantity(newQuantity);
+                    cartItem.setTotalPrice(totalPrice);
+                    cartItem.setNote(notes);
 
-                if (cartDAO.insert(cartItem) > 0) {
-                    url = "/products/index.jsp";
+                    if (cartDAO.update(cartItem) > 0) {
+                        url = "/products/index.jsp";
+                    }
+
+                } else {
+
+                    cartItem = new Cart();
+                    String cartId = RandomKey.generateKey();
+                    cartItem.setCartId(cartId);
+                    cartItem.setUserId(user.getUserId());
+                    cartItem.setProductId(Integer.parseInt(productId));
+                    cartItem.setQuantity(quantity);
+                    cartItem.setNote(notes);
+
+                    totalPrice = p.getPrice() * quantity;
+                    cartItem.setTotalPrice(totalPrice);
+
+                    // Get real time
+                    Date todaysDate = new Date(new java.util.Date().getTime());
+                    Calendar c = Calendar.getInstance();
+                    c.setTime(todaysDate);
+                    c.add(Calendar.DATE, 1);
+                    Timestamp authCodeValidTime = new Timestamp(c.getTimeInMillis());
+
+                    cartItem.setTime(authCodeValidTime);
+
+                    if (cartDAO.insert(cartItem) > 0) {
+                        url = "/products/index.jsp";
+                    }
                 }
+
+                ProductDAO productDAO = new ProductDAO();
+                Product product = productDAO.selectById(productId);
+
+                request.setAttribute("product", product);
             }
 
-            ProductDAO productDAO = new ProductDAO();
-            Product product = productDAO.selectById(productId);
-
-            request.setAttribute("product", product);
         } else {
             url = "/auth/index.jsp";
         }

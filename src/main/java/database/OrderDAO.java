@@ -401,4 +401,35 @@ public class OrderDAO implements IDAO<Order>{
 
         return result;
     }
+
+    public String getCat(int id) {
+        String result = "";
+        try {
+            // Create db connection
+            Connection connect = JDBCUtil.getConnection();
+
+            // Create sql statement
+            String sql = "SELECT product.productName\n" +
+                    "FROM product\n" +
+                    "INNER JOIN tbl_order \n" +
+                    "ON product.productId = tbl_order.productId\n" +
+                    "WHERE tbl_order.productId = ?";
+            PreparedStatement ps = connect.prepareStatement(sql);
+            ps.setInt(1, id);
+
+            // Execute query
+            ResultSet rs = ps.executeQuery();
+
+            // Get data from db
+
+            while (rs.next()) {
+                result = rs.getString(1);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

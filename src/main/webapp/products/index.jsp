@@ -44,7 +44,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<%=url%>/categories">Thực đơn</a></li>
-                    <li class="breadcrumb-item"><a href="#"><%=catName%></a></li>
+                    <li class="breadcrumb-item"><a href="<%=url%>/category-controller?catId=<%=product.getCatId()%>"><%=catName%></a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span><%=product.getProductName()%></span></li>
                 </ol>
             </nav>
@@ -74,7 +74,8 @@
 
                     </div>
                     <%
-                        if (product.getCatId() != 7) {
+                        boolean hasSize = new SizeDAO().hasSize(product.getProductId());
+                        if (hasSize) {
                     %>
                     <div class="mb-3 fw-semibold text-uppercase">Chọn size <span class="text-danger">*</span></div>
                     <div class="product-size_container d-flex flex-wrap gap-3 mb-4">
@@ -186,40 +187,38 @@
 
 </div>
 
-<%--<script>--%>
+<script>
 
-<%--    $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);--%>
+    $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);
 
-<%--    function AddToCart(e) {--%>
-<%--        e.preventDefault();--%>
-<%--        let xhttp;--%>
-<%--        let pid = $("input[name='pid']").value;--%>
-<%--        let size = $("input[name='size']").value;--%>
-<%--        let quantity = $("input[name='quantity']").value;--%>
-<%--        let notes = $("input[name='notes']").value;--%>
+    function AddToCart(e) {
+        e.preventDefault();
+        let xhttp;
+        let pid = $("input[name='pid']").value;
+        let size = $("input[name='size']").value;
+        let quantity = $("input[name='quantity']").value;
+        let notes = $("input[name='notes']").value;
 
-<%--        alert(pid +"-"+ size +"-"+ quantity +"-"+ notes)--%>
+        alert(pid +"-"+ size +"-"+ quantity +"-"+ notes)
 
-<%--        let url = "cart-controller?pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;--%>
-<%--        console.log(url)--%>
+        let url = "<%=url%>/cart-controller?action=add-to-cart&pid="+pid+"&size="+size+"&quantity="+quantity+"&notes="+notes;
+        console.log(url)
 
-<%--        if (window.XMLHttpRequest) {--%>
-<%--            xhttp = new XMLHttpRequest();--%>
-<%--        } else {--%>
-<%--            xhttp = new ActiveXObject("Microsoft.XMLHTTP");--%>
-<%--        }--%>
+        if (window.XMLHttpRequest) {
+            xhttp = new XMLHttpRequest();
+        } else {
+            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
 
-<%--        xhttp.onreadystatechange = function () {--%>
-<%--            if (this.readyState === 4) {--%>
-<%--                let data = xhttp.responseText;--%>
-<%--                alert(data)--%>
-<%--            }--%>
-<%--        }--%>
-<%--        xhttp.open("POST", url, true);--%>
-<%--        xhttp.send();--%>
-<%--        xhttp.abort();--%>
-<%--    }--%>
-<%--</script>--%>
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                let data = this.responseText;
+            }
+        }
+        xhttp.open("POST", url, true);
+        xhttp.send();
+    }
+</script>
 <script src="<%=url%>/js/products.js"></script>
 </body>
 </html>

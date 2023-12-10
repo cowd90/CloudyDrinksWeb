@@ -66,7 +66,15 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="name w-75"><%=orderDAO.getProductNameById(order.getProductId())%></h3>
                             <i class="fs-5 fw-bolder w-25 d-flex align-items-center gap-5">
-                                <span>(<%=orderDAO.getSizeNameById(order.getSizeId())%>)</span><span>x<%=order.getQuantity()%></span>
+                                <%
+                                    String sizeName = "";
+                                    String catName = new ProductDAO().getCatNameById(order.getProductId());
+                                    if (!catName.equals("Topping")) {
+                                        sizeName = "(" + orderDAO.getSizeNameById(order.getSizeId()) + ")";
+                                    }
+                                %>
+                                <span><%=sizeName%></span>
+                                <span>x<%=order.getQuantity()%></span>
                             </i>
                         </div>
                         <div class="contact mb-3 d-flex flex-column gap-2">
@@ -116,7 +124,15 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="name w-75"><%=orderDAO.getProductNameById(order.getProductId())%></h3>
                             <i class="fs-5 fw-bolder w-25 d-flex align-items-center gap-5">
-                                <span>(<%=orderDAO.getSizeNameById(order.getSizeId())%>)</span><span>x<%=order.getQuantity()%></span>
+                                <%
+                                    String sizeName = "";
+                                    String catName = new ProductDAO().getCatNameById(order.getProductId());
+                                    if (!catName.equals("Topping")) {
+                                        sizeName = "(" + orderDAO.getSizeNameById(order.getSizeId()) + ")";
+                                    }
+                                %>
+                                <span><%=sizeName%></span>
+                                <span>x<%=order.getQuantity()%></span>
                             </i>
                         </div>
                         <div class="contact mb-3 d-flex flex-column gap-2">
@@ -154,7 +170,15 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="name w-75"><%=orderDAO.getProductNameById(order.getProductId())%></h3>
                             <i class="fs-5 fw-bolder w-25 d-flex align-items-center gap-5">
-                                <span>(<%=orderDAO.getSizeNameById(order.getSizeId())%>)</span><span>x<%=order.getQuantity()%></span>
+                                <%
+                                    String sizeName = "";
+                                    String catName = new ProductDAO().getCatNameById(order.getProductId());
+                                    if (!catName.equals("Topping")) {
+                                        sizeName = "(" + orderDAO.getSizeNameById(order.getSizeId()) + ")";
+                                    }
+                                %>
+                                <span><%=sizeName%></span>
+                                <span>x<%=order.getQuantity()%></span>
                             </i>
                         </div>
                         <div class="contact mb-3 d-flex flex-column gap-2">
