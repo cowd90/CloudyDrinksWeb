@@ -6,6 +6,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/auth/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/auth" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/cart/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/cart" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/error/500/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/error/500" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp" />
       </map>
     </option>

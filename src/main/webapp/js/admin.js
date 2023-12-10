@@ -1,6 +1,8 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+const rootUrl = $("#add-product-url").getAttribute("data-url");
+
 let productImgInput = $("#product_img-input");
 
 
@@ -37,12 +39,25 @@ async function uploadImage() {
     });
 }
 
-$("#add_prod-btn").onclick = (e) => {
-    uploadImage()
-        .then(url => {
-            $("input[name='prodImgLink']").value = url;
-            console.log(url);
-        });
+$("#add_product-form").onsubmit = async (e) => {
+    e.preventDefault();
+
+    let productName = $("input[name='prodName']").value;
+    let productPrice = $("input[name='prodPrice']").value;
+    let belongCategory = $("select[name='belongCat']").value;
+    let productDesc = $("input[name='prodDesc']").value;
+
+    if (productName !== '' && productPrice !== '' && belongCategory !== '' && productDesc !== '') {
+        await uploadImage()
+            .then(url => {
+                $("input[name='prodImgLink']").value = url;
+
+                $("#add_product-form").submit();
+            })
+            .catch(console.error);
+    } else {
+        console.error("Vui lòng nhập đủ trường dữ liệu");
+    }
 }
 
 
