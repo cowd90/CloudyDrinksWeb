@@ -73,7 +73,13 @@
                             <span class="name"><%=p.getProductName()%></span>
                             <span class="fst-italic fs-5">x<span class="quantity"><%=cart.getQuantity()%></span></span>
                         </div>
+                        <%
+                            if (s != null) {
+                        %>
                         <p class="mb-2"><span>Size: </span><span class="size"><%=s.getSizeName()%></span></p>
+                        <%
+                            }
+                        %>
                         <p class="mb-2"><span>Giá: </span><span>
                         <%=NumberCurrencyFormat.numberCurrencyFormat(cart.getTotalPrice())%>đ</span></p>
                         <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">

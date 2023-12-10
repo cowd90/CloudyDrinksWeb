@@ -152,6 +152,12 @@
                             for (Cart cart : cartList) {
                                 Product p = new ProductDAO().selectById(cart.getProductId() + "");
                                 Size s = new SizeDAO().selectById(cart.getSizeId() + "");
+                                int price = 0;
+                                if (s != null) {
+                                    price = p.getPrice() + s.getUpSizePrice();
+                                } else {
+                                    price = p.getPrice();
+                                }
                                 total += cart.getTotalPrice();
                         %>
                         <div class="item row pb-1">
@@ -162,10 +168,16 @@
                             <div class="item_info col-6">
                                 <p class="name"><%=p.getProductName()%></p>
                                 <p class="d-flex justify-content-between align-items-center">
+                                    <%
+                                        if (s != null) {
+                                    %>
                                     <span>(<%=s.getSizeName()%>)</span>
+                                    <%
+                                        }
+                                    %>
                                     <span class="fst-italic">x<%=cart.getQuantity()%></span>
                                 </p>
-                                <p><%=NumberCurrencyFormat.numberCurrencyFormat(p.getPrice()+s.getUpSizePrice())%>đ</p>
+                                <p><%=NumberCurrencyFormat.numberCurrencyFormat(price)%>đ</p>
                             </div>
                             <div class="col-3 d-flex align-items-center">
                                 <%=NumberCurrencyFormat.numberCurrencyFormat(cart.getTotalPrice())%>đ

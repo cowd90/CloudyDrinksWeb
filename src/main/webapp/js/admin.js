@@ -1,8 +1,6 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
-const rootUrl = $("#add-product-url").getAttribute("data-url");
-
 let productImgInput = $("#product_img-input");
 
 
@@ -40,34 +38,11 @@ async function uploadImage() {
 }
 
 $("#add_prod-btn").onclick = (e) => {
-    e.preventDefault();
-
-    let productName = $("input[name='prodName']").value;
-    let productPrice = $("input[name='prodPrice']").value;
-    let belongCategory = $("select[name='belongCat']").value;
-    let productDesc = $("input[name='prodDesc']").value;
-
-    if (productName !== '' && productPrice !== '' && belongCategory !== '' && productDesc !== '') {
-        uploadImage()
-            .then(url => {
-                $("input[name='prodImgLink']").value = url;
-
-                let link = `${rootUrl}/add-product?prodName=${productName}&prodImgLink=${url}&prodPrice=${productPrice}&belongCat=${belongCategory}&prodDesc=${productDesc}`;
-                console.log(link);
-                console.log(url)
-                let xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function() {
-                    if (this.readyState === 4 && this.status === 200) {
-                    }
-                }
-                xhr.open('POST', link, true);
-                xhr.send();
-                $("#add_product-form").reset();
-            })
-            .catch(console.error);
-    } else {
-        console.error("Vui lòng nhập đủ trường dữ liệu");
-    }
+    uploadImage()
+        .then(url => {
+            $("input[name='prodImgLink']").value = url;
+            console.log(url);
+        });
 }
 
 

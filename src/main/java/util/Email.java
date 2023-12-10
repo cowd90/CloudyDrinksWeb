@@ -8,7 +8,7 @@ import java.util.Properties;
 
 public class Email {
     static final String from = "tienn.dungg.980@gmail.com";
-    static final String password = "fjkuuejthpauornu";
+    static final String password = "frqflmqgfdvriyyn";
 
     public static boolean sendEmail(String to, String title, String content) {
 

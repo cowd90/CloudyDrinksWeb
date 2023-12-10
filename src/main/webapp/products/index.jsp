@@ -44,7 +44,7 @@
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="<%=url%>/categories">Thực đơn</a></li>
-                    <li class="breadcrumb-item"><a href="#"><%=catName%></a></li>
+                    <li class="breadcrumb-item"><a href="<%=url%>/category-controller?catId=<%=product.getCatId()%>"><%=catName%></a></li>
                     <li class="breadcrumb-item active" aria-current="page"><span><%=product.getProductName()%></span></li>
                 </ol>
             </nav>

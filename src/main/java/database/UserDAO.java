@@ -92,16 +92,17 @@ public class UserDAO implements IDAO<User>{
             Connection connect = JDBCUtil.getConnection();
 
             // Create sql statement
-            String sql = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO user VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connect.prepareStatement(sql);
 
             ps.setString(1, user.getUserId());
             ps.setString(2, user.getUsername());
             ps.setString(3, user.getPassword());
             ps.setString(4, user.getEmail());
-            ps.setString(5, user.getVerificationCode());
-            ps.setTimestamp(6, user.getAuthCodeValidTime());
-            ps.setBoolean(7, user.isVerified());
+            ps.setBoolean(5, user.isAdmin());
+            ps.setString(6, user.getVerificationCode());
+            ps.setTimestamp(7, user.getAuthCodeValidTime());
+            ps.setBoolean(8, user.isVerified());
 
             // Execute query
             result = ps.executeUpdate();

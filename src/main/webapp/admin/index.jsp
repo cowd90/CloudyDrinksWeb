@@ -28,8 +28,8 @@
             crossorigin="anonymous"
     ></script>
 
-    <link rel="stylesheet" href="../css/global.css" />
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="<%=url%>/css/global.css" />
+    <link rel="stylesheet" href="<%=url%>/css/admin.css">
 </head>
 <body>
     <div id="admin_container" class="content_container d-flex flex-column gap-4">
@@ -97,13 +97,13 @@
                 <div class="tab-pane show active has_preview" id="add-product" role="tabpanel" aria-labelledby="add-product-tab" tabindex="0">
                     <div class="row p-3">
                         <div class="col-6">
-                            <!-- Form này không gửi dữ liệu, xem AJAX trong js -->
-                            <form id="add_product-form" class="row-cols-1 d-flex flex-column gap-3" >
+                            <form action="<%=url%>/admin-controller" method="post" id="add_product-form" class="row-cols-1 d-flex flex-column gap-3" >
+                                <input type="hidden" name="action" value="add-product">
                                 <input type="text" name="prodName" placeholder="Tên sản phẩm">
                                 <label for="product_img-input">Hình ảnh sản phẩm</label>
                                 <input type="file" accept="image/*" id="product_img-input">
                                 <input type="hidden" name="prodImgLink" placeholder="Đường dẫn hình ảnh"
-                                       class="image_link">
+                                       class="image_link" value="https://firebasestorage.googleapis.com/v0/b/cloudy-drinks-website.appspot.com/o/images%2Fsasuke.jpg?alt=media&token=ade41fe6-057a-43ec-8cd5-9b728f2a7756">
                                 <input type="number" name="prodPrice" placeholder="Giá sản phẩm">
                                 <select name="belongCat">
                                     <option value="" selected disabled hidden>Tên danh mục</option>
@@ -150,7 +150,7 @@
         </section>
     </div>
 
-    <script id="add-product-url" src="../js/admin.js" type="module" data-url="<%=url%>"></script>
+    <script id="add-product-url" src="<%=url%>/js/admin.js" type="module" data-url="<%=url%>"></script>
 
 </body>
 </html>

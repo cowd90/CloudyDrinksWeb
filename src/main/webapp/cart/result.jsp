@@ -60,7 +60,13 @@
                     <span class="name"><%=p.getProductName()%></span>
                     <span class="fst-italic fs-5">x<span class="quantity"><%=cart.getQuantity()%></span></span>
                 </div>
+                <%
+                    if (s != null) {
+                %>
                 <p class="mb-2"><span>Size: </span><span class="size"><%=s.getSizeName()%></span></p>
+                <%
+                    }
+                %>
                 <p class="mb-2"><span>Giá: </span><span>
                     <%=NumberCurrencyFormat.numberCurrencyFormat(cart.getTotalPrice())%>đ</span></p>
                 <p class="mb-2"><span>Ghi chú thêm: </span><span class="desc">
@@ -135,7 +141,16 @@
             for (Cart item : carts) {
                 Product p = pDAO.selectById(item.getProductId()+"");
                 SizeDAO sDAO = new SizeDAO();
-                Size size = sDAO.selectById(item.getSizeId()+"");
+                Size size = new Size();
+                String sizeName = "";
+                int totalPrice = 0;
+                if (p.getCatId() != 7) {
+                    size = sDAO.selectById(item.getSizeId()+"");
+                    sizeName = "(" + size.getSizeName() + ")";
+                    totalPrice = (p.getPrice() + size.getUpSizePrice()) * item.getQuantity();
+                } else {
+                    totalPrice = p.getPrice() * item.getQuantity();
+                }
         %>
         <!-- <editor-fold desc="Một sản phẩm trong giỏ hàng"> -->
         <div class="product-item row">
@@ -146,8 +161,8 @@
                 />
             </div>
             <div class="product-info col-6">
-                <p class="product-name"><%=p.getProductName()%> (<%=size.getSizeName()%>)</p>
-                <p class="product-price mb-2"><%=NumberCurrencyFormat.numberCurrencyFormat((p.getPrice() + size.getUpSizePrice()) * item.getQuantity())%> VNĐ</p>
+                <p class="product-name"><%=p.getProductName()%> <%=sizeName%></p>
+                <p class="product-price mb-2"><%=NumberCurrencyFormat.numberCurrencyFormat(totalPrice)%> VNĐ</p>
             </div>
             <div class="col-2 d-flex align-items-center">
                 <p class="product_item-count fst-italic">x<%=item.getQuantity()%></p>

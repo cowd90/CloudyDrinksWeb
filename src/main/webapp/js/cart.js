@@ -31,11 +31,15 @@ function initChangeInfo() {
         let id = cartItem.querySelector("input[name='variantId']").value;
         let name = cartItem.querySelector(".name").innerText;
         let quantity = cartItem.querySelector(".quantity").innerText;
-        let size = cartItem.querySelector(".size").innerText;
+        let isTopping = true;
+        let size;
+        if (cartItem.querySelector(".size")) {
+            isTopping = false;
+            size = cartItem.querySelector(".size").innerText;
+        }
         let desc = cartItem.querySelector(".desc").innerText;
         cartItem.querySelector(".change_info-btn").onclick = () => {
-            console.log("start")
-            showChangeInfoDialog(id, name, size, quantity, desc);
+            showChangeInfoDialog(isTopping, id, name, size, quantity, desc);
             checkDisableDesBtn();
             let dialog = $("#change_cart_info-container dialog");
             function checkDisableConfirmChangeInfo(newValue, oldValue) {
@@ -68,18 +72,23 @@ function initChangeInfo() {
     });
 }
 
-function showChangeInfoDialog(id, name, size, quantity, desc) {
-    dialogContainer.innerHTML = createChangeInfoDialog(id, name, size, quantity, desc);
+function showChangeInfoDialog(isTopping, id, name, size, quantity, desc) {
+    dialogContainer.innerHTML = createChangeInfoDialog(isTopping, id, name, size, quantity, desc);
     $("#change_cart_info-container dialog").showModal();
 }
 
-function createChangeInfoDialog(id, name, size, quantity, desc) {
-    return `
+function createChangeInfoDialog(isTopping, id, name, size, quantity, desc) {
+    let dialog = `
         <dialog>
             <form class="m-0">
                 <h3 class="heading">Thay đổi thông tin</h3>
                 <input type="hidden" name="cartItemId" value="${id}">
-                <h5>${name} <i>(${size})</i></h5>
+                <h5>${name}`;
+    if (!isTopping) {
+        dialog += `<i>(${size})</i>`;
+    }
+    dialog += `
+                    </h5>
                 <p><span class="text-danger">*</span><i> Bạn chỉ có thể thay đổi các thông tin sau</i></p>
                 <div class="quantity d-flex align-items-center mb-3">
                     <span class="me-5">Số lượng:</span>
@@ -105,6 +114,7 @@ function createChangeInfoDialog(id, name, size, quantity, desc) {
             </form>
         </dialog>
     `;
+    return dialog;
 }
 
 function removeChangeInfoDialog() {
