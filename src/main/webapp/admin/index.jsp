@@ -33,8 +33,9 @@
 </head>
 <body>
     <div id="admin_container" class="content_container d-flex flex-column gap-4">
-        <div class="header fs-1 text-center p-3">
-            Welcome, Admin
+        <div class="d-flex align-items-center">
+            <a class="w-25" href="<%=url%>">Đến trang chủ</a>
+            <div class="w-100 header fs-1 text-center p-3">Welcome, Admin</div>
         </div>
         <section>
             <div class="title fs-4 mb-2">Quản lý danh mục</div>

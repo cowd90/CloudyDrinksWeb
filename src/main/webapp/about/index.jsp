@@ -53,7 +53,7 @@
     </div>
     <div class="col-md-6 p-md-3 p-5">
       <div class="member_avatar"
-           style="background-image: url('https://firebasestorage.googleapis.com/v0/b/cloudy-drinks-website.appspot.com/o/images%2FScreenshot%202023-12-07%20100155.png?alt=media&token=e164de12-58ba-454b-b620-4b8e7ec23fe7')">
+           style="background-image: url('https://scontent.fsgn22-1.fna.fbcdn.net/v/t1.6435-9/82858120_864061120680482_802242454295150592_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=7a1959&_nc_ohc=8Kx9V7D1kCMAX_uZD0Y&_nc_ht=scontent.fsgn22-1.fna&oh=00_AfBRmA_gvefoKf7_m1uRDWKP2MtvJ9u5iEno8c_bk1a2Ig&oe=659D0693')">
       </div>
     </div>
   </div>

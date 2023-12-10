@@ -188,7 +188,6 @@
 </div>
 
 <script>
-
     $("button[type='submit']#add").addEventListener("click", (e) => AddToCart(e), false);
 
     function AddToCart(e) {
