@@ -21,6 +21,19 @@
         <div class="title">Uh-oh...</div>
         <div class="message">The page you are looking for may have been moved, deleted, or possibly never existed.</div>
         <div class="error-code">404</div>
+        <a class="button" href="<%=url%>/">Về trang chủ</a>
+        <div id="Clouds">
+            <div class="Cloud Foreground"></div>
+            <div class="Cloud Background"></div>
+            <div class="Cloud Foreground"></div>
+            <div class="Cloud Background"></div>
+            <div class="Cloud Foreground"></div>
+            <div class="Cloud Background"></div>
+            <div class="Cloud Foreground"></div>
+            <div class="Cloud Background"></div>
+            <div class="Cloud Foreground"></div>
+            <div class="Cloud Background"></div>
+        </div>
     </div>
 </body>
 </html>
